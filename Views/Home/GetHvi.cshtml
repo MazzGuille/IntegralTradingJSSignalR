@@ -1,0 +1,103 @@
+﻿@model List<HVI>
+@*@using IntegralTradingJS.Models*@
+
+<h2>GetHvi</h2>
+
+@*@(Html.DevExtreme().DataGrid<HVI>()
+    .ShowBorders(true)
+    .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
+    .Columns(columns => {
+        columns.AddFor(m => m.ID);
+        columns.AddFor(m => m.UHML);
+        columns.AddFor(m => m.UI);
+        columns.AddFor(m => m.Strength);
+        columns.AddFor(m => m.SFI);
+        columns.AddFor(m => m.MIC);
+        columns.AddFor(m => m.ColorGrade);
+        columns.AddFor(m => m.TrashId);
+        columns.AddFor(m => m.OrderId);
+    })
+    .Paging(p => p.PageSize(10))
+    .FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+    .GroupPanel(p => p.Visible(true))
+    .Grouping(g => g.AutoExpandAll(false))
+    .RemoteOperations(true)
+    .Summary(s => s
+        .TotalItems(totalItems => {
+            totalItems.AddFor(m => m.OrderId).SummaryType(SummaryType.Count);
+        })
+        .GroupItems(groupItems => {
+            groupItems.Add().SummaryType(SummaryType.Count);
+        })
+    )
+)*@
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">UHML</th>
+            <th scope="col">UI</th>
+            <th scope="col">Strength</th>
+            <th scope="col">SFI</th>
+            <th scope="col">MIC</th>
+            <th scope="col">ColorGrade</th>
+            <th scope="col">TrashId</th>
+            <th scope="col">OrderId</th>
+        </tr>
+    </thead>
+    <tbody id="bodyTable">
+        
+    </tbody>
+</table>
+
+
+@section Scripts{
+    @*<script src="~/js/dist/browser/signalr.js"></script>*@
+    <script src="~/js/dist/browser/signalr.min.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder()
+                             .withUrl("/hvihub")
+                             .build();
+            connection.start().catch(function (err){
+                return console.error(err.toString());
+            });
+
+            setInterval(() => {
+
+            connection.invoke("ExecuteProcedure").catch(function (err) {
+                return console.error(err.toString());
+            });  
+
+            }, 5000);
+
+        connection.on("ReceiveStoredProcedureResult", function (result) {
+            console.log(result);
+            document.getElementById("bodyTable").innerHTML = "";
+            result.forEach(m => {
+                var tr = document.createElement("tr");
+                var filaCelda = `<tr>
+                                 <td>${m.id}</td>
+                                 <td>${m.uhml}</td>
+                                 <td>${m.ui}</td>
+                                 <td>${m.strength}</td>
+                                 <td>${m.sfi}</td>
+                                 <td>${m.mic}</td>
+                                 <td>${m.colorGrade}</td>
+                                 <td>${m.trashId}</td>
+                                 <td>${m.orderId}</td>
+                                </tr>`;
+                tr.innerHTML = filaCelda;
+                document.getElementById("bodyTable").append(tr);
+            })
+        });
+
+    </script>
+}
+
+
+
+
