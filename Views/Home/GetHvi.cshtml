@@ -1,39 +1,6 @@
 ﻿@model List<HVI>
-@*@using IntegralTradingJS.Models*@
 
 <h2>GetHvi</h2>
-
-@*@(Html.DevExtreme().DataGrid<HVI>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.ID);
-        columns.AddFor(m => m.UHML);
-        columns.AddFor(m => m.UI);
-        columns.AddFor(m => m.Strength);
-        columns.AddFor(m => m.SFI);
-        columns.AddFor(m => m.MIC);
-        columns.AddFor(m => m.ColorGrade);
-        columns.AddFor(m => m.TrashId);
-        columns.AddFor(m => m.OrderId);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.OrderId).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
-    )
-)*@
-
-
 
 <table class="table table-striped">
     <thead>
@@ -54,9 +21,7 @@
     </tbody>
 </table>
 
-
 @section Scripts{
-    @*<script src="~/js/dist/browser/signalr.js"></script>*@
     <script src="~/js/dist/browser/signalr.min.js"></script>
     <script>
         var connection = new signalR.HubConnectionBuilder()
@@ -97,6 +62,48 @@
 
     </script>
 }
+
+
+
+
+
+
+
+
+
+
+@*@using IntegralTradingJS.Models*@
+
+@*@(Html.DevExtreme().DataGrid<HVI>()
+    .ShowBorders(true)
+    .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
+    .Columns(columns => {
+        columns.AddFor(m => m.ID);
+        columns.AddFor(m => m.UHML);
+        columns.AddFor(m => m.UI);
+        columns.AddFor(m => m.Strength);
+        columns.AddFor(m => m.SFI);
+        columns.AddFor(m => m.MIC);
+        columns.AddFor(m => m.ColorGrade);
+        columns.AddFor(m => m.TrashId);
+        columns.AddFor(m => m.OrderId);
+    })
+    .Paging(p => p.PageSize(10))
+    .FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+    .GroupPanel(p => p.Visible(true))
+    .Grouping(g => g.AutoExpandAll(false))
+    .RemoteOperations(true)
+    .Summary(s => s
+        .TotalItems(totalItems => {
+            totalItems.AddFor(m => m.OrderId).SummaryType(SummaryType.Count);
+        })
+        .GroupItems(groupItems => {
+            groupItems.Add().SummaryType(SummaryType.Count);
+        })
+    )
+)*@
+
 
 
 

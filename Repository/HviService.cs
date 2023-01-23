@@ -41,23 +41,6 @@ namespace IntegralTradingJS.Repository
             return hviList;
         }
 
-        //public async Task<List<HVI>> LoadToTable()
-        //{
-        //    await GetHvi();
-        //    return hviList;
-        //}
-
-        //public static async Task<List<HVI>> getHviData()
-        //{
-        //    await GetHvi();
-        //    List<HVI> hviList2 = new();
-        //    foreach (var item in hviList)
-        //    {
-        //        hviList2.Add(item);
-        //    }
-        //    return hviList2;
-        //}
-
 
     }
 }

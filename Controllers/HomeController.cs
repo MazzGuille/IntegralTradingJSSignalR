@@ -29,11 +29,6 @@ namespace IntegralTradingJS.Controllers
             return View(list);
         }
 
-        //public IActionResult GetHvi()
-        //{
-        //    return View();
-        //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
