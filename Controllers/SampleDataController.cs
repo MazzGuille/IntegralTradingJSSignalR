@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using IntegralTradingJS.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using IntegralTradingJS.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
-namespace IntegralTradingJS.Controllers {
+namespace IntegralTradingJS.Controllers
+{
 
     [Route("api/[controller]")]
-    public class SampleDataController : Controller {
+    public class SampleDataController : Controller
+    {
 
         [HttpGet]
-        public object Get(DataSourceLoadOptions loadOptions) {
+        public object Get(DataSourceLoadOptions loadOptions)
+        {
             return DataSourceLoader.Load(SampleData.Orders, loadOptions);
         }
 
