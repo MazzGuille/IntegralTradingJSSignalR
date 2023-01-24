@@ -33,43 +33,45 @@
 
 @section Scripts{
     <script src="~/js/dist/browser/signalr.min.js"></script>
-    <script>
+    <script>       
+
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/hvihub")
             .build();
-        connection.start().catch(function (err) {
-            return console.error(err.toString());
-        });
 
-        setInterval(() => {
+        $(function() {
+            connection.start().then(function(){
+                setInterval(() => {
+                    connection.invoke("ExecuteProcedure")
+                    .catch(function (err) {
+                            return console.error(err.toString());
+                    });
+                }, 5000);
 
-            connection.invoke("ExecuteProcedure").catch(function (err) {
-                return console.error(err.toString());
-            });
+                connection.on("ReceiveStoredProcedureResult", function (result) {
+                    var _store = [{ Id: null, Uhml : null , Ui: null, Strength: null, Sfi: null, Mic: null, ColorGrade: null, TrashId: null }];
 
-        }, 5000);
+                    result.forEach(x => {
+                        _store.push({
+                            Id: x.id,
+                            Uhml: x.uhml,
+                            Ui: x.ui,
+                            Strength: x.strength,
+                            Sfi: x.sfi,
+                            Mic: x.mic,
+                            ColorGrade: x.colorGrade,
+                            TrashId: x.trashId
+                        });
+                    });
 
-        connection.on("ReceiveStoredProcedureResult", function (result) {
-            console.log(result);
-            document.getElementById("bodyTable").innerHTML = "";
-            result.forEach(m => {
-                var tr = document.createElement("tr");
-                var filaCelda = `<tr>
-                                         <td>${m.id}</td>
-                                         <td>${m.uhml}</td>
-                                         <td>${m.ui}</td>
-                                         <td>${m.strength}</td>
-                                         <td>${m.sfi}</td>
-                                         <td>${m.mic}</td>
-                                         <td>${m.colorGrade}</td>
-                                         <td>${m.trashId}</td>
-                                         <td>${m.orderId}</td>
-                                        </tr>`;
-                tr.innerHTML = filaCelda;
-                document.getElementById("bodyTable").append(tr);
-            })
-        });
+                    $("#bodyTable").dxDataGrid({
+                        dataSource: _store.shift(), visible: true
+                    });
+                });
+             });
+        });      
 
     </script>
 }
+
 
