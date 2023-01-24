@@ -1,11 +1,21 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using IntegralTradingJS.Models;
-using IntegralTradingJS.Repository;
-using IntegralTradingJS.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using IntegralTradingJS.Models;
+using IntegralTradingJS.Repository.Interfaces;
+using Newtonsoft.Json.Serialization;
+using System.Net.Http;
+using System.Net;
+using DevExtreme.AspNet.Data.ResponseModel;
+using System.Net.Http.Formatting;
 
 namespace IntegralTradingJS.Controllers
 {
@@ -14,25 +24,19 @@ namespace IntegralTradingJS.Controllers
     public class HVIController : ControllerBase
     {
         private readonly IHviService _hviService;
-        private readonly DataSourceLoader _loader;
 
-        //public HVIController(IHviService hviService, IHttpContextAccessor contextAccessor)
-        //{
-        //    _hviService = hviService;
-        //    _loader = new DataSourceLoader(contextAccessor.HttpContext.Request);
-        //}
+        public HVIController(IHviService hviService)
+        {
+            _hviService = hviService;
+        }
 
+        [HttpGet]
+        public async Task<object> Get(DataSourceLoadOptions loadOptions)
+        {
+            var data = await _hviService.GetHvi();
 
+            return DataSourceLoader.Load(data, loadOptions);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get()
-        //{
-        //    //var data = await  DataSourceLoader.LoadAsync<HVI>(_hviService.LoadToTable(), loadOptions);
-
-        //    var result = await _loader.LoadAsync(_hviService.LoadToTable(), new DataSourceLoadOptionsBase());
-
-
-        //    return Ok(result);
-        //}
     }
 }

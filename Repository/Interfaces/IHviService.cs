@@ -4,6 +4,6 @@ namespace IntegralTradingJS.Repository.Interfaces
 {
     public interface IHviService
     {
-        Task<List<HVI>> GetHvi();
+        Task<IEnumerable<HVI>> GetHvi();
     }
 }

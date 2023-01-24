@@ -10,7 +10,7 @@ namespace IntegralTradingJS.Repository
     {
         private readonly SqlString sqlString = new();
         private readonly List<HVI> hviList = new();
-        public async Task<List<HVI>> GetHvi()
+        public async Task<IEnumerable<HVI>> GetHvi()
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
