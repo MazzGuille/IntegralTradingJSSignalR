@@ -62,11 +62,14 @@
                             ColorGrade: x.colorGrade,
                             TrashId: x.trashId
                         });
-                    });
+                    });               
 
                     $("#bodyTable").dxDataGrid({
-                        dataSource: _store.shift(), visible: true
+                        dataSource: _store.shift()                        
                     });
+
+                    console.log(dataSource);
+                    
                 });
              });
         });      

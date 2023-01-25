@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
 builder.Services.AddSignalR();
 
 
@@ -32,7 +33,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=HviAPI}/{id?}");
 app.MapHub<HviHub>("/hvihub");
 
 app.Run();
