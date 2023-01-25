@@ -31,7 +31,6 @@ namespace IntegralTradingJS.Repository
                             MIC = Convert.ToDecimal(reader["MIC"]),
                             ColorGrade = reader["ColorGrade"].ToString(),
                             TrashId = Convert.ToDecimal(reader["TrashId"]),
-                            OrderId = Convert.ToInt32(reader["OrderId"]),
                         });
                     }
                 }

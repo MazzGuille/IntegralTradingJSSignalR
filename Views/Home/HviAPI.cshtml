@@ -13,7 +13,6 @@
         columns.AddFor(m => m.MIC);
         columns.AddFor(m => m.ColorGrade);
         columns.AddFor(m => m.TrashId);
-        columns.AddFor(m => m.OrderId);
     })
     .Paging(p => p.PageSize(10))
     .FilterRow(f => f.Visible(true))
@@ -23,7 +22,7 @@
     .RemoteOperations(true)
     .Summary(s => s
         .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.OrderId).SummaryType(SummaryType.Count);
+            totalItems.AddFor(m => m.TrashId).SummaryType(SummaryType.Count);
         })
         .GroupItems(groupItems => {
             groupItems.Add().SummaryType(SummaryType.Count);
