@@ -34,6 +34,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=HviAPI}/{id?}");
+//COMENTARIO DE PRUEBA
 app.MapHub<HviHub>("/hvihub");
 
 app.Run();
