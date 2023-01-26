@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewData["Title"] = "OfferUpload";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+           <h2>Upload your offer</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">Cargar Excel </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input class="form-control-file" type="file" id="inputExcel" onclick="mostrarBoton()" />
+                        </div>
+                        <div class="col-sm-4 gap-2">
+                            <button id="mostrar" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>                           
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="tbData" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>UHML</th>
+                                        <th>UI</th>
+                                        <th>Strength</th>
+                                        <th>SFI</th>
+                                        <th>Mic</th>
+                                        <th>ColorGrade</th>
+                                        <th>TrashID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        const input = document.getElementById("inputExcel")
+        const mostrar = document.getElementById("mostrar")
+        const enviar = document.getElementById("enviar")
+        const tableBody = document.getElementById("tableBody")
+
+        function mostrarBoton() {
+            mostrar.classList.remove('visually-hidden');
+        }
+
+        function mostrarDatos() {
+
+            const formData = new FormData()
+
+            formData.append("ArchivoExcel", input.files[0])
+
+            fetch("/Seller/MostrarDatos", {
+                method: "POST",
+                body: formData
+            })
+                .then((response) => { return response.json() })
+                .then((dataJson) => {
+                    dataJson.forEach((item) => {
+                        $("#tbData tbody").append(
+                            $("<tr>").append(
+                                $("<td>").text(item.UHML),
+                                $("<td>").text(item.UI),
+                                $("<td>").text(item.Strength),
+                                $("<td>").text(item.SFI),
+                                $("<td>").text(item.Mic),
+                                $("<td>").text(item.ColorGrade),
+                                $("<td>").text(item.TrashID)
+                            )
+                        )
+                    })
+                    console.log(dataJson)
+                })
+            mostrar.classList.add('visually-hidden');
+        }
+
+        
+    </script>
+}
