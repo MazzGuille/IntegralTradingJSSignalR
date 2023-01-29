@@ -21,7 +21,8 @@
                             <input class="form-control-file" type="file" id="inputExcel" onclick="mostrarBoton()" />
                         </div>
                         <div class="col-sm-4 gap-2">
-                            <button id="mostrar" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>                           
+                            <button id="mostrar" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
+                            <button id="mostrar2" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>   
                         </div>
                     </div>
 
@@ -48,6 +49,27 @@
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="xd" class="card-body visually-hidden">Promedio</div>
+                            <table id="tbAvg" class="table table-striped visually-hidden">
+                                <thead>
+                                    <tr>
+                                        <th>UHML</th>
+                                        <th>UI</th>
+                                        <th>Strength</th>
+                                        <th>SFI</th>
+                                        <th>Mic</th>
+                                        <th>ColorGrade</th>
+                                        <th>TrashID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody2">
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,11 +82,15 @@
     <script>
         const input = document.getElementById("inputExcel")
         const mostrar = document.getElementById("mostrar")
+        const mostrar2 = document.getElementById("mostrar2")
+        const mostrar3 = document.getElementById("tbAvg")
+        const mostrar4 = document.getElementById("xd")
         const enviar = document.getElementById("enviar")
         const tableBody = document.getElementById("tableBody")
 
         function mostrarBoton() {
             mostrar.classList.remove('visually-hidden');
+            mostrar2.classList.remove('visually-hidden');
         }
 
         function mostrarDatos() {
@@ -96,6 +122,41 @@
                 })
             mostrar.classList.add('visually-hidden');
         }
+
+        function mostrarPromedio(){
+            mostrar3.classList.remove('visually-hidden');
+            mostrar4.classList.remove('visually-hidden');
+            const table=document.getElementById("tableBody");
+            const table2=document.getElementById("tableBody2");
+            const rows=table.rows.length;
+            const cols = 7;
+            const proms = [];
+            var sumVal=0;
+
+            for(var j = 0; j < cols; j++){
+                for(var i = 0; i < rows; i++)
+                {
+                    sumVal = sumVal + parseFloat(table.rows[i].cells[j].innerHTML);
+                }
+                proms.push( parseFloat(sumVal / rows).toFixed(2));
+                sumVal=0;
+             }
+
+            for(var i = 0; i< cols;i++){
+                console.log(proms[i]);
+            }
+
+            var tableContent = '<tr>';
+            for (var i = 0; i < cols; i++) {
+                tableContent += "<td>" + proms[i] + "</td>";
+                //table2.innerHTML = proms[i];
+            }
+            tableContent += '</tr>';
+            table2.innerHTML += tableContent;
+
+            mostrar2.classList.add('visually-hidden');
+
+         }
 
         
     </script>
