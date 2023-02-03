@@ -4,6 +4,7 @@
     .ID("bodyTable")
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
+    .HighlightChanges(true)
     .Columns(columns => {
         columns.AddFor(m => m.ID);
         columns.AddFor(m => m.UHML);
