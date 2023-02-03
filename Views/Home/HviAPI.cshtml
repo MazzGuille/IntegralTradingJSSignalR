@@ -7,23 +7,34 @@
     .HighlightChanges(true)
     .Columns(columns => {
         columns.AddFor(m => m.ID);
-        columns.AddFor(m => m.UHML);
-        columns.AddFor(m => m.UI);
-        columns.AddFor(m => m.Strength);
-        columns.AddFor(m => m.SFI);
-        columns.AddFor(m => m.MIC);
-        columns.AddFor(m => m.ColorGrade);
-        columns.AddFor(m => m.TrashId);
-    })
-    .Paging(p => p.PageSize(10))
+        columns.AddFor(m => m.WhseCode);
+        columns.AddFor(m => m.WhseTag);
+        columns.AddFor(m => m.C1);
+        columns.AddFor(m => m.C2);
+        columns.AddFor(m => m.Leaf);
+        columns.AddFor(m => m.Stpl);
+        columns.AddFor(m => m.Mic);
+        columns.AddFor(m => m.Str);
+        columns.AddFor(m => m.LRR);
+        columns.AddFor(m => m.CropYear);
+        columns.AddFor(m => m.NetWeight);
+        columns.AddFor(m => m.Comp);
+        columns.AddFor(m => m.Len);
+        columns.AddFor(m => m.Ext);
+        columns.AddFor(m => m.RD);
+        columns.AddFor(m => m.PlusB);
+        columns.AddFor(m => m.Uni);
+        columns.AddFor(m => m.Trash);
+        columns.AddFor(m => m.StorageDate);
+    })    
     .FilterRow(f => f.Visible(true))
     .HeaderFilter(f => f.Visible(true))
     .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
+    .Grouping(g => g.AutoExpandAll(true))
     .RemoteOperations(true)
     .Summary(s => s
         .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.TrashId).SummaryType(SummaryType.Count);
+            totalItems.AddFor(m => m.Trash).SummaryType(SummaryType.Count);
         })
         .GroupItems(groupItems => {
             groupItems.Add().SummaryType(SummaryType.Count);
@@ -49,18 +60,34 @@
                 }, 5000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
-                    var _store = [{ Id: null, Uhml : null , Ui: null, Strength: null, Sfi: null, Mic: null, ColorGrade: null, TrashId: null }];
+                    var _store = [{
+                        Id: null, WhseCode: null, WhseTag: null, C1: null, C2: null, Leaf: null, Stpl: null, Mic: null,
+                        Str: null, LRR : null , CropYear: null, NetWeight: null, Comp: null, Len: null, Ext: null, RD: null,
+                        PlusB: null, Uni : null , Trash: null, StorageDate: null 
+                    }];
 
                     result.forEach(x => {
                         _store.push({
                             Id: x.id,
-                            Uhml: x.uhml,
-                            Ui: x.ui,
-                            Strength: x.strength,
-                            Sfi: x.sfi,
+                            WhseCode: x.whseCode,
+                            WhseTag: x.whseTag,
+                            C1: x.c1,
+                            C2: x.c2,
+                            Leaf: x.leaf,
+                            Stpl: x.stpl,
                             Mic: x.mic,
-                            ColorGrade: x.colorGrade,
-                            TrashId: x.trashId
+                            Str: x.str,
+                            LRR: x.lrr,
+                            CropYear: x.cropYear,
+                            NetWeight: x.netWeight,
+                            Comp: x.comp,
+                            Len: x.len,
+                            Ext: x.ext,
+                            RD: x.rd,
+                            PlusB: x.plusB,
+                            Uni: x.uni,
+                            Trash: x.trash,
+                            StorageDate: x.storageDate
                         });
                     });               
 

@@ -24,13 +24,25 @@ namespace IntegralTradingJS.Repository
                         hviList.Add(new HVI
                         {
                             ID = Convert.ToInt32(reader["ID"]),
-                            UHML = Convert.ToDecimal(reader["UHML"]),
-                            UI = Convert.ToDecimal(reader["UI"]),
-                            Strength = Convert.ToDecimal(reader["Strength"]),
-                            SFI = Convert.ToDecimal(reader["SFI"]),
-                            MIC = Convert.ToDecimal(reader["MIC"]),
-                            ColorGrade = reader["ColorGrade"].ToString(),
-                            TrashId = Convert.ToDecimal(reader["TrashId"]),
+                            WhseCode = Convert.ToInt32(reader["WhseCode"]),
+                            WhseTag = Convert.ToInt32(reader["WhseTag"]),
+                            C1 = Convert.ToInt32(reader["C1"]),
+                            C2 = Convert.ToInt32(reader["C2"]),
+                            Leaf = Convert.ToInt32(reader["Leaf"]),
+                            Stpl = Convert.ToInt32(reader["Stpl"]),
+                            Mic = Convert.ToInt32(reader["Mic"]),
+                            Str = (float)Convert.ToDecimal(reader["Leaf"]),
+                            LRR = (float)Convert.ToDecimal(reader["LRR"]),
+                            CropYear = Convert.ToInt32(reader["CropYear"]),
+                            NetWeight = Convert.ToInt32(reader["NetWeight"]),
+                            Comp = reader["Comp"].ToString(),
+                            Len = Convert.ToInt32(reader["Len"]),
+                            Ext = Convert.ToInt32(reader["Ext"]),
+                            RD = (float)Convert.ToDecimal(reader["RD"]),
+                            PlusB = Convert.ToInt32(reader["PlusB"]),
+                            Uni = (float)Convert.ToDecimal(reader["Uni"]),
+                            Trash = Convert.ToInt32(reader["Trash"]),
+                            StorageDate = Convert.ToDateTime(reader["StorageDate"])
                         });
                     }
                 }
