@@ -42,13 +42,26 @@ namespace IntegralTradingJS.Controllers
                 IRow fila = HojaExcel.GetRow(i);
                 HviData.Add(new HviRed
                 {
-                    UHML = fila.GetCell(0).ToString(),
-                    UI = fila.GetCell(1).ToString(),
-                    Strength = fila.GetCell(2).ToString(),
-                    SFI = fila.GetCell(3).ToString(),
-                    Mic = fila.GetCell(4).ToString(),
-                    ColorGrade = fila.GetCell(5).ToString(),
-                    TrashID = fila.GetCell(6).ToString(),
+                    ID = fila.GetCell(0).ToString(),
+                    WhseCode = fila.GetCell(1).ToString(),
+                    WhseTag = fila.GetCell(2).ToString(),
+                    C1 = fila.GetCell(3).ToString(),
+                    C2 = fila.GetCell(4).ToString(),
+                    Leaf = fila.GetCell(5).ToString(),
+                    Stpl = fila.GetCell(6).ToString(),
+                    Mic = fila.GetCell(7).ToString(),
+                    Str = fila.GetCell(8).ToString(),
+                    LRR = fila.GetCell(9).ToString(),
+                    CropYear = fila.GetCell(10).ToString(),
+                    NetWeight = fila.GetCell(11).ToString(),
+                    Comp = fila.GetCell(12).ToString(),
+                    Len = fila.GetCell(13).ToString(),
+                    Ext = fila.GetCell(14).ToString(),
+                    RD = fila.GetCell(15).ToString(),
+                    PlusB = fila.GetCell(16).ToString(),
+                    Uni = fila.GetCell(17).ToString(),
+                    Trash = fila.GetCell(18).ToString(),
+                    StorageDate = fila.GetCell(19).ToString()
                 });
             }
             return StatusCode(StatusCodes.Status200OK, HviData);

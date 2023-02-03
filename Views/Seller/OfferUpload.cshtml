@@ -18,11 +18,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
-                            <input class="form-control-file" type="file" id="inputExcel" onclick="mostrarBoton()" />
+                            <label id="labelInput" style="cursor:pointer;" class="pointer-event text-primary fw-bold" for="inputExcel"><span><i class="bi bi-file-earmark-arrow-up text-primary"></i></span> Seleccionar archivo</label>
+                            <input class="form-control-file visually-hidden" type="file" id="inputExcel" onclick="mostrarBoton()" />
                         </div>
                         <div class="col-sm-4 gap-2">
-                            <button id="mostrar" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
-                            <button id="mostrar2" class="btn btn-info text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>   
+                            <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
+                            <button id="mostrar2" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>
                         </div>
                     </div>
 
@@ -58,6 +59,9 @@
                                 <tbody id="tableBody">
                                 </tbody>
                             </table>
+                            <div id="loadingSpinner" class=" d-none text-center text-primary">
+                                <div class="spinner-border" role="status"></div>
+                            </div>
                         </div>
 
                     </div>
@@ -100,13 +104,18 @@
         const mostrar4 = document.getElementById("xd")
         const enviar = document.getElementById("enviar")
         const tableBody = document.getElementById("tableBody")
+        const loadingSpinner = document.getElementById("loadingSpinner")
 
         function mostrarBoton() {
             mostrar.classList.remove('visually-hidden');
-            mostrar2.classList.remove('visually-hidden');
+            input.addEventListener("change", function () {
+            labelInput.innerHTML = input.files[0].name;
+            });
         }
 
         function mostrarDatos() {
+
+            loadingSpinner.classList.remove("d-none");
 
             const formData = new FormData()
 
@@ -127,14 +136,14 @@
                                 $("<td>").text(item.C1),
                                 $("<td>").text(item.C2),
                                 $("<td>").text(item.Leaf),
-                                $("<td>").text(item.Stpl)
+                                $("<td>").text(item.Stpl),
                                 $("<td>").text(item.Mic),
                                 $("<td>").text(item.Str),
                                 $("<td>").text(item.LRR),
                                 $("<td>").text(item.CropYear),
                                 $("<td>").text(item.NetWeight),
                                 $("<td>").text(item.Comp),
-                                $("<td>").text(item.Len)
+                                $("<td>").text(item.Len),
                                 $("<td>").text(item.Ext),
                                 $("<td>").text(item.RD),
                                 $("<td>").text(item.PlusB),
@@ -145,8 +154,9 @@
                         )
                     })
                     console.log(dataJson)
-                })
-            mostrar.classList.add('visually-hidden');
+                    mostrar.classList.add('visually-hidden');
+                    loadingSpinner.classList.add("d-none");
+                })            
         }
 
         function mostrarPromedio(){
