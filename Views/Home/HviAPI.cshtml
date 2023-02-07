@@ -4,42 +4,40 @@
     .ID("bodyTable")
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
-    .HighlightChanges(true)
-    .Columns(columns => {
-        columns.AddFor(m => m.ID);
-        columns.AddFor(m => m.WhseCode);
-        columns.AddFor(m => m.WhseTag);
-        columns.AddFor(m => m.C1);
-        columns.AddFor(m => m.C2);
-        columns.AddFor(m => m.Leaf);
-        columns.AddFor(m => m.Stpl);
-        columns.AddFor(m => m.Mic);
-        columns.AddFor(m => m.Str);
-        columns.AddFor(m => m.LRR);
-        columns.AddFor(m => m.CropYear);
-        columns.AddFor(m => m.NetWeight);
-        columns.AddFor(m => m.Comp);
-        columns.AddFor(m => m.Len);
-        columns.AddFor(m => m.Ext);
-        columns.AddFor(m => m.RD);
-        columns.AddFor(m => m.PlusB);
-        columns.AddFor(m => m.Uni);
-        columns.AddFor(m => m.Trash);
-        columns.AddFor(m => m.StorageDate);
-    })    
+    .Height(500)
     .FilterRow(f => f.Visible(true))
     .HeaderFilter(f => f.Visible(true))
     .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(true))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.Trash).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
-    )
+    .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+    .Grouping(g => g.AutoExpandAll(false))
+    .RemoteOperations(false)
+    .LoadPanel(loadPanel => loadPanel.Enabled(false))  
+    .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+    .Paging(paging => paging.Enabled(false))
+    .Columns(columns => {
+        columns.AddFor(m => m.ID).Width(75);
+        columns.AddFor(m => m.WhseCode).Width(75);
+        columns.AddFor(m => m.WhseTag).Width(75);
+        columns.AddFor(m => m.C1).Width(75);
+        columns.AddFor(m => m.C2).Width(75);
+        columns.AddFor(m => m.Leaf).Width(75);
+        columns.AddFor(m => m.Stpl).Width(75);
+        columns.AddFor(m => m.Mic).Width(75);
+        columns.AddFor(m => m.Str).Width(75);
+        columns.AddFor(m => m.LRR).Width(75);
+        columns.AddFor(m => m.CropYear).Width(75);
+        columns.AddFor(m => m.NetWeight).Width(75);
+        columns.AddFor(m => m.Comp).Width(75);
+        columns.AddFor(m => m.Len).Width(75);
+        columns.AddFor(m => m.Ext).Width(75);
+        columns.AddFor(m => m.RD).Width(75);
+        columns.AddFor(m => m.PlusB).Width(75);
+        columns.AddFor(m => m.Uni).Width(75);
+        columns.AddFor(m => m.Trash).Width(75);
+        columns.AddFor(m => m.StorageDate).Width(75);
+    })    
+  
+   
 )
 
 @section Scripts{
@@ -57,7 +55,7 @@
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 5000);
+                }, 10000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
