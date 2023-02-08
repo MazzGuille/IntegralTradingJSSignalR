@@ -1,6 +1,7 @@
 ﻿@using IntegralTradingJS.Models;
 
-@(Html.DevExtreme().DataGrid<HVI>()
+@(
+Html.DevExtreme().DataGrid<HVI>()
     .ID("bodyTable")
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
@@ -11,11 +12,28 @@
     .Sorting(sorting => sorting.Mode(GridSortingMode.None))
     .Grouping(g => g.AutoExpandAll(false))
     .RemoteOperations(false)
-    .LoadPanel(loadPanel => loadPanel.Enabled(false))  
+    .LoadPanel(loadPanel => loadPanel.Enabled(true))  
     .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
-    .Paging(paging => paging.Enabled(false))
+    .Paging(paging => paging.Enabled(false)) 
+    .Editing(e =>
+    {
+        e.UseIcons(true);
+    })
     .Columns(columns => {
+        columns.Add()
+        .Width(75)
+        .Type(GridCommandColumnType.Buttons)
+        .Buttons(b =>
+        {
+            b.Add()
+            .Hint("Crear oferta")
+            .Icon("copy")
+            .Visible(true)
+            .OnClick("redirect");
+        });
         columns.AddFor(m => m.ID).Width(75);
+        columns.AddFor(m => m.Status).Width(75);
+        columns.AddFor(m => m.Price).Width(75);
         columns.AddFor(m => m.WhseCode).Width(75);
         columns.AddFor(m => m.WhseTag).Width(75);
         columns.AddFor(m => m.C1).Width(75);
@@ -35,6 +53,7 @@
         columns.AddFor(m => m.Uni).Width(75);
         columns.AddFor(m => m.Trash).Width(75);
         columns.AddFor(m => m.StorageDate).Width(75);
+        //agregar columna con precio y status
     })    
   
    
@@ -55,11 +74,11 @@
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 10000);
+                }, 60000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
-                        Id: null, WhseCode: null, WhseTag: null, C1: null, C2: null, Leaf: null, Stpl: null, Mic: null,
+                        Id: null, Status: null, Price: null, WhseCode: null, WhseTag: null, C1: null, C2: null, Leaf: null, Stpl: null, Mic: null,
                         Str: null, LRR : null , CropYear: null, NetWeight: null, Comp: null, Len: null, Ext: null, RD: null,
                         PlusB: null, Uni : null , Trash: null, StorageDate: null 
                     }];
@@ -67,6 +86,8 @@
                     result.forEach(x => {
                         _store.push({
                             Id: x.id,
+                            Status: x.status,
+                            Price: x.price,
                             WhseCode: x.whseCode,
                             WhseTag: x.whseTag,
                             C1: x.c1,
@@ -97,7 +118,11 @@
                     
                 });
              });
-        });      
+        });
+
+        function redirect(){
+            window.location.href = '/Buyer/Index'
+        }
 
     </script>
 }

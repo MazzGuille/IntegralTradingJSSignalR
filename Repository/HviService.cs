@@ -42,7 +42,9 @@ namespace IntegralTradingJS.Repository
                             PlusB = Convert.ToInt32(reader["PlusB"]),
                             Uni = (float)Convert.ToDecimal(reader["Uni"]),
                             Trash = Convert.ToInt32(reader["Trash"]),
-                            StorageDate = Convert.ToDateTime(reader["StorageDate"])
+                            StorageDate = Convert.ToDateTime(reader["StorageDate"]),
+                            Price = (float)Convert.ToDecimal(reader["Price"]),
+                            Status= Convert.ToBoolean(reader["status"])
                         });
                     }
                 }

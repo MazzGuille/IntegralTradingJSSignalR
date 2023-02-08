@@ -35,6 +35,7 @@
                                 <thead >
                                     <tr style="position:sticky; top:0px; background-color:white; height:100%" >
                                         <th>ID</th>
+                                        <th>Price</th>
                                         <th>WhseCode</th>
                                         <th>WhseTag</th>
                                         <th>C1</th>
@@ -131,6 +132,7 @@
                         $("#tbData tbody").append(
                             $("<tr>").append(
                                 $("<td>").text(item.ID),
+                                $("<td>").text(item.Price),
                                 $("<td>").text(item.WhseCode),
                                 $("<td>").text(item.WhseTag),
                                 $("<td>").text(item.C1),

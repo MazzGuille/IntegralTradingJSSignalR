@@ -22,8 +22,8 @@
         public float Uni { get; set; }
         public int Trash { get; set; }
         public DateTime StorageDate { get; set; }
-
-
+        public float Price { get; set; }
+        public bool Status { get; set; }
 
     }
 }
