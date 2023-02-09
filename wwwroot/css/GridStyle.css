@@ -1,0 +1,6 @@
+﻿body {
+}
+
+.dx-datagrid .dx-row > td {
+    padding: 3px !important;
+}

@@ -18,7 +18,12 @@ Html.DevExtreme().DataGrid<HVI>()
     .HeaderFilter(f =>
     {
         f.Visible(true);
-    })
+    }) 
+    
+    .ShowColumnLines(true)
+    .ShowRowLines(true)
+    .RowAlternationEnabled(true)
+    .ShowBorders(true)
     .GroupPanel(p => p.Visible(true))
     .Sorting(sorting => sorting.Mode(GridSortingMode.None))
     .Grouping(g => g.AutoExpandAll(false))
@@ -35,7 +40,7 @@ Html.DevExtreme().DataGrid<HVI>()
     })
     .Columns(columns => {
         columns.Add()
-        .Width(75)
+        .Width(25)
         .Type(GridCommandColumnType.Buttons)
         .Buttons(b =>
         {
@@ -87,7 +92,7 @@ Html.DevExtreme().DataGrid<HVI>()
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 5000);
+                }, 50000000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{

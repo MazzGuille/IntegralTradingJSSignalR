@@ -10,7 +10,7 @@
 
     <title>IntegralTradingJS</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <link href="~/css/gridstyle.css" rel="stylesheet" />
     @* Uncomment to use the HtmlEditor control *@
     @* <script src="https://unpkg.com/devextreme-quill@22_2/dist/dx-quill.min.js"></script> *@
 
@@ -84,7 +84,7 @@
         </div>
     </nav>
 
-    <main >
+    <main style="font-size:8px">
         @RenderBody()
     </main>
     @await RenderSectionAsync("Scripts", required: false)
