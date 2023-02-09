@@ -15,6 +15,9 @@ Html.DevExtreme().DataGrid<HVI>()
     .LoadPanel(loadPanel => loadPanel.Enabled(true))  
     .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
     .Paging(paging => paging.Enabled(false)) 
+    .AllowColumnResizing(true)
+    .ColumnAutoWidth(true)    
+    .FocusedRowEnabled(true)
     .Editing(e =>
     {
         e.UseIcons(true);
@@ -31,32 +34,31 @@ Html.DevExtreme().DataGrid<HVI>()
             .Visible(true)
             .OnClick("redirect");
         });
-        columns.AddFor(m => m.ID).Width(75);
-        columns.AddFor(m => m.Status).Width(75);
-        columns.AddFor(m => m.Price).Width(75);
-        columns.AddFor(m => m.WhseCode).Width(75);
-        columns.AddFor(m => m.WhseTag).Width(75);
-        columns.AddFor(m => m.C1).Width(75);
-        columns.AddFor(m => m.C2).Width(75);
-        columns.AddFor(m => m.Leaf).Width(75);
-        columns.AddFor(m => m.Stpl).Width(75);
-        columns.AddFor(m => m.Mic).Width(75);
-        columns.AddFor(m => m.Str).Width(75);
-        columns.AddFor(m => m.LRR).Width(75);
-        columns.AddFor(m => m.CropYear).Width(75);
-        columns.AddFor(m => m.NetWeight).Width(75);
-        columns.AddFor(m => m.Comp).Width(75);
-        columns.AddFor(m => m.Len).Width(75);
-        columns.AddFor(m => m.Ext).Width(75);
-        columns.AddFor(m => m.RD).Width(75);
-        columns.AddFor(m => m.PlusB).Width(75);
-        columns.AddFor(m => m.Uni).Width(75);
-        columns.AddFor(m => m.Trash).Width(75);
-        columns.AddFor(m => m.StorageDate).Width(75);
-        //agregar columna con precio y status
+        columns.AddFor(m => m.ID);
+        columns.AddFor(m => m.Status);
+        columns.AddFor(m => m.Price);
+        columns.AddFor(m => m.WhseCode);
+        columns.AddFor(m => m.WhseTag);
+        columns.AddFor(m => m.C1);
+        columns.AddFor(m => m.C2);
+        columns.AddFor(m => m.Leaf);
+        columns.AddFor(m => m.Stpl);
+        columns.AddFor(m => m.Mic);
+        columns.AddFor(m => m.Str);
+        columns.AddFor(m => m.LRR);
+        columns.AddFor(m => m.CropYear);
+        columns.AddFor(m => m.NetWeight);
+        columns.AddFor(m => m.Comp);
+        columns.AddFor(m => m.Len);
+        columns.AddFor(m => m.Ext);
+        columns.AddFor(m => m.RD);
+        columns.AddFor(m => m.PlusB);
+        columns.AddFor(m => m.Uni);
+        columns.AddFor(m => m.Trash);
+        columns.AddFor(m => m.StorageDate);
     })    
   
-   
+   //activo, cancelado, con oferta, en cierre, vendido
 )
 
 @section Scripts{
