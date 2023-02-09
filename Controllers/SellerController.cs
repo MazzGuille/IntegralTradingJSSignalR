@@ -80,6 +80,7 @@ namespace IntegralTradingJS.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult InsertDataToDB()
         {
             _hviService.InsertData(hvi);

@@ -1,6 +1,7 @@
 ﻿using IntegralTradingJS.Helpers;
 using IntegralTradingJS.Models;
 using IntegralTradingJS.Repository.Interfaces;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace IntegralTradingJS.Repository
@@ -16,7 +17,7 @@ namespace IntegralTradingJS.Repository
             {
                 cn.Open();
                 SqlCommand cmd = new("SP_GetHvi", cn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -61,7 +62,7 @@ namespace IntegralTradingJS.Repository
                 cn.Open();
                 SqlCommand cmd = new("SP_UpdateStatus", cn);
                 cmd.Parameters.AddWithValue("IdOferta", 1);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
             }            
         }
@@ -74,8 +75,6 @@ namespace IntegralTradingJS.Repository
             using (SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn))
             {
                 // define parameters and their values
-
-                
                 cmd.Parameters.AddWithValue("WhseCode", oferta.WhseCode);
                 cmd.Parameters.AddWithValue("WhseTag", oferta.WhseTag);
                 //cmd.Parameters.AddWithValue("@C1", oferta.C1);
@@ -97,6 +96,7 @@ namespace IntegralTradingJS.Repository
 
                 // open connection, execute INSERT, close connection
                 cn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
                 cn.Close();
             }

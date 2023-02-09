@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-controller="Seller" asp-action="InsertDataToDB">
+<form action="@Url.Action("InsertDataToDB", "Seller")" method="post" enctype="multipart/form-data">
     <input name="WhseCode" type="number" placeholder="WhseCode" />
     <input name="WhseTag" type="number" placeholder="WhseTag" />
 
