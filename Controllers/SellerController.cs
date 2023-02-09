@@ -1,4 +1,5 @@
 ﻿using IntegralTradingJS.Models;
+using IntegralTradingJS.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NPOI.HSSF.UserModel;
@@ -10,7 +11,14 @@ namespace IntegralTradingJS.Controllers
 {
     public class SellerController : Controller
     {
+        private readonly IHviService _hviService;
         public List<HviRed> HviData = new();
+        HVI hvi = new();
+
+        public SellerController(IHviService hviService)
+        {
+            _hviService= hviService;
+        }
        
         public ActionResult OfferUpload()
         {
@@ -66,68 +74,17 @@ namespace IntegralTradingJS.Controllers
             }
             return StatusCode(StatusCodes.Status200OK, HviData);
         }
-
-        // GET: SellerController/Create
-        public ActionResult Create()
-        {
+        
+        public IActionResult InsertData()
+        {           
             return View();
         }
 
-        // POST: SellerController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult InsertDataToDB()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            _hviService.InsertData(hvi);
 
-        // GET: SellerController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SellerController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SellerController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SellerController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Seller/InsertData");
         }
     }
 }

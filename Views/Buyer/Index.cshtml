@@ -5,7 +5,6 @@
 
 <h1>Buyer Page</h1>
 
-<form>
     <div class="mb-3 w-25">
         <label for="sellerPrice" class="form-label">Precio ofrecido por el vendedor</label>
         <input type="number" class="form-control" id="sellerPrice">
@@ -18,5 +17,18 @@
     <label for="descripcion" class="form-label">Comentarios adicionales</label>
         <textarea type="text" class="form-control" id="descripcion"></textarea>
   </div>  
-  <button type="submit" class="btn btn-primary fw-bold">Enviar oferta</button>
-</form>
+  <button onclick="changeStatus()"  class="btn btn-primary fw-bold">Enviar oferta</button>
+
+
+@section Scripts{
+    <script>
+        function changeStatus(){
+            fetch("/Buyer/UpdateStatus", {
+                method:"PUT",               
+                body: FormData
+            });
+
+            window.location.href = '/'
+        }
+    </script>
+}

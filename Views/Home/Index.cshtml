@@ -1,29 +1,29 @@
-@using IntegralTradingJS.Models
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
 
-<h2>Home</h2>
+<div class="container">
 
-@(Html.DevExtreme().DataGrid<SampleOrder>()
-    .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
-    )
-)
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <form asp-controller="Home" asp-action="HviAPI">
+            <div class="form-outline mb-4">
+                <input type="email" id="email" class="form-control" />
+                <label class="form-label" for="email">Email</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" id="contraseña" class="form-control" />
+                <label class="form-label" for="contraseña">Contraseña</label>
+            </div> 
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-block mb-4">Ingresar</button>                             
+            </div>
+        </form>
+    </div>
+   
+
+</div>
+
+
+

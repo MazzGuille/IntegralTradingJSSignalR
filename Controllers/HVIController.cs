@@ -26,5 +26,11 @@ namespace IntegralTradingJS.Controllers
             return DataSourceLoader.Load(data, loadOptions);
         }
 
+        [HttpPut]
+        public async Task UpdateStatus()
+        {
+            await _hviService.UpdateStatus(1);
+        }
+
     }
 }

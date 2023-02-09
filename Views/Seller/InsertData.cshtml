@@ -1,0 +1,13 @@
+﻿@model HVI
+@{
+    ViewData["Title"] = "InsertData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-controller="Seller" asp-action="InsertDataToDB">
+    <input name="WhseCode" type="number" placeholder="WhseCode" />
+    <input name="WhseTag" type="number" placeholder="WhseTag" />
+
+    <button type="submit">Enviar datos</button>    
+</form>
+

@@ -6,8 +6,15 @@ Html.DevExtreme().DataGrid<HVI>()
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
     .Height(500)
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
+    .FilterRow(f =>
+    {
+        f.Visible(true);
+
+    })
+    .HeaderFilter(f =>
+    {
+        f.Visible(true);
+    })
     .GroupPanel(p => p.Visible(true))
     .Sorting(sorting => sorting.Mode(GridSortingMode.None))
     .Grouping(g => g.AutoExpandAll(false))
@@ -30,7 +37,7 @@ Html.DevExtreme().DataGrid<HVI>()
         {
             b.Add()
             .Hint("Crear oferta")
-            .Icon("copy")
+            .Icon("money")
             .Visible(true)
             .OnClick("redirect");
         });
@@ -76,7 +83,7 @@ Html.DevExtreme().DataGrid<HVI>()
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 60000);
+                }, 5000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
