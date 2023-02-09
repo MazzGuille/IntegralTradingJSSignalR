@@ -67,13 +67,7 @@ namespace IntegralTradingJS.Repository
         }
 
         public void InsertData(HVI oferta)
-        {
-            // define INSERT query with parameters
-            //string query = "INSERT INTO HVIcsv (WhseCode, WhseTag/*, C1, C2, Leaf,Mic,Str,LRR,CropYear,NetWeight,Comp,Len,Ext,RD,PlusB,Uni,Trash,StorageDate*/) " +
-            //               "VALUES (@WhseCode,@WhseTag/*,@C1,@C2,@Leaf,@Mic,@Str,@LRR,@CropYear,@NetWeight,@Comp,@Len,@Ext,@RD,@PlusB,@Uni,@Trash,@StorageDate*/) ";
-
-            /*string query2 = "INSERT INTO HVIcsv VALUES ("+ID+','+WhseCode+','+WhseTag+','+C1+','+C2+','+Leaf+','+Mic+','+Str+','+LRR+','+CropYear+','+NetWeight+','+Comp+','+Len+','+Ext+','+
-                RD+','+PlusB+','+Uni+','+Trash+','+StorageDate+");";*/
+        {     
 
             // create connection and command
             using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
