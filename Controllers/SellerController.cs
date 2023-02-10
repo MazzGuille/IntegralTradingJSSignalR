@@ -75,17 +75,17 @@ namespace IntegralTradingJS.Controllers
             return StatusCode(StatusCodes.Status200OK, HviData);
         }
         
-        public IActionResult InsertData()
+        public ActionResult InsertData()
         {           
             return View();
         }
 
         [HttpPost]
-        public ActionResult InsertDataToDB()
+        public ActionResult InsertData(HVI offer)
         {
-            _hviService.InsertData(hvi);
+            _hviService.InsertData(offer);
 
-            return RedirectToAction("Seller/InsertData");
+            return View();
         }
     }
 }

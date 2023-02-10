@@ -71,34 +71,35 @@ namespace IntegralTradingJS.Repository
         {     
 
             // create connection and command
-            using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
-            using (SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn))
+            using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))            
             {
-                // define parameters and their values
+                SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+              
                 cmd.Parameters.AddWithValue("WhseCode", oferta.WhseCode);
                 cmd.Parameters.AddWithValue("WhseTag", oferta.WhseTag);
-                //cmd.Parameters.AddWithValue("@C1", oferta.C1);
-                //cmd.Parameters.AddWithValue("@C2", oferta.C2);
-                //cmd.Parameters.AddWithValue("@Leaf", oferta.Leaf);
-                //cmd.Parameters.AddWithValue("@Mic", oferta.Mic);
-                //cmd.Parameters.AddWithValue("@Str", oferta.Str);
-                //cmd.Parameters.AddWithValue("@LRR", oferta.LRR);
-                //cmd.Parameters.AddWithValue("@CropYear", oferta.CropYear);
-                //cmd.Parameters.AddWithValue("@NetWeight", oferta.NetWeight);
-                //cmd.Parameters.AddWithValue("@Comp", oferta.Comp);
-                //cmd.Parameters.AddWithValue("@Len", oferta.Len);
-                //cmd.Parameters.AddWithValue("@Ext", oferta.Ext);
-                //cmd.Parameters.AddWithValue("@RD", oferta.RD);
-                //cmd.Parameters.AddWithValue("@PlusB", oferta.PlusB);
-                //cmd.Parameters.AddWithValue("@Uni", oferta.Uni);
-                //cmd.Parameters.AddWithValue("@Trash", oferta.Trash);
-                //cmd.Parameters.AddWithValue("@StorageDate", oferta.StorageDate);
+                cmd.Parameters.AddWithValue("C1", oferta.C1);
+                cmd.Parameters.AddWithValue("C2", oferta.C2);
+                cmd.Parameters.AddWithValue("Leaf", oferta.Leaf);
+                cmd.Parameters.AddWithValue("Stpl", oferta.Stpl);
+                cmd.Parameters.AddWithValue("Mic", oferta.Mic);
+                cmd.Parameters.AddWithValue("Str", oferta.Str);
+                cmd.Parameters.AddWithValue("LRR", oferta.LRR);
+                cmd.Parameters.AddWithValue("CropYear", oferta.CropYear);
+                cmd.Parameters.AddWithValue("NetWeight", oferta.NetWeight);
+                cmd.Parameters.AddWithValue("Comp", oferta.Comp);
+                cmd.Parameters.AddWithValue("Len", oferta.Len);
+                cmd.Parameters.AddWithValue("Ext", oferta.Ext);
+                cmd.Parameters.AddWithValue("RD", oferta.RD);
+                cmd.Parameters.AddWithValue("PlusB", oferta.PlusB);
+                cmd.Parameters.AddWithValue("Uni", oferta.Uni);
+                cmd.Parameters.AddWithValue("Trash", oferta.Trash);
+                cmd.Parameters.AddWithValue("StorageDate", oferta.StorageDate);
+                cmd.Parameters.AddWithValue("Price", oferta.Price);
+                cmd.Parameters.AddWithValue("Status", oferta.Status);
 
-                // open connection, execute INSERT, close connection
-                cn.Open();
-                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();                
                 cmd.ExecuteNonQuery();
-                cn.Close();
             }
 
         }

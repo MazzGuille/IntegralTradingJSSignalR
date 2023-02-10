@@ -1,13 +1,130 @@
-﻿@model HVI
+﻿@model IntegralTradingJS.Models.HVI
+
 @{
     ViewData["Title"] = "InsertData";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form action="@Url.Action("InsertDataToDB", "Seller")" method="post" enctype="multipart/form-data">
-    <input name="WhseCode" type="number" placeholder="WhseCode" />
-    <input name="WhseTag" type="number" placeholder="WhseTag" />
+<h1>InsertData</h1>
 
-    <button type="submit">Enviar datos</button>    
-</form>
+<h4>HVI</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="InsertData">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          
+            <div class="form-group">
+                <label asp-for="WhseCode" class="control-label"></label>
+                <input asp-for="WhseCode" class="form-control" />
+                <span asp-validation-for="WhseCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WhseTag" class="control-label"></label>
+                <input asp-for="WhseTag" class="form-control" />
+                <span asp-validation-for="WhseTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="C1" class="control-label"></label>
+                <input asp-for="C1" class="form-control" />
+                <span asp-validation-for="C1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="C2" class="control-label"></label>
+                <input asp-for="C2" class="form-control" />
+                <span asp-validation-for="C2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Leaf" class="control-label"></label>
+                <input asp-for="Leaf" class="form-control" />
+                <span asp-validation-for="Leaf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stpl" class="control-label"></label>
+                <input asp-for="Stpl" class="form-control" />
+                <span asp-validation-for="Stpl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mic" class="control-label"></label>
+                <input asp-for="Mic" class="form-control" />
+                <span asp-validation-for="Mic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Str" class="control-label"></label>
+                <input asp-for="Str" class="form-control" />
+                <span asp-validation-for="Str" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LRR" class="control-label"></label>
+                <input asp-for="LRR" class="form-control" />
+                <span asp-validation-for="LRR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CropYear" class="control-label"></label>
+                <input asp-for="CropYear" class="form-control" />
+                <span asp-validation-for="CropYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NetWeight" class="control-label"></label>
+                <input asp-for="NetWeight" class="form-control" />
+                <span asp-validation-for="NetWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comp" class="control-label"></label>
+                <input asp-for="Comp" class="form-control" />
+                <span asp-validation-for="Comp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Len" class="control-label"></label>
+                <input asp-for="Len" class="form-control" />
+                <span asp-validation-for="Len" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ext" class="control-label"></label>
+                <input asp-for="Ext" class="form-control" />
+                <span asp-validation-for="Ext" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RD" class="control-label"></label>
+                <input asp-for="RD" class="form-control" />
+                <span asp-validation-for="RD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlusB" class="control-label"></label>
+                <input asp-for="PlusB" class="form-control" />
+                <span asp-validation-for="PlusB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uni" class="control-label"></label>
+                <input asp-for="Uni" class="form-control" />
+                <span asp-validation-for="Uni" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trash" class="control-label"></label>
+                <input asp-for="Trash" class="form-control" />
+                <span asp-validation-for="Trash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StorageDate" class="control-label"></label>
+                <input asp-for="StorageDate" class="form-control" />
+                <span asp-validation-for="StorageDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
 
