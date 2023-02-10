@@ -26,7 +26,7 @@
                         <div class="col-sm-4 gap-2">
                             <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
                             <button id="mostrar2" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>
-                            <button id="mostrar3" class="btn btn-primary text-white fw-bold" onclick="insertData()">Insert</button>
+                            <button id="mostrar3" class="btn btn-primary text-white fw-bold visually-hidden" onclick="insertData()">Insert</button>
                         </div>
                     </div>
 
@@ -38,6 +38,7 @@
                                 <thead>
                                     <tr style="position:sticky; top:0px; background-color:white; height:100%">
                                         <th>ID</th>
+                                        <th>Status</th>
                                         <th>Price</th>
                                         <th>WhseCode</th>
                                         <th>WhseTag</th>
@@ -76,13 +77,28 @@
                             <table id="tbAvg" class="table table-striped visually-hidden">
                                 <thead>
                                     <tr>
-                                        <th>UHML</th>
-                                        <th>UI</th>
-                                        <th>Strength</th>
-                                        <th>SFI</th>
+                                        <th>ID</th>
+                                        <th>Status</th>
+                                        <th>Price</th>
+                                        <th>WhseCode</th>
+                                        <th>WhseTag</th>
+                                        <th>C1</th>
+                                        <th>C2</th>
+                                        <th>Leaf</th>
+                                        <th>Stpl</th>
                                         <th>Mic</th>
-                                        <th>ColorGrade</th>
-                                        <th>TrashID</th>
+                                        <th>Str</th>
+                                        <th>LRR</th>
+                                        <th>CropYear</th>
+                                        <th>NetWeight</th>
+                                        <th>Comp</th>
+                                        <th>Len</th>
+                                        <th>Ext</th>
+                                        <th>RD</th>
+                                        <th>PlusB</th>
+                                        <th>Uni</th>
+                                        <th>Trash</th>
+                                        <th>StorageDate</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody2">
@@ -138,6 +154,7 @@
                         $("#tbData tbody").append(
                             $("<tr>").append(
                                 $("<td>").text(item.ID),
+                                $("<td>").text(item.Status),
                                 $("<td>").text(item.Price),
                                 $("<td>").text(item.WhseCode),
                                 $("<td>").text(item.WhseTag),
@@ -164,6 +181,7 @@
                     console.log(dataJson)
                     mostrar.classList.add('visually-hidden');
                     loadingSpinner.classList.add("d-none");
+                    mostrar2.classList.remove('visually-hidden')
                 })            
         }
 
@@ -173,7 +191,7 @@
             const table=document.getElementById("tableBody");
             const table2=document.getElementById("tableBody2");
             const rows=table.rows.length;
-            const cols = 7;
+            const cols = 22;
             const proms = [];
             var sumVal=0;
 
