@@ -85,7 +85,7 @@ namespace IntegralTradingJS.Controllers
         {
             _hviService.InsertData(offer);
 
-            return View();
+            return RedirectToAction("HviAPI", "Home");
         }
     }
 }
