@@ -6,17 +6,25 @@
 <h1>Buyer Page</h1>
 
     <div class="mb-3 w-25">
+        <label for="offerId" class="form-label">ID de la oferta</label>
+        <input type="number" class="form-control" id="offerId">
+    </div>
+
+    <div class="mb-3 w-25">
         <label for="sellerPrice" class="form-label">Precio ofrecido por el vendedor</label>
         <input type="number" class="form-control" id="sellerPrice">
     </div>
+
   <div class="mb-3 w-25">
     <label for="offerPrice" class="form-label">Coloca tu oferta</label>
         <input type="number" class="form-control" id="offerPrice">
   </div>
+
   <div class="mb-3 w-50">
     <label for="descripcion" class="form-label">Comentarios adicionales</label>
         <textarea type="text" class="form-control" id="descripcion"></textarea>
-  </div>  
+  </div> 
+  
   <button onclick="changeStatus()"  class="btn btn-primary fw-bold">Enviar oferta</button>
 
 

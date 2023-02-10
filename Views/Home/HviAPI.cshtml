@@ -4,6 +4,59 @@
 
 @using IntegralTradingJS.Models;
 
+@*<div class="options">
+
+    <div class="caption">Options</div>
+
+    <div class="option">
+        @(Html.DevExtreme().CheckBox()
+            .Text("Show Column Lines")
+            .Value(false)
+            .OnValueChanged(@<text>
+                function(data) {
+                getDataGridInstance().option("showColumnLines", data.value);
+                }
+            </text>)
+            )
+    </div>
+
+    <div class="option">
+        @(Html.DevExtreme().CheckBox()
+            .Text("Show Row Lines")
+            .Value(true)
+            .OnValueChanged(@<text>
+                function(data) {
+                getDataGridInstance().option("showRowLines", data.value);
+                }
+            </text>)
+            )
+    </div>
+
+    <div class="option">
+        @(Html.DevExtreme().CheckBox()
+            .Text("Show Borders")
+            .Value(true)
+            .OnValueChanged(@<text>
+                function(data) {
+                getDataGridInstance().option("showBorders", data.value);
+                }
+            </text>)
+            )
+    </div>
+
+    <div class="option">
+        @(Html.DevExtreme().CheckBox()
+            .Text("Alternating Row Color")
+            .Value(true)
+            .OnValueChanged(@<text>
+                function(data) {
+                getDataGridInstance().option("rowAlternationEnabled", data.value);
+                }
+            </text>)
+            )
+    </div>
+</div>*@
+
 @(
 Html.DevExtreme().DataGrid<HVI>()
     .ID("bodyTable")
@@ -76,6 +129,8 @@ Html.DevExtreme().DataGrid<HVI>()
   
    //activo, cancelado, con oferta, en cierre, vendido
 )
+
+
 
 @section Scripts{
     <script src="~/js/dist/browser/signalr.min.js"></script>

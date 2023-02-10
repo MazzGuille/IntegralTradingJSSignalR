@@ -1,10 +1,4 @@
 body {
 }
-#bodyTable {
-    height: 440px;
-}
 
-.dx-datagrid .dx-row > td{
-    padding: 3px !important;
-    text-align: center;
-}
+
