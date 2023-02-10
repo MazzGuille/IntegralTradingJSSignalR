@@ -3,6 +3,8 @@
     public class HviRed
     {
         public string ID { get; set; }
+        public string Status { get; set; }
+        public string Price { get; set; }
         public string WhseCode { get; set; }
         public string WhseTag { get; set; }
         public string C1 { get; set; }
