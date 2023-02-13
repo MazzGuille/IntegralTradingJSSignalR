@@ -67,40 +67,39 @@ namespace IntegralTradingJS.Repository
             }            
         }
 
-        public void InsertData(HVI oferta)
-        {     
+        public void InsertData(Promedios promedio)
+        {  
 
-            // create connection and command
-            using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))            
+            using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
             {
                 SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-              
-                cmd.Parameters.AddWithValue("WhseCode", oferta.WhseCode);
-                cmd.Parameters.AddWithValue("WhseTag", oferta.WhseTag);
-                cmd.Parameters.AddWithValue("C1", oferta.C1);
-                cmd.Parameters.AddWithValue("C2", oferta.C2);
-                cmd.Parameters.AddWithValue("Leaf", oferta.Leaf);
-                cmd.Parameters.AddWithValue("Stpl", oferta.Stpl);
-                cmd.Parameters.AddWithValue("Mic", oferta.Mic);
-                cmd.Parameters.AddWithValue("Str", oferta.Str);
-                cmd.Parameters.AddWithValue("LRR", oferta.LRR);
-                cmd.Parameters.AddWithValue("CropYear", oferta.CropYear);
-                cmd.Parameters.AddWithValue("NetWeight", oferta.NetWeight);
-                cmd.Parameters.AddWithValue("Comp", oferta.Comp);
-                cmd.Parameters.AddWithValue("Len", oferta.Len);
-                cmd.Parameters.AddWithValue("Ext", oferta.Ext);
-                cmd.Parameters.AddWithValue("RD", oferta.RD);
-                cmd.Parameters.AddWithValue("PlusB", oferta.PlusB);
-                cmd.Parameters.AddWithValue("Uni", oferta.Uni);
-                cmd.Parameters.AddWithValue("Trash", oferta.Trash);
-                cmd.Parameters.AddWithValue("StorageDate", oferta.StorageDate);
-                cmd.Parameters.AddWithValue("Price", oferta.Price);
-                cmd.Parameters.AddWithValue("Status", oferta.Status);
 
-                cn.Open();                
+                cmd.Parameters.AddWithValue("Price", promedio.Price);
+                cmd.Parameters.AddWithValue("WhseCode", promedio.WhseCode);
+                cmd.Parameters.AddWithValue("WhseTag",promedio.WhseTag);
+                cmd.Parameters.AddWithValue("C1",promedio.C1);
+                cmd.Parameters.AddWithValue("C2",promedio.C2);
+                cmd.Parameters.AddWithValue("Leaf",promedio.Leaf);
+                cmd.Parameters.AddWithValue("Stpl",promedio.Stpl);
+                cmd.Parameters.AddWithValue("Mic",promedio.Mic );
+                cmd.Parameters.AddWithValue("Str",promedio.Str);
+                cmd.Parameters.AddWithValue("LRR",promedio.LRR);
+                cmd.Parameters.AddWithValue("CropYear",promedio.CropYear );
+                cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );
+                cmd.Parameters.AddWithValue("Comp", "AU");
+                cmd.Parameters.AddWithValue("Len",promedio.Len );
+                cmd.Parameters.AddWithValue("Ext",promedio.Ext );
+                cmd.Parameters.AddWithValue("RD",promedio.RD );
+                cmd.Parameters.AddWithValue("PlusB",promedio.PlusB );
+                cmd.Parameters.AddWithValue("Uni",promedio.Uni );
+                cmd.Parameters.AddWithValue("Trash",promedio.Trash );
+                cmd.Parameters.AddWithValue("StorageDate", DateTime.Now.ToString("M/d/yyyy"));
+                cmd.Parameters.AddWithValue("Status", "Activo");
+
+                cn.Open();
                 cmd.ExecuteNonQuery();
-            }
+            }      
 
         }
 

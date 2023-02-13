@@ -2,8 +2,6 @@
 {
     public class HviRed
     {
-        public string ID { get; set; }
-        public string Status { get; set; }
         public string Price { get; set; }
         public string WhseCode { get; set; }
         public string WhseTag { get; set; }
@@ -16,13 +14,11 @@
         public string LRR { get; set; }
         public string CropYear { get; set; }
         public string NetWeight { get; set; }
-        public string Comp { get; set; }
         public string Len { get; set; }
         public string Ext { get; set; }
         public string RD { get; set; }
         public string PlusB { get; set; }
         public string Uni { get; set; }
-        public string Trash { get; set; }
-        public string StorageDate { get; set; }
+        public string Trash { get; set; }        
     }
 }

@@ -27,6 +27,7 @@
                             <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
                             <button id="mostrar2" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>
                             <button id="mostrar3" class="btn btn-primary text-white fw-bold visually-hidden" onclick="insertData()">Insert</button>
+                            <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="enviarBaseDatos()">Subir oferta</button>
                         </div>
                     </div>
 
@@ -37,8 +38,6 @@
                             <table id="tbData" class="table table-striped table-condensed" style="min-width:max-content; border:1px solid black">
                                 <thead>
                                     <tr style="position:sticky; top:0px; background-color:white; height:100%">
-                                        <th>ID</th>
-                                        <th>Status</th>
                                         <th>Price</th>
                                         <th>WhseCode</th>
                                         <th>WhseTag</th>
@@ -51,14 +50,12 @@
                                         <th>LRR</th>
                                         <th>CropYear</th>
                                         <th>NetWeight</th>
-                                        <th>Comp</th>
                                         <th>Len</th>
                                         <th>Ext</th>
                                         <th>RD</th>
                                         <th>PlusB</th>
                                         <th>Uni</th>
                                         <th>Trash</th>
-                                        <th>StorageDate</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
@@ -77,8 +74,6 @@
                             <table id="tbAvg" class="table table-striped visually-hidden">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Status</th>
                                         <th>Price</th>
                                         <th>WhseCode</th>
                                         <th>WhseTag</th>
@@ -91,14 +86,12 @@
                                         <th>LRR</th>
                                         <th>CropYear</th>
                                         <th>NetWeight</th>
-                                        <th>Comp</th>
                                         <th>Len</th>
                                         <th>Ext</th>
                                         <th>RD</th>
                                         <th>PlusB</th>
                                         <th>Uni</th>
                                         <th>Trash</th>
-                                        <th>StorageDate</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody2">
@@ -128,6 +121,10 @@
         const enviar = document.getElementById("enviar")
         const tableBody = document.getElementById("tableBody")
         const loadingSpinner = document.getElementById("loadingSpinner")
+        const tbData = document.getElementById("tbData")
+        const enviardb = document.getElementById("enviardb")
+        let postData = {}
+        let arrayPromedio = []
 
         function mostrarBoton() {
             mostrar.classList.remove('visually-hidden');
@@ -153,8 +150,6 @@
                     dataJson.forEach((item) => {
                         $("#tbData tbody").append(
                             $("<tr>").append(
-                                $("<td>").text(item.ID),
-                                $("<td>").text(item.Status),
                                 $("<td>").text(item.Price),
                                 $("<td>").text(item.WhseCode),
                                 $("<td>").text(item.WhseTag),
@@ -167,18 +162,15 @@
                                 $("<td>").text(item.LRR),
                                 $("<td>").text(item.CropYear),
                                 $("<td>").text(item.NetWeight),
-                                $("<td>").text(item.Comp),
                                 $("<td>").text(item.Len),
                                 $("<td>").text(item.Ext),
                                 $("<td>").text(item.RD),
                                 $("<td>").text(item.PlusB),
                                 $("<td>").text(item.Uni),
-                                $("<td>").text(item.Trash),
-                                $("<td>").text(item.StorageDate)
+                                $("<td>").text(item.Trash)
                             )
                         )
                     })
-                    console.log(dataJson)
                     mostrar.classList.add('visually-hidden');
                     loadingSpinner.classList.add("d-none");
                     mostrar2.classList.remove('visually-hidden')
@@ -188,11 +180,12 @@
         function mostrarPromedio(){
             mostrar3.classList.remove('visually-hidden');
             mostrar4.classList.remove('visually-hidden');
+            tbData.classList.add('visually-hidden')
             const table=document.getElementById("tableBody");
             const table2=document.getElementById("tableBody2");
             const rows=table.rows.length;
-            const cols = 22;
-            const proms = [];
+            const cols = 18;
+            const proms = [];            
             var sumVal=0;
 
             for(var j = 0; j < cols; j++){
@@ -202,62 +195,75 @@
                 }
                 proms.push( parseFloat(sumVal / rows).toFixed(2));
                 sumVal=0;
-             }
-
-            for(var i = 0; i< cols;i++){
-                console.log(proms[i]);
-            }
+            }     
 
             var tableContent = '<tr>';
             for (var i = 0; i < cols; i++) {
                 tableContent += "<td>" + proms[i] + "</td>";
-                //table2.innerHTML = proms[i];
             }
+
             tableContent += '</tr>';
             table2.innerHTML += tableContent;
 
+            postData = {values: proms};
+            console.log(postData)
+
             mostrar2.classList.add('visually-hidden');
+            enviardb.classList.remove('visually-hidden')
+        }
 
-         }
-         function insertData(){
-              //IntegralTradingJS.IntegralTradingJS.Repository.InsertData(600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22);
+        function enviarBaseDatos() {
+          $.ajax({
+              type: "POST",
+                url: "/Seller/InsertData",
+                data: postData,
+                //succes: function (data){
+                //    alert(data.Result)
+                //},
+                datatype: "json",
+                traditional: true
+          });
+        }
 
-            $.ajax({
-            type: 'POST',
-            // Note the difference in url (this works if you're actually in Index page)
-            url: 'C:\Users\chooe\Documents\GitHub\IntegralTradingJSSignalR\Repository\HviService.cs\InsertData()',
-            data: "{600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22}",
-            contentType: "application/json; charset=utf-8", 
-            dataType: "json",
-            success: function (data) {
-              alert(data);
-            },
-            error: function (error) {
-              alert("Error: " + error);
-            }
-            })
-         }
+         //function insertData(){
+         //     //IntegralTradingJS.IntegralTradingJS.Repository.InsertData(600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22);
 
-         function insertData2(){
-            var mysql = require('mysql');
+         //   $.ajax({
+         //   type: 'POST',
+         //   // Note the difference in url (this works if you're actually in Index page)
+         //   url: 'C:\Users\chooe\Documents\GitHub\IntegralTradingJSSignalR\Repository\HviService.cs\InsertData()',
+         //   data: "{600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22}",
+         //   contentType: "application/json; charset=utf-8", 
+         //   dataType: "json",
+         //   success: function (data) {
+         //     alert(data);
+         //   },
+         //   error: function (error) {
+         //     alert("Error: " + error);
+         //   }
+         //   })
+         //}
 
-            var con = mysql.createConnection({
-              host: "104.214.62.172",
-              user: "UserIntegralCottonQA",
-              password: "90/-.54S4Dsas##",
-              database: "IntegralCotton_dbQA"
-            });
+         //function insertData2(){
+         //   var mysql = require('mysql');
 
-            con.connect(function(err) {
-              if (err) throw err;
-              console.log("Connected!");
-              var sql = "INSERT INTO Matriz VALUES (1000,NULL,NULL,NULL,NULL,222501739,NULL,NULL,NULL,NULL,NULL,NULL,1.28,84,30,8.5,6.5,NULL,NULL,4.3,75.5,8.2,'41-2',NULL,NULL,1,NULL);";
-              con.query(sql, function (err, result) {
-                if (err) throw err;
-                console.log("1 record inserted");
-              });
-            });
-         }
+         //   var con = mysql.createConnection({
+         //     host: "104.214.62.172",
+         //     user: "UserIntegralCottonQA",
+         //     password: "90/-.54S4Dsas##",
+         //     database: "IntegralCotton_dbQA"
+         //   });
+
+         //   con.connect(function(err) {
+         //     if (err) throw err;
+         //     console.log("Connected!");
+         //     var sql = "INSERT INTO Matriz VALUES (1000,NULL,NULL,NULL,NULL,222501739,NULL,NULL,NULL,NULL,NULL,NULL,1.28,84,30,8.5,6.5,NULL,NULL,4.3,75.5,8.2,'41-2',NULL,NULL,1,NULL);";
+         //     con.query(sql, function (err, result) {
+         //       if (err) throw err;
+         //       console.log("1 record inserted");
+         //     });
+         //   });
+         //}
         
     </script>
 }
