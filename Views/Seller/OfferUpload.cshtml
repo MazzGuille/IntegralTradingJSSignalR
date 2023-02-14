@@ -24,6 +24,7 @@
                             <input class="form-control-file visually-hidden" type="file" id="inputExcel" onclick="mostrarBoton()" />
                         </div>
                         <div class="col-sm-4 gap-2">
+                            <p></p> <input id="priceInput" class="w-25" placeholder="PRECIO" /> <input id="compInput" class="w-25" placeholder="COMPOSICION"/>
                             <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
                             <button id="mostrar2" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>
                             <button id="mostrar3" class="btn btn-primary text-white fw-bold visually-hidden" onclick="insertData()">Insert</button>
@@ -123,6 +124,8 @@
         const loadingSpinner = document.getElementById("loadingSpinner")
         const tbData = document.getElementById("tbData")
         const enviardb = document.getElementById("enviardb")
+        const priceInput = document.getElementById("priceInput")
+        const compInput = document.getElementById("compInput")
         let postData = {}
         let arrayPromedio = []
 
@@ -135,46 +138,52 @@
 
         function mostrarDatos() {
 
-            loadingSpinner.classList.remove("d-none");
+            if (compInput.value == "" || priceInput.value == "")
+            {
+                alert("Los campos \"PRECIO\" y \"COMPOSICION\" deben tener un valor asignado")
+            }
+            else{
+                loadingSpinner.classList.remove("d-none");
 
-            const formData = new FormData()
+                const formData = new FormData()
 
-            formData.append("ArchivoExcel", input.files[0])
+                formData.append("ArchivoExcel", input.files[0])
 
-            fetch("/Seller/MostrarDatos", {
-                method: "POST",
-                body: formData
-            })
-                .then((response) => { return response.json() })
-                .then((dataJson) => {
-                    dataJson.forEach((item) => {
-                        $("#tbData tbody").append(
-                            $("<tr>").append(
-                                $("<td>").text(item.Price),
-                                $("<td>").text(item.WhseCode),
-                                $("<td>").text(item.WhseTag),
-                                $("<td>").text(item.C1),
-                                $("<td>").text(item.C2),
-                                $("<td>").text(item.Leaf),
-                                $("<td>").text(item.Stpl),
-                                $("<td>").text(item.Mic),
-                                $("<td>").text(item.Str),
-                                $("<td>").text(item.LRR),
-                                $("<td>").text(item.CropYear),
-                                $("<td>").text(item.NetWeight),
-                                $("<td>").text(item.Len),
-                                $("<td>").text(item.Ext),
-                                $("<td>").text(item.RD),
-                                $("<td>").text(item.PlusB),
-                                $("<td>").text(item.Uni),
-                                $("<td>").text(item.Trash)
+                fetch("/Seller/MostrarDatos", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then((response) => { return response.json() })
+                    .then((dataJson) => {
+                        dataJson.forEach((item) => {
+                            $("#tbData tbody").append(
+                                $("<tr>").append(
+                                    $("<td>").text(item.Price),
+                                    $("<td>").text(item.WhseCode),
+                                    $("<td>").text(item.WhseTag),
+                                    $("<td>").text(item.C1),
+                                    $("<td>").text(item.C2),
+                                    $("<td>").text(item.Leaf),
+                                    $("<td>").text(item.Stpl),
+                                    $("<td>").text(item.Mic),
+                                    $("<td>").text(item.Str),
+                                    $("<td>").text(item.LRR),
+                                    $("<td>").text(item.CropYear),
+                                    $("<td>").text(item.NetWeight),
+                                    $("<td>").text(item.Len),
+                                    $("<td>").text(item.Ext),
+                                    $("<td>").text(item.RD),
+                                    $("<td>").text(item.PlusB),
+                                    $("<td>").text(item.Uni),
+                                    $("<td>").text(item.Trash)
+                                )
                             )
-                        )
+                        })
+                        mostrar.classList.add('visually-hidden');
+                        loadingSpinner.classList.add("d-none");
+                        mostrar2.classList.remove('visually-hidden')
                     })
-                    mostrar.classList.add('visually-hidden');
-                    loadingSpinner.classList.add("d-none");
-                    mostrar2.classList.remove('visually-hidden')
-                })            
+            }                   
         }
 
         function mostrarPromedio(){
@@ -204,6 +213,8 @@
 
             tableContent += '</tr>';
             table2.innerHTML += tableContent;
+            proms.push(priceInput.value);
+            proms.push(compInput.value);
 
             postData = {values: proms};
             console.log(postData)
@@ -223,6 +234,7 @@
                 datatype: "json",
                 traditional: true
           });
+          alert("¡Oferta subida con exito!")
         }
 
          //function insertData(){
