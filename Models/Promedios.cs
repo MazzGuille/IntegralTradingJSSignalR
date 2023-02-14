@@ -20,5 +20,6 @@
         public decimal PlusB { get; set; }
         public decimal Uni { get; set; }
         public decimal Trash { get; set; }
+        public DateTime StorageDate { get; set; } = DateTime.UtcNow;
     }
 }

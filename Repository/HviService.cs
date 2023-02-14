@@ -94,8 +94,8 @@ namespace IntegralTradingJS.Repository
                 cmd.Parameters.AddWithValue("PlusB",promedio.PlusB );
                 cmd.Parameters.AddWithValue("Uni",promedio.Uni );
                 cmd.Parameters.AddWithValue("Trash",promedio.Trash );
-                cmd.Parameters.AddWithValue("StorageDate", DateTime.Now.ToString("M/d/yyyy"));
-                cmd.Parameters.AddWithValue("Status", "Activo");
+                cmd.Parameters.AddWithValue("StorageDate", promedio.StorageDate);
+                cmd.Parameters.AddWithValue("Status", "En revision");
 
                 cn.Open();
                 cmd.ExecuteNonQuery();
