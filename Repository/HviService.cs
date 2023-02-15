@@ -32,7 +32,7 @@ namespace IntegralTradingJS.Repository
                             Almacen = reader["Almacen"].ToString(),
                             Validez = reader["Validez"].ToString(),
                             TipoFecha = reader["TipoFecha"].ToString(),
-                            OfferDate = Convert.ToDateTime(reader["StorageDate"]),
+                            OfferDate = Convert.ToDateTime(reader["OfferDate"]),
                             CropYear = Convert.ToInt32(reader["CropYear"]),
                             Maturity = reader["Maturity"].ToString(),
                             C1 = Convert.ToInt32(reader["C1"]),

@@ -103,9 +103,9 @@ Html.DevExtreme().DataGrid<HVI>()
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
-                        Id: null, Status: null, Price: null, WhseCode: null, WhseTag: null, C1: null, C2: null, Leaf: null, Stpl: null, Mic: null,
-                        Str: null, LRR : null , CropYear: null, NetWeight: null, Comp: null, Len: null, Ext: null, RD: null,
-                        PlusB: null, Uni : null , Trash: null, StorageDate: null 
+                        Id: null, Status: null, Price: null, TipoPrecio: null, Almacen: null, Validez: null, TipoFecha: null, OfferDate: null,
+                        CropYear: null, Maturity: null, C1: null, C2: null, Leaf: null, Stpl: null, Mic: null, Str: null, LRR : null, 
+                        NetWeight: null, Len: null, Ext: null, RD: null, PlusB: null, Uni : null , Trash: null
                     }];
 
                     result.forEach(x => {
@@ -113,25 +113,28 @@ Html.DevExtreme().DataGrid<HVI>()
                             Id: x.id,
                             Status: x.status,
                             Price: x.price,
-                            WhseCode: x.whseCode,
-                            WhseTag: x.whseTag,
+                            TipoPrecio: x.tipoPrecio,
+                            Almacen: x.almacen,
+                            Validez: x.validez,
+                            TipoFecha: x.tipoFecha,
+                            OfferDate: x.offerDate,
+                            CropYear: x.cropYear,
+                            Maturity: x.maturity,
                             C1: x.c1,
                             C2: x.c2,
                             Leaf: x.leaf,
                             Stpl: x.stpl,
                             Mic: x.mic,
                             Str: x.str,
-                            LRR: x.lrr,
-                            CropYear: x.cropYear,
-                            NetWeight: x.netWeight,
-                            Comp: x.comp,
+                            LRR: x.lrr,                            
+                            NetWeight: x.netWeight,                            
                             Len: x.len,
                             Ext: x.ext,
                             RD: x.rd,
                             PlusB: x.plusB,
                             Uni: x.uni,
-                            Trash: x.trash,
-                            StorageDate: x.storageDate
+                            Trash: x.trash
+                           
                         });
                     });               
 
