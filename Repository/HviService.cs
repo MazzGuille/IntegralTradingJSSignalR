@@ -87,7 +87,7 @@ namespace IntegralTradingJS.Repository
                 cmd.Parameters.AddWithValue("LRR",promedio.LRR);
                 cmd.Parameters.AddWithValue("CropYear",promedio.CropYear );
                 cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );
-                cmd.Parameters.AddWithValue("Comp", "AU");
+                cmd.Parameters.AddWithValue("Comp", promedio.Comp);
                 cmd.Parameters.AddWithValue("Len",promedio.Len );
                 cmd.Parameters.AddWithValue("Ext",promedio.Ext );
                 cmd.Parameters.AddWithValue("RD",promedio.RD );
