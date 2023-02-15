@@ -4,58 +4,7 @@
 
 @using IntegralTradingJS.Models;
 
-@*<div class="options">
 
-    <div class="caption">Options</div>
-
-    <div class="option">
-        @(Html.DevExtreme().CheckBox()
-            .Text("Show Column Lines")
-            .Value(false)
-            .OnValueChanged(@<text>
-                function(data) {
-                getDataGridInstance().option("showColumnLines", data.value);
-                }
-            </text>)
-            )
-    </div>
-
-    <div class="option">
-        @(Html.DevExtreme().CheckBox()
-            .Text("Show Row Lines")
-            .Value(true)
-            .OnValueChanged(@<text>
-                function(data) {
-                getDataGridInstance().option("showRowLines", data.value);
-                }
-            </text>)
-            )
-    </div>
-
-    <div class="option">
-        @(Html.DevExtreme().CheckBox()
-            .Text("Show Borders")
-            .Value(true)
-            .OnValueChanged(@<text>
-                function(data) {
-                getDataGridInstance().option("showBorders", data.value);
-                }
-            </text>)
-            )
-    </div>
-
-    <div class="option">
-        @(Html.DevExtreme().CheckBox()
-            .Text("Alternating Row Color")
-            .Value(true)
-            .OnValueChanged(@<text>
-                function(data) {
-                getDataGridInstance().option("rowAlternationEnabled", data.value);
-                }
-            </text>)
-            )
-    </div>
-</div>*@
 
 @(
 Html.DevExtreme().DataGrid<HVI>()
@@ -106,25 +55,28 @@ Html.DevExtreme().DataGrid<HVI>()
         columns.AddFor(m => m.ID);
         columns.AddFor(m => m.Status);
         columns.AddFor(m => m.Price);
-        columns.AddFor(m => m.WhseCode);
-        columns.AddFor(m => m.WhseTag);
+        columns.AddFor(m => m.TipoPrecio);
+        columns.AddFor(m => m.Almacen);
+        columns.AddFor(m => m.Validez);
+        columns.AddFor(m => m.TipoFecha);
+        columns.AddFor(m => m.OfferDate);
+        columns.AddFor(m => m.CropYear);
+        columns.AddFor(m => m.Maturity);
         columns.AddFor(m => m.C1);
         columns.AddFor(m => m.C2);
         columns.AddFor(m => m.Leaf);
         columns.AddFor(m => m.Stpl);
         columns.AddFor(m => m.Mic);
         columns.AddFor(m => m.Str);
-        columns.AddFor(m => m.LRR);
-        columns.AddFor(m => m.CropYear);
-        columns.AddFor(m => m.NetWeight);
-        columns.AddFor(m => m.Comp);
+        columns.AddFor(m => m.LRR);       
+        columns.AddFor(m => m.NetWeight);      
         columns.AddFor(m => m.Len);
         columns.AddFor(m => m.Ext);
         columns.AddFor(m => m.RD);
         columns.AddFor(m => m.PlusB);
         columns.AddFor(m => m.Uni);
         columns.AddFor(m => m.Trash);
-        columns.AddFor(m => m.StorageDate);
+        
     })    
   
    //activo, cancelado, con oferta, en cierre, vendido

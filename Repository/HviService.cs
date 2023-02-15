@@ -26,27 +26,29 @@ namespace IntegralTradingJS.Repository
                         hviList.Add(new HVI
                         {
                             ID = Convert.ToInt32(reader["ID"]),
-                            WhseCode = Convert.ToInt32(reader["WhseCode"]),
-                            WhseTag = Convert.ToInt32(reader["WhseTag"]),
+                            Status = reader["status"].ToString(),
+                            Price = (int)Convert.ToDecimal(reader["Price"]),
+                            TipoPrecio = reader["TipoPrecio"].ToString(),
+                            Almacen = reader["Almacen"].ToString(),
+                            Validez = reader["Validez"].ToString(),
+                            TipoFecha = reader["TipoFecha"].ToString(),
+                            OfferDate = Convert.ToDateTime(reader["StorageDate"]),
+                            CropYear = Convert.ToInt32(reader["CropYear"]),
+                            Maturity = reader["Maturity"].ToString(),
                             C1 = Convert.ToInt32(reader["C1"]),
                             C2 = Convert.ToInt32(reader["C2"]),
                             Leaf = Convert.ToInt32(reader["Leaf"]),
                             Stpl = Convert.ToInt32(reader["Stpl"]),
                             Mic = Convert.ToInt32(reader["Mic"]),
                             Str = (float)Convert.ToDecimal(reader["Leaf"]),
-                            LRR = (float)Convert.ToDecimal(reader["LRR"]),
-                            CropYear = Convert.ToInt32(reader["CropYear"]),
-                            NetWeight = Convert.ToInt32(reader["NetWeight"]),
-                            Comp = reader["Comp"].ToString(),
+                            LRR = (float)Convert.ToDecimal(reader["LRR"]),                            
+                            NetWeight = Convert.ToInt32(reader["NetWeight"]),                            
                             Len = Convert.ToInt32(reader["Len"]),
                             Ext = Convert.ToInt32(reader["Ext"]),
                             RD = (float)Convert.ToDecimal(reader["RD"]),
                             PlusB = Convert.ToInt32(reader["PlusB"]),
                             Uni = (float)Convert.ToDecimal(reader["Uni"]),
-                            Trash = Convert.ToInt32(reader["Trash"]),
-                            StorageDate = Convert.ToDateTime(reader["StorageDate"]),
-                            Price = (float)Convert.ToDecimal(reader["Price"]),
-                            Status= reader["status"].ToString()
+                            Trash = Convert.ToInt32(reader["Trash"])                   
                         });
                     }
                 }
@@ -75,27 +77,29 @@ namespace IntegralTradingJS.Repository
                 SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
+                cmd.Parameters.AddWithValue("Status", promedio.Status);
                 cmd.Parameters.AddWithValue("Price", promedio.Price);
-                cmd.Parameters.AddWithValue("WhseCode", promedio.WhseCode);
-                cmd.Parameters.AddWithValue("WhseTag",promedio.WhseTag);
+                cmd.Parameters.AddWithValue("TipoPrecio", promedio.TipoPrecio);
+                cmd.Parameters.AddWithValue("Almacen", promedio.Almacen);
+                cmd.Parameters.AddWithValue("TipoFecha", promedio.TipoFecha);
+                cmd.Parameters.AddWithValue("Validez", promedio.Validez);
+                cmd.Parameters.AddWithValue("OfferDate", promedio.OfferDate);
+                cmd.Parameters.AddWithValue("CropYear", promedio.CropYear);
+                cmd.Parameters.AddWithValue("Maturity", promedio.Maturity);
                 cmd.Parameters.AddWithValue("C1",promedio.C1);
                 cmd.Parameters.AddWithValue("C2",promedio.C2);
                 cmd.Parameters.AddWithValue("Leaf",promedio.Leaf);
                 cmd.Parameters.AddWithValue("Stpl",promedio.Stpl);
                 cmd.Parameters.AddWithValue("Mic",promedio.Mic );
                 cmd.Parameters.AddWithValue("Str",promedio.Str);
-                cmd.Parameters.AddWithValue("LRR",promedio.LRR);
-                cmd.Parameters.AddWithValue("CropYear",promedio.CropYear );
-                cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );
-                cmd.Parameters.AddWithValue("Comp", promedio.Comp);
+                cmd.Parameters.AddWithValue("LRR",promedio.LRR);                
+                cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );                
                 cmd.Parameters.AddWithValue("Len",promedio.Len );
                 cmd.Parameters.AddWithValue("Ext",promedio.Ext );
                 cmd.Parameters.AddWithValue("RD",promedio.RD );
                 cmd.Parameters.AddWithValue("PlusB",promedio.PlusB );
                 cmd.Parameters.AddWithValue("Uni",promedio.Uni );
-                cmd.Parameters.AddWithValue("Trash",promedio.Trash );
-                cmd.Parameters.AddWithValue("StorageDate", promedio.StorageDate);
-                cmd.Parameters.AddWithValue("Status", "En revision");
+                cmd.Parameters.AddWithValue("Trash",promedio.Trash );       
 
                 cn.Open();
                 cmd.ExecuteNonQuery();

@@ -3,27 +3,29 @@
     public class HVI
     {
         public int ID { get; set; }
-        public int WhseCode { get; set; }
-        public int WhseTag { get; set; }
-        public int C1 { get; set; }
-        public int C2 { get; set; }
-        public int Leaf { get; set; }
-        public int Stpl { get; set; }
-        public int Mic { get; set; }
-        public float Str { get; set; }
-        public float LRR { get; set; }
+        public string Status { get; set; } = "En revision";
+        public int Price { get; set; }
+        public string TipoPrecio { get; set; }
+        public string Almacen { get; set; }
+        public string Validez { get; set; }
+        public string TipoFecha { get; set; }
+        public DateTime OfferDate { get; set; } = DateTime.UtcNow;
         public int CropYear { get; set; }
-        public int NetWeight { get; set; }
-        public string Comp { get; set; }
-        public int Len { get; set; }
-        public int Ext { get; set; }
+        public string Maturity { get; set; }
+        public decimal C1 { get; set; }
+        public decimal C2 { get; set; }
+        public decimal Leaf { get; set; }
+        public decimal Stpl { get; set; }
+        public decimal Mic { get; set; }
+        public float Str { get; set; }
+        public float LRR { get; set; }        
+        public decimal NetWeight { get; set; }
+        public decimal Len { get; set; }
+        public decimal Ext { get; set; }
         public float RD { get; set; }
-        public int PlusB { get; set; }
+        public decimal PlusB { get; set; }
         public float Uni { get; set; }
-        public int Trash { get; set; }
-        public DateTime StorageDate { get; set; }
-        public float Price { get; set; }
-        public string Status { get; set; }
+        public decimal Trash { get; set; }  
 
     }
 }

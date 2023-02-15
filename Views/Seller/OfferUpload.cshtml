@@ -6,36 +6,34 @@
 
 
 
-<div class="d-flex flex-column justify-content-center align-items-center w-100">
 
-    <div class="row">
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-center align-items-center">
+      <h2>Upload your offer</h2>
+  </div>
+</div>
+
+
+    <div id="mainDiv" class="row">
         <div class="col-12">
-            <h2>Upload your offer</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">Cargar Excel </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label id="labelInput" style="cursor:pointer;" class="pointer-event text-primary fw-bold" for="inputExcel"><span><i class="bi bi-file-earmark-arrow-up text-primary"></i></span> Seleccionar archivo</label>
-                            <input class="form-control-file visually-hidden" type="file" id="inputExcel" onclick="mostrarBoton()" />
-                        </div>
-                        <div class="col-sm-4 gap-2">
-                            <div>
-                                <input type="number" id="priceInput" class="w-25" placeholder="PRECIO" /> <input type="text" id="compInput" class="w-25" placeholder="COMPOSICION" /> <input type="number" id="WhseCodeInput" class="w-25" placeholder="WHSECODE" /> <input type="number" id="WhseTagInput" class="w-25" placeholder="WHSETAG" /> <input type="number" id="CropYearInput" class="w-25" placeholder="CROP YEAR" /> 
-                            </div>
-                            
-                            <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
-                            <button id="mostrar2" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarPromedio()">Mostrar Promedio</button>
-                            <button id="mostrar3" class="btn btn-primary text-white fw-bold visually-hidden" onclick="insertData()">Insert</button>
-                            <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="enviarBaseDatos()">Subir oferta</button>
-                        </div>
+                <div class="d-flex flex-row align-items-center justify-content-between card-header">
+                    <div id="excel">1 de 3 - Cargar HVI </div>
+                    <div>
+                        <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
+                        <button id="siguiente1" class="btn btn-primary text-white fw-bold visually-hidden" onclick="seguir1()">Siguiente</button>                                               
                     </div>
+                </div>     
+                
+                <div class="card-body">
 
-                    <hr />
+                 <div id="fileInput" class="col-sm-4">
+                    <label id="labelInput" style="cursor:pointer;" class="pointer-event text-primary fw-bold" for="inputExcel"><span><i class="bi bi-file-earmark-arrow-up text-primary"></i></span> Seleccionar archivo</label>
+                    <input class="form-control-file visually-hidden" type="file" id="inputExcel" onclick="mostrarBoton()" />
+                 </div>  
+                
+                <hr id="mainHr" class="" />
 
                     <div class="row" style=" max-height:60vh; overflow:scroll;">
                         <div class="col-sm-12">
@@ -65,45 +63,154 @@
                                 <div class="spinner-border" role="status"></div>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div id="xd" class="card-body visually-hidden">Promedio</div>
-                            <table id="tbAvg" class="table table-striped visually-hidden">
-                                <thead>
-                                    <tr>
-                                        <th>C1</th>
-                                        <th>C2</th>
-                                        <th>Leaf</th>
-                                        <th>Stpl</th>
-                                        <th>Mic</th>
-                                        <th>Str</th>
-                                        <th>LRR</th>
-                                        <th>NetWeight</th>
-                                        <th>Len</th>
-                                        <th>Ext</th>
-                                        <th>RD</th>
-                                        <th>PlusB</th>
-                                        <th>Uni</th>
-                                        <th>Trash</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableBody2">
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
+                    </div>              
                 </div>
             </div>
         </div>
-
     </div>
 
-</div>
-   
+    <div id="formDiv" class="row visually-hidden w-50 mx-auto">
+       <div class="col-sm-12">
+            <div class="card ">
+                <div class="d-flex flex-row align-items-center justify-content-between card-header">
+                    <div id="excel">2 de 3 - datos de la oferta </div>
+                    <div>
+                        <button id="siguiente2" class="btn btn-primary text-white fw-bold" onclick="seguir2(); return false;">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    
+                            <form class="col-12 d-flex flex-column justify-content-between gap-1">
+                                <div>
+                                    <div class="form-group">
+                                        @* <label class="fw-bold" for="priceInput">PRECIO</label>*@
+                                        <input type="number" id="priceInput" class="form-control w-50" placeholder="PRECIO" />
+                                      
+                                            <input type="radio" id="fixPrice" name="priceType" value="Precio fijo">
+                                            <label class="fw-bold" for="fixPrice">Precio fijo</label>
+
+                                            <br />
+
+                                            <input type="radio" id="marketPlusPrice" name="priceType" value="Mercado mas precio">
+                                            <label class="fw-bold" for="marketPlusPrice">Mercado mas precio</label>                                                                       
+                                        
+                                    </div>
+
+                                    <br />
+
+                                    <div class="form-group">
+                                        <label class="fw-bold" for="almacenInput">ALMACEN</label>
+                                        <select id="almacenInput">
+                                            <option value="Monterrey">Monterrey</option>
+                                            <option value="DF">DF</option>
+                                            <option value="Cancun">Cancun</option>
+                                        </select>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="form-group">
+                                        <label class="fw-bold" for="validezInput">VALIDEZ</label>
+                                        <input type="date" id="validezInput" class="form-control w-50" />
+
+                                        <input type="radio" id="fixDate" name="validityType" value="Fecha fija">
+                                        <label class="fw-bold" for="fixDate">Fecha fija</label>
+
+                                        <br />
+
+                                        <input type="radio" id="GTC" name="validityType" value="GTC">
+                                        <label class="fw-bold" for="GTC">GTC</label>
+                                    </div>
+                                </div>
+
+                                <br />
+
+                                <div>
+
+                                    <div class="form-group">
+                                        @*<label class="fw-bold" for="CropYearInput">AÑO DE COCECHA</label>*@
+                                        <input type="number" id="CropYearInput" class="form-control w-50" placeholder="AÑO DE COCECHA" />
+                                    </div>
+
+                                    <br />
+
+                                    <div class="form-group">
+                                        @*<label class="fw-bold" for="MaturityInput">Madurez</label>*@
+                                        <input type="text" id="MaturityInput" class="form-control w-50" placeholder="Madurez" />
+                                    </div>
+                                    <br />
+
+                                </div>
+
+                            </form>
+                       
+                </div>
+            </div>
+       </div>
+    </div>
+
+    <div id="uploadDiv" class="row visually-hidden  w-50 mx-auto">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="d-flex flex-row align-items-center justify-content-between card-header">
+                    <div id="excel">3 de 3 - Confirmacion de oferta</div>
+                    <div>
+                    <button id="siguiente3" class="btn btn-primary text-white fw-bold" onclick="mostrarPromedio()">Confirmar oferta</button>
+                    <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="enviarBaseDatos()">Cargar oferta</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">    
+                
+                <div class="col-12 d-flex flex-column justify-content-between gap-1">
+                     <input type="text" readonly id="priceReadOnly" class="w-50 form-control" placeholder="PRECIO" />
+
+                     <input type="text" readonly id="priceTypeReadOnly" class="w-50 form-control" placeholder="PRECIO tipo">
+        
+                     <input type="text" readonly id="almacenReadOnly" class="w-50 form-control" placeholder="almacen">
+
+                     <input type="text" readonly id="validezReadOnly" class="w-50 form-control" placeholder="validez" />
+
+                     <input type="text" readonly id="validezTypeReadOnly" class="w-50 form-control" placeholder="validez type" />
+
+                     <input type="text" readonly id="CropYearReadOnly" class="w-50 form-control" placeholder="AÑO DE COCECHA" />
+
+                     <input type="text" readonly id="MaturityReadOnly" class="w-50 form-control" placeholder="Madurez" />
+                </div>                 
+                
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 id="xd" class="card-body">Promedio</h3>
+                        <table id="tbAvg" class="table table-striped">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>C1</th>
+                                    <th>C2</th>
+                                    <th>Leaf</th>
+                                    <th>Stpl</th>
+                                    <th>Mic</th>
+                                    <th>Str</th>
+                                    <th>LRR</th>
+                                    <th>NetWeight</th>
+                                    <th>Len</th>
+                                    <th>Ext</th>
+                                    <th>RD</th>
+                                    <th>PlusB</th>
+                                    <th>Uni</th>
+                                    <th>Trash</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody2">
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+
+            </div>
+       </div>       
+    </div> 
 
 
 
@@ -111,21 +218,36 @@
     <script>
         const input = document.getElementById("inputExcel")
         const mostrar = document.getElementById("mostrar")
-        const mostrar2 = document.getElementById("mostrar2")
-        const mostrar3 = document.getElementById("tbAvg")
-        const mostrar4 = document.getElementById("xd")
-        const enviar = document.getElementById("enviar")
         const tableBody = document.getElementById("tableBody")
         const loadingSpinner = document.getElementById("loadingSpinner")
         const tbData = document.getElementById("tbData")
         const enviardb = document.getElementById("enviardb")
         const priceInput = document.getElementById("priceInput")
-        const compInput = document.getElementById("compInput")
-        const WhseCodeInput = document.getElementById("WhseCodeInput")
-        const WhseTagInput = document.getElementById("WhseTagInput")
+        const almacenInput = document.getElementById("almacenInput")
+        const validezInput = document.getElementById("validezInput")
+        const fixDate = document.getElementById("fixDate")
         const CropYearInput = document.getElementById("CropYearInput")
+        const formDiv = document.getElementById("formDiv")
+        const mainDiv = document.getElementById("mainDiv")
+        const fileInput = document.getElementById("fileInput")
+        const excel = document.getElementById("excel")
+        const mainHr = document.getElementById("mainHr")
+        const fixPrice = document.getElementById("fixPrice")
+        const marketPlusPrice = document.getElementById("marketPlusPrice")
+        const GTC = document.getElementById("GTC")
+        const MaturityInput = document.getElementById("MaturityInput")
+        const siguiente1 = document.getElementById("siguiente1")
+        const siguiente2 = document.getElementById("siguiente2")
+        const siguiente3 = document.getElementById("siguiente3")
+        const uploadDiv = document.getElementById("uploadDiv")
+        const priceReadOnly = document.getElementById("priceReadOnly")
+        const almacenReadOnly = document.getElementById("almacenReadOnly")
+        const validezReadOnly = document.getElementById("validezReadOnly")
+        const CropYearReadOnly = document.getElementById("CropYearReadOnly")
+        const MaturityReadOnly = document.getElementById("MaturityReadOnly")
+        const priceTypeReadOnly = document.getElementById("priceTypeReadOnly")
+        const validezTypeReadOnly = document.getElementById("validezTypeReadOnly")   
         let postData = {}
-        let arrayPromedio = []
 
         function mostrarBoton() {
             mostrar.classList.remove('visually-hidden');
@@ -136,10 +258,6 @@
 
         function mostrarDatos() {
 
-            if (compInput.value == "" || priceInput.value == "" || WhseCodeInput.value == "" || WhseTagInput.value == "" || CropYearInput.value == "") {
-                alert("Los campos \"PRECIO\", \"COMPOSICION\", \"WHSECODE\", \"WHSETAG\", \"CROP YEAR\" deben tener un valor asignado")
-            }
-            else{
                 loadingSpinner.classList.remove("d-none");
 
                 const formData = new FormData()
@@ -171,18 +289,39 @@
                                     $("<td>").text(item.Trash)
                                 )
                             )
-                        })
-                        mostrar.classList.add('visually-hidden');
+                        })                       
                         loadingSpinner.classList.add("d-none");
-                        mostrar2.classList.remove('visually-hidden')
-                    })
-            }                   
+                        mostrar.classList.add("visually-hidden")
+                        siguiente1.classList.remove("visually-hidden")
+                    })                             
+        }
+
+        function seguir1(){
+            mainHr.classList.add('visually-hidden')
+            fileInput.classList.add('visually-hidden');
+            excel.classList.add('visually-hidden');
+            tbData.classList.add('visually-hidden');
+            mainDiv.classList.add('visually-hidden');
+            siguiente1.classList.add("visually-hidden")
+            formDiv.classList.remove("visually-hidden")
+        }
+
+        function seguir2(){
+            formDiv.classList.add("visually-hidden")
+            uploadDiv.classList.remove("visually-hidden")
+
+            priceReadOnly.value = priceInput.value
+            priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
+            almacenReadOnly.value = almacenInput.value
+            validezReadOnly.value = validezInput.value
+            validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
+            CropYearReadOnly.value  = CropYearInput.value
+            MaturityReadOnly.value = MaturityInput.value
         }
 
         function mostrarPromedio(){
-            mostrar3.classList.remove('visually-hidden');
-            mostrar4.classList.remove('visually-hidden');
-            tbData.classList.add('visually-hidden')
+            siguiente3.classList.add("visually-hidden")
+            enviardb.classList.remove("visually-hidden")
             const table=document.getElementById("tableBody");
             const table2=document.getElementById("tableBody2");
             const rows=table.rows.length;
@@ -208,18 +347,17 @@
             table2.innerHTML += tableContent;
 
 
-            proms.push(priceInput.value);
-            proms.push(compInput.value);
-            proms.push(WhseCodeInput.value);
-            proms.push(WhseTagInput.value);
-            proms.push(CropYearInput.value);
+            proms.push(priceReadOnly.value);
+            proms.push(priceTypeReadOnly.value);
+            proms.push(almacenReadOnly.value);
+            proms.push(validezReadOnly.value);
+            proms.push(validezTypeReadOnly.value);
+            proms.push(CropYearReadOnly.value);
+            proms.push(MaturityReadOnly.value);            
 
 
             postData = {values: proms};
             console.log(postData)
-
-            mostrar2.classList.add('visually-hidden');
-            enviardb.classList.remove('visually-hidden')
         }
 
         function enviarBaseDatos() {
@@ -230,8 +368,7 @@
                 datatype: "json",
                 traditional: true
           });
-          alert("¡Oferta subida con exito!")
-            window.location.href = '/Home/HviAPI'
+            //window.location.href = '/Home/HviAPI'
         }
 
          //function insertData(){
