@@ -2,15 +2,18 @@
 {
     public class Promedios
     {
+
+        public string User { get; set; }
         public string Status { get; set; } = "En revision";
-        public decimal Price { get; set; }
-        public string TipoPrecio { get; set; }
-        public string Almacen { get; set; }
-        public string TipoFecha { get; set; }
-        public string Validez { get; set; }
+        public string Price { get; set; }
+        public string PriceType { get; set; }
+        public string Warehouse { get; set; }
+        public DateTime ValidityDate { get; set; }
+        public string ValidityType { get; set; }
         public DateTime OfferDate { get; set; } = DateTime.UtcNow;
         public int CropYear { get; set; }
         public string Maturity { get; set; }
+        public string Comp { get; set; } //dato manual
         public decimal C1 { get; set; }
         public decimal C2 { get; set; }
         public decimal Leaf { get; set; }

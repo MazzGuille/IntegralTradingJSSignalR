@@ -26,15 +26,17 @@ namespace IntegralTradingJS.Repository
                         hviList.Add(new HVI
                         {
                             ID = Convert.ToInt32(reader["ID"]),
+                            User = reader["User"].ToString(),//add
                             Status = reader["status"].ToString(),
                             Price = Convert.ToDecimal(reader["Price"]),
-                            TipoPrecio = reader["TipoPrecio"].ToString(),
-                            Almacen = reader["Almacen"].ToString(),
-                            Validez = reader["Validez"].ToString(),
-                            TipoFecha = reader["TipoFecha"].ToString(),
+                            PriceType = reader["TipoPrecio"].ToString(),//change to english
+                            Warehouse = reader["Almacen"].ToString(),//change to english
+                            ValidityDate = Convert.ToDateTime(reader["Validez"]),//change to english
+                            ValidityType = reader["TipoFecha"].ToString(),//change to english
                             OfferDate = Convert.ToDateTime(reader["OfferDate"]),
                             CropYear = Convert.ToInt32(reader["CropYear"]),
                             Maturity = reader["Maturity"].ToString(),
+                            Comp = reader["Comp"].ToString(),//add
                             C1 = Convert.ToInt32(reader["C1"]),
                             C2 = Convert.ToInt32(reader["C2"]),
                             Leaf = Convert.ToInt32(reader["Leaf"]),
@@ -77,15 +79,17 @@ namespace IntegralTradingJS.Repository
                 SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
+                cmd.Parameters.AddWithValue("User", promedio.User);//add
                 cmd.Parameters.AddWithValue("Status", promedio.Status);
                 cmd.Parameters.AddWithValue("Price", promedio.Price);
-                cmd.Parameters.AddWithValue("TipoPrecio", promedio.TipoPrecio);
-                cmd.Parameters.AddWithValue("Almacen", promedio.Almacen);
-                cmd.Parameters.AddWithValue("TipoFecha", promedio.TipoFecha);
-                cmd.Parameters.AddWithValue("Validez", promedio.Validez);
+                cmd.Parameters.AddWithValue("TipoPrecio", promedio.PriceType);//change to english
+                cmd.Parameters.AddWithValue("Almacen", promedio.Warehouse);//change to english
+                cmd.Parameters.AddWithValue("Validez", promedio.ValidityDate);//change to english
+                cmd.Parameters.AddWithValue("TipoFecha", promedio.ValidityType);//change to english
                 cmd.Parameters.AddWithValue("OfferDate", promedio.OfferDate);
                 cmd.Parameters.AddWithValue("CropYear", promedio.CropYear);
                 cmd.Parameters.AddWithValue("Maturity", promedio.Maturity);
+                cmd.Parameters.AddWithValue("Comp", promedio.Comp);//add
                 cmd.Parameters.AddWithValue("C1",promedio.C1);
                 cmd.Parameters.AddWithValue("C2",promedio.C2);
                 cmd.Parameters.AddWithValue("Leaf",promedio.Leaf);

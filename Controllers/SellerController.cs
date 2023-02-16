@@ -94,13 +94,15 @@ namespace IntegralTradingJS.Controllers
                 PlusB = Convert.ToDecimal(values[11]),
                 Uni = Convert.ToDecimal(values[12]),
                 Trash = Convert.ToDecimal(values[13]),
-                Price = Convert.ToDecimal(values[14]),
-                TipoPrecio = values[15].ToString(),
-                Almacen = values[16].ToString(),
-                Validez = values[17].ToString(),
-                TipoFecha = values[18].ToString(),
+                Price = values[14].ToString(),
+                PriceType = values[15].ToString(),
+                Warehouse = values[16].ToString(),                
+                ValidityDate= Convert.ToDateTime(values[17]),
+                ValidityType = values[18].ToString(),
                 CropYear = Convert.ToInt32(values[19]),
-                Maturity = values[20].ToString()
+                Maturity = values[20].ToString(),
+                Comp = values[21].ToString(),
+                User = values[22].ToString()
             };
 
             _hviService.InsertData(promedio);

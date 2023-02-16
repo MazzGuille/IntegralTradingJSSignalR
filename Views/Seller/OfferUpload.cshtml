@@ -86,7 +86,7 @@
                                 <div>
                                     <div class="form-group">
                                         @* <label class="fw-bold" for="priceInput">PRECIO</label>*@
-                                        <input type="number" id="priceInput" class="form-control w-50" placeholder="PRECIO" />
+                                        <input type="text" id="priceInput" class="form-control w-50" placeholder="PRECIO" />
                                       
                                             <input type="radio" checked="checked" id="fixPrice" name="priceType" value="Precio fijo">
                                             <label class="fw-bold" for="fixPrice">Precio fijo</label>
@@ -130,11 +130,19 @@
                                 <div>
 
                                     <div class="form-group">
-                                        @*<label class="fw-bold" for="CropYearInput">AÑO DE COCECHA</label>*@
-                                        <input type="number" id="CropYearInput" class="form-control w-50" placeholder="AÑO DE COCECHA" />
+                                        @*<label class="fw-bold" for="UserInput">USUARIO</label>*@
+                                        <input type="text" id="UserInput" class="form-control w-50 mb-1" placeholder="USUARIO" />
                                     </div>
 
-                                    <br />
+                                     <div class="form-group">
+                                        @*<label class="fw-bold" for="CompInput">Comp</label>*@
+                                        <input type="text" id="CompInput" class="form-control w-50 mb-1" placeholder="Comp" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        @*<label class="fw-bold" for="CropYearInput">AÑO DE COCECHA</label>*@
+                                        <input type="text" id="CropYearInput" class="form-control w-50 mb-1" placeholder="AÑO DE COCECHA" />
+                                    </div>                                   
 
                                     <div class="form-group">
                                         @*<label class="fw-bold" for="MaturityInput">Madurez</label>*@
@@ -168,6 +176,9 @@
                 <div class="p-1" style="border: .5px solid lightgray">
                     <div class="col-12 d-flex flex-row justify-content-between gap-1">
                         <div>
+                            <label for="userReadOnly">Usuario</label>
+                            <input type="text" readonly id="userReadOnly" class="w-100 mb-1 form-control" placeholder="Usuario" />
+
                             <label for="priceReadOnly">Precio</label>
                             <input type="text" readonly id="priceReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO" />
 
@@ -182,6 +193,9 @@
                         </div>
 
                         <div>
+                            <label for="compReadOnly">Comp</label>
+                            <input type="text" readonly id="compReadOnly" class="w-100 mb-1 form-control" placeholder="Comp" />
+
                             <label for="validezTypeReadOnly">Tipo de validez</label>
                             <input type="text" readonly id="validezTypeReadOnly" class="w-100 mb-1 form-control" placeholder="validez type" />
 
@@ -267,6 +281,10 @@
         const validezTypeReadOnly = document.getElementById("validezTypeReadOnly")
         const anterior = document.getElementById("anterior")
         const anterior2 = document.getElementById("anterior2")
+        const UserInput = document.getElementById("UserInput")
+        const CompInput = document.getElementById("CompInput")
+        const compReadOnly = document.getElementById("compReadOnly")
+        const userReadOnly = document.getElementById("userReadOnly")
         let postData = {}
 
         function mostrarBoton() {
@@ -342,6 +360,8 @@
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
                 MaturityReadOnly.value = MaturityInput.value
+                userReadOnly.value = UserInput.value
+                compReadOnly.value = CompInput.value
 
                 enviardb.classList.remove("visually-hidden")
                 const table = document.getElementById("tableBody");
@@ -375,6 +395,8 @@
                 proms.push(validezTypeReadOnly.value);
                 proms.push(CropYearReadOnly.value);
                 proms.push(MaturityReadOnly.value);
+                proms.push(compReadOnly.value);
+                proms.push(userReadOnly.value);
 
 
                 postData = { values: proms };
