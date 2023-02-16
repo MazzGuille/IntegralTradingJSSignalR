@@ -18,7 +18,7 @@ namespace IntegralTradingJS.Controllers
         public IActionResult Index()
         {
             return View();
-        }
+        }       
 
         public async Task<IActionResult> GetHvi()
         {

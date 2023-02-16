@@ -247,6 +247,15 @@
 
 @section Scripts{
     <script>
+       const userName = document.addEventListener('DOMContentLoaded', function(){
+            fetch("/Seller/Username", {
+                method: "GET",
+            }).then(response =>{
+                console.log(response)
+            });
+       });     
+
+
         const input = document.getElementById("inputExcel")
         const mostrar = document.getElementById("mostrar")
         const tableBody = document.getElementById("tableBody")
@@ -295,6 +304,7 @@
         }
 
         function mostrarDatos() {
+            console.log(userName.value)
 
                 loadingSpinner.classList.remove("d-none");
 
@@ -351,7 +361,7 @@
             else{
 
                 formDiv.classList.add("visually-hidden")
-                uploadDiv.classList.remove("visually-hidden")
+                uploadDiv.classList.remove("visually-hidden")                
 
                 priceReadOnly.value = priceInput.value
                 priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
@@ -426,7 +436,11 @@
                 }
           });
            
-        }        
+        }
+
+      
+
+       
 
          //function insertData(){
          //     //IntegralTradingJS.IntegralTradingJS.Repository.InsertData(600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22);

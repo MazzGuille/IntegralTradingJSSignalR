@@ -111,6 +111,19 @@ namespace IntegralTradingJS.Repository
 
         }
 
-
+        public async Task<string> SelectUser()
+        {
+            string user;
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_SelectUser", cn);
+                cmd.Parameters.AddWithValue("Id", 1);
+                cmd.CommandType = CommandType.StoredProcedure;
+                user =  cmd.ExecuteScalar().ToString();
+            } 
+            
+            return user;
+        }
     }
 }

@@ -74,6 +74,14 @@ namespace IntegralTradingJS.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<string> Username()
+        {
+           string user = await _hviService.SelectUser();
+
+            return user;
+        }
+
         [HttpPost]
         public void InsertData(List<string> values)
         {

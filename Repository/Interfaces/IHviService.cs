@@ -7,5 +7,6 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task<IEnumerable<HVI>> GetHvi();
         Task UpdateStatus(int ob);
         void InsertData(Promedios promedio);
+        Task<string> SelectUser();
     }
 }
