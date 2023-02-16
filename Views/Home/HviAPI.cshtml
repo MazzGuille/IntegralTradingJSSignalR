@@ -99,7 +99,7 @@ Html.DevExtreme().DataGrid<HVI>()
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 100000);
+                }, 60000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
