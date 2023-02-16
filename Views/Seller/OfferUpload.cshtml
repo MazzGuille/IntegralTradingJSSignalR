@@ -87,7 +87,7 @@
                                         @* <label class="fw-bold" for="priceInput">PRECIO</label>*@
                                         <input type="number" id="priceInput" class="form-control w-50" placeholder="PRECIO" />
                                       
-                                            <input type="radio" id="fixPrice" name="priceType" value="Precio fijo">
+                                            <input type="radio" checked="checked" id="fixPrice" name="priceType" value="Precio fijo">
                                             <label class="fw-bold" for="fixPrice">Precio fijo</label>
 
                                             <br />
@@ -114,7 +114,7 @@
                                         <label class="fw-bold" for="validezInput">VALIDEZ</label>
                                         <input type="date" id="validezInput" class="form-control w-50" />
 
-                                        <input type="radio" id="fixDate" name="validityType" value="Fecha fija">
+                                        <input type="radio" checked="checked" id="fixDate" name="validityType" value="Fecha fija">
                                         <label class="fw-bold" for="fixDate">Fecha fija</label>
 
                                         <br />
@@ -163,25 +163,36 @@
             </div>
             <div class="card-body">    
                 
-                <div class="col-12 d-flex flex-column justify-content-between gap-1">
-                     <input type="text" readonly id="priceReadOnly" class="w-50 form-control" placeholder="PRECIO" />
+                <div class="col-12 d-flex flex-row justify-content-between gap-1">
+                    <div>
+                        <label for="priceReadOnly">Precio</label>
+                        <input type="text" readonly id="priceReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO" />
 
-                     <input type="text" readonly id="priceTypeReadOnly" class="w-50 form-control" placeholder="PRECIO tipo">
-        
-                     <input type="text" readonly id="almacenReadOnly" class="w-50 form-control" placeholder="almacen">
+                        <label for="priceTypeReadOnly">Tipo de precio</label>
+                        <input type="text" readonly id="priceTypeReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO tipo">
+                     
+                        <label for="almacenReadOnly">Almacen</label>
+                        <input type="text" readonly id="almacenReadOnly" class="w-100 mb-1 form-control" placeholder="almacen">
 
-                     <input type="text" readonly id="validezReadOnly" class="w-50 form-control" placeholder="validez" />
+                     <label for="validezReadOnly">Validez de la oferta</label>
+                     <input type="text" readonly id="validezReadOnly" class="w-100 mb-1 form-control" placeholder="validez" />
+                    </div>
 
-                     <input type="text" readonly id="validezTypeReadOnly" class="w-50 form-control" placeholder="validez type" />
+                    <div>
+                        <label for="validezTypeReadOnly">Tipo de validez</label>
+                        <input type="text" readonly id="validezTypeReadOnly" class="w-100 mb-1 form-control" placeholder="validez type" />
 
-                     <input type="text" readonly id="CropYearReadOnly" class="w-50 form-control" placeholder="AÑO DE COCECHA" />
+                        <label for="CropYearReadOnly">Año de la cocecha</label>
+                        <input type="text" readonly id="CropYearReadOnly" class="w-100 mb-1 form-control" placeholder="AÑO DE COCECHA" />
 
-                     <input type="text" readonly id="MaturityReadOnly" class="w-50 form-control" placeholder="Madurez" />
-                </div>                 
-                
+                        <label for="MaturityReadOnly">Madurez</label>
+                        <input type="text" readonly id="MaturityReadOnly" class="w-100 mb-1 form-control" placeholder="Madurez" />
+                    </div>                   
+                    
+                </div>
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col">
                         <h3 id="xd" class="card-body">Promedio</h3>
                         <table id="tbAvg" class="table table-striped">
                             <thead class="bg-light">
@@ -206,7 +217,7 @@
                             </tbody>
                         </table>
                     </div>
-                  </div>
+                </div>  
 
             </div>
        </div>       
@@ -307,16 +318,23 @@
         }
 
         function seguir2(){
-            formDiv.classList.add("visually-hidden")
-            uploadDiv.classList.remove("visually-hidden")
+            if (priceInput.value == "" || validezInput.value == "" || CropYearInput.value == "" || MaturityInput.value == "") {
+                alert("Los campos \"PRECIO\", \"VALIDEZ\", \"AÑO DE COSECHA\", \"MADUREZ\" deben tener un valor asignado")
+            }
+            else{
 
-            priceReadOnly.value = priceInput.value
-            priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
-            almacenReadOnly.value = almacenInput.value
-            validezReadOnly.value = validezInput.value
-            validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
-            CropYearReadOnly.value  = CropYearInput.value
-            MaturityReadOnly.value = MaturityInput.value
+                formDiv.classList.add("visually-hidden")
+                uploadDiv.classList.remove("visually-hidden")
+
+                priceReadOnly.value = priceInput.value
+                priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
+                almacenReadOnly.value = almacenInput.value
+                validezReadOnly.value = validezInput.value
+                validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
+                CropYearReadOnly.value = CropYearInput.value
+                MaturityReadOnly.value = MaturityInput.value
+
+            }            
         }
 
         function mostrarPromedio(){
