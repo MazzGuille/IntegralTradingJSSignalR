@@ -75,7 +75,8 @@
                 <div class="d-flex flex-row align-items-center justify-content-between card-header">
                     <div id="excel">2 de 3 - datos de la oferta </div>
                     <div>
-                        <button id="siguiente2" class="btn btn-primary text-white fw-bold" onclick="seguir2(); return false;">Siguiente</button>
+                        <button id="anterior" class="btn btn-primary text-white fw-bold" onclick="volver(); return false;">Volver</button>
+                        <button id="siguiente2" class="btn btn-primary text-white fw-bold" onclick="seguir2(); return false;">Siguiente</button>                       
                     </div>
                 </div>
 
@@ -156,40 +157,45 @@
                 <div class="d-flex flex-row align-items-center justify-content-between card-header">
                     <div id="excel">3 de 3 - Confirmacion de oferta</div>
                     <div>
-                    <button id="siguiente3" class="btn btn-primary text-white fw-bold" onclick="mostrarPromedio()">Confirmar oferta</button>
+                    <button id="anterior2" class="btn btn-primary text-white fw-bold" onclick="volver2(); return false;">Volver</button>
+                    @*<button id="siguiente3" class="btn btn-primary text-white fw-bold" onclick="mostrarPromedio()">Confirmar oferta</button>*@
                     <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="enviarBaseDatos()">Cargar oferta</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">    
                 
-                <div class="col-12 d-flex flex-row justify-content-between gap-1">
-                    <div>
-                        <label for="priceReadOnly">Precio</label>
-                        <input type="text" readonly id="priceReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO" />
+                <div class="p-1" style="border: .5px solid lightgray">
+                    <div class="col-12 d-flex flex-row justify-content-between gap-1">
+                        <div>
+                            <label for="priceReadOnly">Precio</label>
+                            <input type="text" readonly id="priceReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO" />
 
-                        <label for="priceTypeReadOnly">Tipo de precio</label>
-                        <input type="text" readonly id="priceTypeReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO tipo">
-                     
-                        <label for="almacenReadOnly">Almacen</label>
-                        <input type="text" readonly id="almacenReadOnly" class="w-100 mb-1 form-control" placeholder="almacen">
+                            <label for="priceTypeReadOnly">Tipo de precio</label>
+                            <input type="text" readonly id="priceTypeReadOnly" class="w-100 mb-1 form-control" placeholder="PRECIO tipo">
 
-                     <label for="validezReadOnly">Validez de la oferta</label>
-                     <input type="text" readonly id="validezReadOnly" class="w-100 mb-1 form-control" placeholder="validez" />
+                            <label for="almacenReadOnly">Almacen</label>
+                            <input type="text" readonly id="almacenReadOnly" class="w-100 mb-1 form-control" placeholder="almacen">
+
+                            <label for="validezReadOnly">Validez de la oferta</label>
+                            <input type="text" readonly id="validezReadOnly" class="w-100 mb-1 form-control" placeholder="validez" />
+                        </div>
+
+                        <div>
+                            <label for="validezTypeReadOnly">Tipo de validez</label>
+                            <input type="text" readonly id="validezTypeReadOnly" class="w-100 mb-1 form-control" placeholder="validez type" />
+
+                            <label for="CropYearReadOnly">Año de la cocecha</label>
+                            <input type="text" readonly id="CropYearReadOnly" class="w-100 mb-1 form-control" placeholder="AÑO DE COCECHA" />
+
+                            <label for="MaturityReadOnly">Madurez</label>
+                            <input type="text" readonly id="MaturityReadOnly" class="w-100 mb-1 form-control" placeholder="Madurez" />
+                        </div>
+
                     </div>
-
-                    <div>
-                        <label for="validezTypeReadOnly">Tipo de validez</label>
-                        <input type="text" readonly id="validezTypeReadOnly" class="w-100 mb-1 form-control" placeholder="validez type" />
-
-                        <label for="CropYearReadOnly">Año de la cocecha</label>
-                        <input type="text" readonly id="CropYearReadOnly" class="w-100 mb-1 form-control" placeholder="AÑO DE COCECHA" />
-
-                        <label for="MaturityReadOnly">Madurez</label>
-                        <input type="text" readonly id="MaturityReadOnly" class="w-100 mb-1 form-control" placeholder="Madurez" />
-                    </div>                   
-                    
                 </div>
+
+                
 
                 <div class="row">
                     <div class="col">
@@ -230,6 +236,7 @@
         const input = document.getElementById("inputExcel")
         const mostrar = document.getElementById("mostrar")
         const tableBody = document.getElementById("tableBody")
+        const tableBody2 = document.getElementById("tableBody2")
         const loadingSpinner = document.getElementById("loadingSpinner")
         const tbData = document.getElementById("tbData")
         const enviardb = document.getElementById("enviardb")
@@ -257,14 +264,16 @@
         const CropYearReadOnly = document.getElementById("CropYearReadOnly")
         const MaturityReadOnly = document.getElementById("MaturityReadOnly")
         const priceTypeReadOnly = document.getElementById("priceTypeReadOnly")
-        const validezTypeReadOnly = document.getElementById("validezTypeReadOnly")   
+        const validezTypeReadOnly = document.getElementById("validezTypeReadOnly")
+        const anterior = document.getElementById("anterior")
+        const anterior2 = document.getElementById("anterior2")
         let postData = {}
 
         function mostrarBoton() {
-            mostrar.classList.remove('visually-hidden');
             input.addEventListener("change", function () {
             labelInput.innerHTML = input.files[0].name;
             });
+            mostrar.classList.remove("visually-hidden")
         }
 
         function mostrarDatos() {
@@ -307,14 +316,14 @@
                     })                             
         }
 
-        function seguir1(){
-            mainHr.classList.add('visually-hidden')
-            fileInput.classList.add('visually-hidden');
-            excel.classList.add('visually-hidden');
-            tbData.classList.add('visually-hidden');
-            mainDiv.classList.add('visually-hidden');
-            siguiente1.classList.add("visually-hidden")
+        function seguir1(){            
+            mainDiv.classList.add('visually-hidden')
             formDiv.classList.remove("visually-hidden")
+        }
+
+        function volver(){
+            mainDiv.classList.remove('visually-hidden')
+            formDiv.classList.add("visually-hidden")
         }
 
         function seguir2(){
@@ -334,60 +343,68 @@
                 CropYearReadOnly.value = CropYearInput.value
                 MaturityReadOnly.value = MaturityInput.value
 
+                enviardb.classList.remove("visually-hidden")
+                const table = document.getElementById("tableBody");
+                const table2 = document.getElementById("tableBody2");
+                const rows = table.rows.length;
+                const cols = 14;
+                const proms = [];
+                var sumVal = 0;
+
+                for (var j = 0; j < cols; j++) {
+                    for (var i = 0; i < rows; i++) {
+                        sumVal = sumVal + parseFloat(table.rows[i].cells[j].innerHTML);
+                    }
+                    proms.push(parseFloat(sumVal / rows).toFixed(2));
+                    sumVal = 0;
+                }
+
+                var tableContent = '<tr>';
+                for (var i = 0; i < cols; i++) {
+                    tableContent += "<td>" + proms[i] + "</td>";
+                }
+
+                tableContent += '</tr>';
+                table2.innerHTML += tableContent;
+
+
+                proms.push(priceReadOnly.value);
+                proms.push(priceTypeReadOnly.value);
+                proms.push(almacenReadOnly.value);
+                proms.push(validezReadOnly.value);
+                proms.push(validezTypeReadOnly.value);
+                proms.push(CropYearReadOnly.value);
+                proms.push(MaturityReadOnly.value);
+
+
+                postData = { values: proms };
+                console.log(postData)
+
             }            
         }
 
-        function mostrarPromedio(){
-            siguiente3.classList.add("visually-hidden")
-            enviardb.classList.remove("visually-hidden")
-            const table=document.getElementById("tableBody");
-            const table2=document.getElementById("tableBody2");
-            const rows=table.rows.length;
-            const cols = 14;
-            const proms = [];            
-            var sumVal=0;
-
-            for(var j = 0; j < cols; j++){
-                for(var i = 0; i < rows; i++)
-                {
-                    sumVal = sumVal + parseFloat(table.rows[i].cells[j].innerHTML);
-                }
-                proms.push( parseFloat(sumVal / rows).toFixed(2));
-                sumVal=0;
-            }     
-
-            var tableContent = '<tr>';
-            for (var i = 0; i < cols; i++) {
-                tableContent += "<td>" + proms[i] + "</td>";
-            }
-
-            tableContent += '</tr>';
-            table2.innerHTML += tableContent;
-
-
-            proms.push(priceReadOnly.value);
-            proms.push(priceTypeReadOnly.value);
-            proms.push(almacenReadOnly.value);
-            proms.push(validezReadOnly.value);
-            proms.push(validezTypeReadOnly.value);
-            proms.push(CropYearReadOnly.value);
-            proms.push(MaturityReadOnly.value);            
-
-
-            postData = {values: proms};
-            console.log(postData)
-        }
+        function volver2() {
+            formDiv.classList.remove("visually-hidden")
+            uploadDiv.classList.add("visually-hidden")
+            tableBody2.innerHTML=""
+        }       
 
         function enviarBaseDatos() {
           $.ajax({
               type: "POST",
-                url: "/Seller/InsertData",
+                url: "InsertData",
                 data: postData,
                 datatype: "json",
-                traditional: true
+                success: function(data){
+                    alert("oferta subida con exito")
+                    window.location.href = '/Home/HviAPI'
+                },
+                error: function(){
+                    alert("Ha ocurrido un error")
+                }
           });
-            window.location.href = '/Home/HviAPI'
-        }
+           
+        }        
 
          //function insertData(){
          //     //IntegralTradingJS.IntegralTradingJS.Repository.InsertData(600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22);

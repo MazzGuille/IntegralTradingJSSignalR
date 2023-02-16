@@ -18,6 +18,9 @@ builder.Services.AddSignalR();
 
 builder.Services.AddScoped<IHviService, HviService>();
 
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,7 +37,11 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-//COMENTARIO DE PRUEBA
+
+//app.MapControllerRoute(
+//    name: "api",
+//    pattern: "{api}/{controller}/{action}");
+
 app.MapHub<HviHub>("/hvihub");
 
 app.Run();

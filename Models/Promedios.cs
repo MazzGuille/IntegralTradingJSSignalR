@@ -3,7 +3,7 @@
     public class Promedios
     {
         public string Status { get; set; } = "En revision";
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public string TipoPrecio { get; set; }
         public string Almacen { get; set; }
         public string TipoFecha { get; set; }

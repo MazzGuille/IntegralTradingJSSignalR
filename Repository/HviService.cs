@@ -27,7 +27,7 @@ namespace IntegralTradingJS.Repository
                         {
                             ID = Convert.ToInt32(reader["ID"]),
                             Status = reader["status"].ToString(),
-                            Price = (int)Convert.ToDecimal(reader["Price"]),
+                            Price = Convert.ToDecimal(reader["Price"]),
                             TipoPrecio = reader["TipoPrecio"].ToString(),
                             Almacen = reader["Almacen"].ToString(),
                             Validez = reader["Validez"].ToString(),
