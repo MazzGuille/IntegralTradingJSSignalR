@@ -3,7 +3,7 @@
 }
 
 @using IntegralTradingJS.Models;
-
+<button onclick="getHtml()">tocar</button>
 <div id="mainDiv">
 
     @(
@@ -123,6 +123,11 @@
 
         const mainDiv = document.getElementById("mainDiv")
         const formDiv = document.getElementById("formDiv")
+        const bodyTable = document.getElementById("bodyTable")
+
+        function getHtml() {
+            console.log(bodyTable.innerHTML)
+        }
 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/hvihub")
