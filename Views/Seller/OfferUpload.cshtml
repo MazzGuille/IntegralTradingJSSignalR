@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "OfferUpload";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
-    var usuario = ViewBag.user;
 }
 
 
@@ -103,11 +102,7 @@
 
                                     <div class="form-group">
                                         <label class="fw-bold" for="almacenInput">ALMACEN</label>
-                                        <select id="almacenInput">
-                                            <!--<option value="Monterrey">Monterrey</option>
-                                            <option value="DF">DF</option>
-                                            <option value="Cancun">Cancun</option>-->
-                                        </select>
+                                        <select id="almacenInput"></select>
                                     </div>
 
                                     <br />
@@ -129,11 +124,6 @@
                                 <br />
 
                                 <div>
-
-                                    @*<div class="form-group">
-                                        <label class="fw-bold" for="UserInput">USUARIO</label>
-                                        <input type="text" id="UserInput" class="form-control w-50 mb-1" placeholder="USUARIO" />
-                                    </div>*@
 
                                      <div class="form-group">
                                         @*<label class="fw-bold" for="CompInput">Comp</label>*@
@@ -363,7 +353,6 @@
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
                 MaturityReadOnly.value = MaturityInput.value
-                //userReadOnly.value = @usuario
                 compReadOnly.value = CompInput.value
 
                 enviardb.classList.remove("visually-hidden")

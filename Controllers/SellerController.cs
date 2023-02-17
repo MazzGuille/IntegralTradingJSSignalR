@@ -113,17 +113,15 @@ namespace IntegralTradingJS.Controllers
         {
             string user = await _hviService.SelectUser();
 
-            ViewBag.user = user;
-
             return user;
         }
 
         [HttpGet]
-        public async Task<object> GetWhse()
+        public async Task<IEnumerable<Warehouse>> GetWhse()
         {
             var data = await _hviService.GetWhse();
 
-            return data;
+            return data.ToList();
         }
     }
 }
