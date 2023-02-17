@@ -248,15 +248,7 @@
 
 @section Scripts{
     <script>
-       const userName = document.addEventListener('DOMContentLoaded', function(){
-            fetch("/Seller/Username", {
-                method: "GET",
-            }).then(response =>{
-                console.log(response)
-            });
-       });     
-
-
+        
         const input = document.getElementById("inputExcel")
         const mostrar = document.getElementById("mostrar")
         const tableBody = document.getElementById("tableBody")
@@ -305,7 +297,7 @@
         }
 
         function mostrarDatos() {
-            console.log(userName.value)
+           
 
                 loadingSpinner.classList.remove("d-none");
 
@@ -371,7 +363,7 @@
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
                 MaturityReadOnly.value = MaturityInput.value
-                userReadOnly.value = @usuario
+                //userReadOnly.value = @usuario
                 compReadOnly.value = CompInput.value
 
                 enviardb.classList.remove("visually-hidden")
@@ -439,6 +431,7 @@
            
         }
 
+        document.addEventListener('DOMContentLoaded', obtenerWhse())        
         function obtenerWhse(){
             var select = document.getElementById("almacenInput");
             var names = [];
@@ -453,6 +446,15 @@
                   select.appendChild(option);
               }
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', obtenerNombre()) 
+        function obtenerNombre(){
+            $.get("/Seller/Username", function(user){               
+                console.log(user);
+                userReadOnly.value = user
+                console.log("el readonly es: " + userReadOnly.value);
+            })
         }
 
       

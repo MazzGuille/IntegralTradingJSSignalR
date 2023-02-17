@@ -72,17 +72,7 @@ namespace IntegralTradingJS.Controllers
         public ActionResult InsertData()
         {           
             return View();
-        }
-
-        [HttpGet]
-        public async Task<string> Username()
-        {
-           string user = await _hviService.SelectUser();
-
-            ViewBag.user = user;
-
-            return user;
-        }
+        }       
 
         [HttpPost]
         public void InsertData(List<string> values)
@@ -116,6 +106,16 @@ namespace IntegralTradingJS.Controllers
             };
 
             _hviService.InsertData(promedio);
+        }
+
+        [HttpGet]
+        public async Task<string> Username()
+        {
+            string user = await _hviService.SelectUser();
+
+            ViewBag.user = user;
+
+            return user;
         }
 
         [HttpGet]
