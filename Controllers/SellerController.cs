@@ -79,6 +79,8 @@ namespace IntegralTradingJS.Controllers
         {
            string user = await _hviService.SelectUser();
 
+            ViewBag.user = user;
+
             return user;
         }
 

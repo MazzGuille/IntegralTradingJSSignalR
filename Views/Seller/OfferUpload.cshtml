@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "OfferUpload";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var usuario = ViewBag.user;
 }
 
 
@@ -129,10 +130,10 @@
 
                                 <div>
 
-                                    <div class="form-group">
-                                        @*<label class="fw-bold" for="UserInput">USUARIO</label>*@
+                                    @*<div class="form-group">
+                                        <label class="fw-bold" for="UserInput">USUARIO</label>
                                         <input type="text" id="UserInput" class="form-control w-50 mb-1" placeholder="USUARIO" />
-                                    </div>
+                                    </div>*@
 
                                      <div class="form-group">
                                         @*<label class="fw-bold" for="CompInput">Comp</label>*@
@@ -304,7 +305,6 @@
         }
 
         function mostrarDatos() {
-            console.log(userName.value)
 
                 loadingSpinner.classList.remove("d-none");
 
@@ -370,7 +370,7 @@
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
                 MaturityReadOnly.value = MaturityInput.value
-                userReadOnly.value = UserInput.value
+                userReadOnly.value = @usuario
                 compReadOnly.value = CompInput.value
 
                 enviardb.classList.remove("visually-hidden")
