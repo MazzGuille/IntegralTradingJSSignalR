@@ -78,7 +78,7 @@ namespace IntegralTradingJS.Controllers
         public void InsertData(List<string> values)
         {
 
-            Promedios promedio = new Promedios()
+            Promedios promedio = new()
             {
                 C1 = values[0].ToString(),
                 C2 = values[1].ToString(),
