@@ -104,9 +104,9 @@
                                     <div class="form-group">
                                         <label class="fw-bold" for="almacenInput">ALMACEN</label>
                                         <select id="almacenInput">
-                                            <option value="Monterrey">Monterrey</option>
+                                            <!--<option value="Monterrey">Monterrey</option>
                                             <option value="DF">DF</option>
-                                            <option value="Cancun">Cancun</option>
+                                            <option value="Cancun">Cancun</option>-->
                                         </select>
                                     </div>
 
@@ -305,6 +305,7 @@
         }
 
         function mostrarDatos() {
+            console.log(userName.value)
 
                 loadingSpinner.classList.remove("d-none");
 
@@ -436,6 +437,22 @@
                 }
           });
            
+        }
+
+        function obtenerWhse(){
+            var select = document.getElementById("almacenInput");
+            var names = [];
+            $.get( "/Seller/GetWhse", function( data ) {
+                data.forEach(x=> {
+                    names.push(x.Name);
+                });
+              console.log(names);
+              for(var i = 0; i < names.length; i++){
+                  var option = document.createElement("option");
+                  option.text = JSON.stringify(names[i]);
+                  select.appendChild(option);
+              }
+            });
         }
 
       

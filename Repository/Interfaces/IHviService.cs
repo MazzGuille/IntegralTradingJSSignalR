@@ -8,5 +8,6 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task UpdateStatus(int ob);
         void InsertData(Promedios promedio);
         Task<string> SelectUser();
+        Task<IEnumerable<Warehouse>> GetWhse();
     }
 }

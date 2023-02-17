@@ -117,5 +117,13 @@ namespace IntegralTradingJS.Controllers
 
             _hviService.InsertData(promedio);
         }
+
+        [HttpGet]
+        public async Task<object> GetWhse()
+        {
+            var data = await _hviService.GetWhse();
+
+            return data;
+        }
     }
 }
