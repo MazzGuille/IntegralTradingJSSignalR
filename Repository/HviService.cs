@@ -11,6 +11,7 @@ namespace IntegralTradingJS.Repository
         private readonly SqlString sqlString = new();
         private readonly List<HVI> hviList = new();
         private readonly HVI _hvi = new();
+        private readonly List<Warehouse> whseList = new();
         public async Task<IEnumerable<HVI>> GetHvi()
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -124,6 +125,37 @@ namespace IntegralTradingJS.Repository
             } 
             
             return user;
+        }
+
+        public async Task<IEnumerable<Warehouse>> GetWhse()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_GetWhse", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        whseList.Add(new Warehouse
+                        {
+                            Id_whse = Convert.ToInt32(reader["Id_whse"]),
+                            Id_company = Convert.ToInt32(reader["Id_company"]),
+                            Name = Convert.ToString(reader["Name"]),
+                            Region = Convert.ToString(reader["Region"]),
+                            Town = Convert.ToString(reader["Town"]),
+                            State = Convert.ToString(reader["State"]),
+                            Country = Convert.ToString(reader["Country"]),
+                            id_creadorAlmacen = Convert.ToInt32(reader["Id_creadorAlmacen"])
+
+                        });
+                    }
+                }
+            }
+
+            return whseList;
         }
     }
 }
