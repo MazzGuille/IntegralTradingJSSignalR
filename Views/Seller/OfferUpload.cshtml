@@ -430,7 +430,7 @@
               console.log(names);
               for(var i = 0; i < names.length; i++){
                   var option = document.createElement("option");
-                  option.text = JSON.stringify(names[i]);
+                  option.text = names[i];
                   select.appendChild(option);
               }
             });
