@@ -2,56 +2,82 @@
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
+<div id="employeeInfo">
+    <p id="ID"></p>
+    <p id="Price"></p>
+</div>
+
 @using IntegralTradingJS.Models;
 <div id="mainDiv">
 
     @(
-        Html.DevExtreme().DataGrid<HVI>()
-        .ID("bodyTable")
-        .ShowBorders(true)
-        .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
-        .Height(500)
-        .FilterRow(f =>
-        {
-            f.Visible(true);
+      Html.DevExtreme().DataGrid<HVI>()
+              .ID("bodyTable")
+              .ShowBorders(true)
+              .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
+              .Height(500)
+              .FilterRow(f => f.Visible(true))
+              .HeaderFilter(f => f.Visible(true))
+              .ShowColumnLines(true)
+              .ShowRowLines(true)
+              .RowAlternationEnabled(true)
+              .ShowBorders(true)
+              .GroupPanel(p => p.Visible(true))
+              .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+              .Grouping(g => g.AutoExpandAll(false))
+              .RemoteOperations(true)
+              .LoadPanel(loadPanel => loadPanel.Enabled(true))
+              .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+              .Paging(paging => paging.Enabled(false))
+              .AllowColumnResizing(true)
+              .ColumnAutoWidth(true)
+              .FocusedRowEnabled(true)
+              .Editing(e => e.UseIcons(true))
+          .Columns(columns =>
+          {
 
-        })
-        .HeaderFilter(f =>
-        {
-            f.Visible(true);
-        })
+               columns.Add()
+              .Width(25)
+              .Type(GridCommandColumnType.Buttons)            
+              .Buttons(b =>
+              {
+                  b.Add()            
+                  .Hint("Crear oferta")
+                  .Icon("money")
+                  .Visible(true)
+                  .OnClick("getData");                  
+              });
 
-        .ShowColumnLines(true)
-        .ShowRowLines(true)
-        .RowAlternationEnabled(true)
-        .ShowBorders(true)
-        .GroupPanel(p => p.Visible(true))
-        .Sorting(sorting => sorting.Mode(GridSortingMode.None))
-        .Grouping(g => g.AutoExpandAll(false))
-        .RemoteOperations(false)
-        .LoadPanel(loadPanel => loadPanel.Enabled(true))
-        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
-        .Paging(paging => paging.Enabled(false))
-        .AllowColumnResizing(true)
-        .ColumnAutoWidth(true)
-        .FocusedRowEnabled(true)
-        .Editing(e =>
-        {
-            e.UseIcons(true);
-        })
-        .Columns(columns =>
-        {
-            columns.Add()
-            .Width(25)
-            .Type(GridCommandColumnType.Buttons)            
-            .Buttons(b =>
-            {
-             b.Add()
-            .Hint("Crear oferta")
-            .Icon("money")
-            .Visible(true) 
-            .OnClick("redirect");
-            });
+              columns.AddFor(m => m.ID).Name("offerId")
+                                     .Width(25)
+                                     .AllowFiltering(false)
+                                     .AllowSorting(false)
+                    .CellTemplate(@<text>
+                        @(Html.DevExtreme()
+                            .Button()
+                            .Icon("money")
+                            .Type(ButtonType.Normal)
+                            .UseSubmitBehavior(false)
+                            .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
+                        )
+                    </text>);
+
+              columns.AddFor(m => m.Price).Name("priceId")
+                                     .Width(25)
+                                     .AllowFiltering(false)
+                                     .AllowSorting(false)
+                    .CellTemplate(@<text>
+                        @(Html.DevExtreme()
+                            .Button()
+                            .Icon("money")
+                            .Type(ButtonType.Normal)
+                            .UseSubmitBehavior(false)
+                            .OnClick("function(options) {redirectPrice(value); options.stopPropagation; }")
+                        )
+                    </text>);
+
+            
+                
             columns.AddFor(m => m.ID);
             columns.AddFor(m => m.User);
             columns.AddFor(m => m.Status);
@@ -78,15 +104,14 @@
             columns.AddFor(m => m.PlusB);
             columns.AddFor(m => m.Uni);
             columns.AddFor(m => m.Trash);
+            
 
         })
-
-        //activo, cancelado, con oferta, en cierre, vendido
-        )
+    )
 
 </div>
 
-<div id="formDiv" class="visually-hidden">
+<div id="formDiv" class="visually-hidden container">
     <h1>Buyer Page</h1>
 
     <div class="mb-3 w-25">
@@ -113,9 +138,6 @@
 
 </div>
 
-
-
-
 @section Scripts{
     <script src="~/js/dist/browser/signalr.min.js"></script>
     <script>       
@@ -123,6 +145,8 @@
         const mainDiv = document.getElementById("mainDiv")
         const formDiv = document.getElementById("formDiv")
         const bodyTable = document.getElementById("bodyTable")
+        const offerId = document.getElementById("offerId")
+        const sellerPrice = document.getElementById("sellerPrice")
 
         function getHtml() {
             console.log(bodyTable.innerHTML)
@@ -185,25 +209,41 @@
                             RD: x.rd,
                             PlusB: x.plusB,
                             Uni: x.uni,
-                            Trash: x.trash
-                           
+                            Trash: x.trash                           
                         });
                     });               
 
                     $("#bodyTable").dxDataGrid({
                         dataSource: _store.shift()                        
-                    });
-
-                    
+                    });                   
                     
                 });
              });
         });
+           
+         function redirectID(ids) {
+                offerId.value = ids
+                console.log(offerId.value)
+         }
 
-        function redirect(){
+         function redirectPrice(prc) {
+                sellerPrice.value = prc
+            console.log(sellerPrice.value)
+         }
+       
+
+        function getData()
+        {
             mainDiv.classList.add("visually-hidden")
             formDiv.classList.remove("visually-hidden")
+
+            var idData = offerId.value
+            redirectID(idData)
+            var priceData = sellerPrice.value
+            redirectPrice(priceData)
         }
+
+
 
     </script>
 }
