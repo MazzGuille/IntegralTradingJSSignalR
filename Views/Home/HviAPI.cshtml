@@ -119,6 +119,8 @@
         const bodyTable = document.getElementById("bodyTable")
         const offerId = document.getElementById("offerId")
         const sellerPrice = document.getElementById("sellerPrice")
+        const offerPrice = document.getElementById("offerPrice")
+        const descripcion = document.getElementById("descripcion")
         let cells = [{Id: null, Price: null}]
 
         function getHtml() {
@@ -134,6 +136,9 @@
                 method:"PUT",               
                 body: FormData
             });
+
+            offerPrice.value = ""
+            descripcion.value = ""
 
             formDiv.classList.add("visually-hidden")
             mainDiv.classList.remove("visually-hidden")
@@ -200,6 +205,7 @@
             const itemFound = cells.find((x) => {
                 return x.Id == ids
             })
+            console.log(itemFound)
             sellerPrice.value = itemFound.Price
 
             mainDiv.classList.add("visually-hidden")
@@ -214,8 +220,10 @@
                         Id : x.ID,
                         Price : x.Price
                     })
+                    
                 });
             });
+            
         }
          
     </script>
