@@ -196,21 +196,17 @@
         function redirectID(ids) {
             offerId.value = ids
             
-            const itemFound = cells.find((item) => {
-                return item.Id == ids
+            const itemFound = cells.find((x) => {
+                return x.Id == ids
             })
             sellerPrice.value = itemFound.Price
 
             mainDiv.classList.add("visually-hidden")
-            formDiv.classList.remove("visually-hidden")
-
-            console.log(sellerPrice.value)
-         
+            formDiv.classList.remove("visually-hidden")        
         }
 
         document.addEventListener('DOMContentLoaded', listaDataGrid())
         function listaDataGrid(){
-
             $.get("/Home/GetOfferPrice", function (hviList) {
                 hviList.forEach(x => {
                     cells.push({
@@ -218,9 +214,7 @@
                         Price : x.Price
                     })
                 });
-                console.log(cells);
             });
-
         }
          
     </script>
