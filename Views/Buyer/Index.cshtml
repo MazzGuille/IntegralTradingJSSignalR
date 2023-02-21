@@ -30,6 +30,17 @@
 
 @section Scripts{
     <script>
+          const nestUl = document.getElementById("nestUl")
+
+        function removeClass() {
+            if (nestUl.classList.contains("visually-hidden")){
+                nestUl.classList.remove("visually-hidden")
+            }
+            else{
+                nestUl.classList.add("visually-hidden")
+            }
+        }
+
         function changeStatus(){
             fetch("/Buyer/UpdateStatus", {
                 method:"PUT",               

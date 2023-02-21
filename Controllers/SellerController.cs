@@ -123,5 +123,10 @@ namespace IntegralTradingJS.Controllers
 
             return data.ToList();
         }
+
+        public IActionResult PendingOffersList()
+        {
+            return View();
+        }
     }
 }

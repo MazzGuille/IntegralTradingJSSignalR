@@ -1,0 +1,12 @@
+﻿.seller:hover {
+    cursor:pointer;     
+}
+
+.seller {
+    position: relative;
+}
+
+.nestedUl {
+    position: absolute;
+    width: 400%;
+} 

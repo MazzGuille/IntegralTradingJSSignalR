@@ -275,7 +275,17 @@
         const CompInput = document.getElementById("CompInput")
         const compReadOnly = document.getElementById("compReadOnly")
         const userReadOnly = document.getElementById("userReadOnly")
+        const nestUl = document.getElementById("nestUl")
         let postData = {}
+
+        function removeClass() {
+            if (nestUl.classList.contains("visually-hidden")) {
+                nestUl.classList.remove("visually-hidden")
+            }
+            else {
+                nestUl.classList.add("visually-hidden")
+            }
+        }
 
         function mostrarBoton() {
             input.addEventListener("change", function () {

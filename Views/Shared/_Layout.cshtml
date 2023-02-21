@@ -10,6 +10,7 @@
 
     <title>IntegralTradingJS</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/css/layout.css" rel="stylesheet" />
 
     @* Uncomment to use the HtmlEditor control *@
     @* <script src="https://unpkg.com/devextreme-quill@22_2/dist/dx-quill.min.js"></script> *@
@@ -60,6 +61,7 @@
 
     <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+
 </head>
 
 <body style="padding-top: 5rem;">
@@ -77,7 +79,13 @@
 
                     <li class="nav-item"><a id="browse" href="@Url.Action("HviAPI", "Home")" class="nav-link">Home</a></li>
                     <li class="nav-item"><a id="buyer" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
-                    <li class="nav-item"><a id="seller" href="@Url.Action("OfferUpload", "Seller")" class="nav-link">Seller</a></li>
+                    <li class="nav-item seller">
+                        <a onclick="removeClass()" id="seller" class="nav-link">Seller</a>
+                        <ul id="nestUl" class="nestedUl bg-dark visually-hidden">
+                            <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller")" class="nav-link">Crear oferta</a></li>
+                            <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("PendingOffersList", "Seller")" class="nav-link">Ver ofertas pendientes</a></li>
+                        </ul>
+                    </li>
                     
                 </ul>
             </div>
@@ -87,7 +95,8 @@
     <main class="container">
         @RenderBody()
     </main>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false) 
+    
 </body>
 
 </html>

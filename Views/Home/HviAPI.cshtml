@@ -121,7 +121,17 @@
         const sellerPrice = document.getElementById("sellerPrice")
         const offerPrice = document.getElementById("offerPrice")
         const descripcion = document.getElementById("descripcion")
-        let cells = [{Id: null, Price: null}]
+        const nestUl = document.getElementById("nestUl")
+        let cells = [{ Id: null, Price: null }]
+
+        function removeClass() {
+            if (nestUl.classList.contains("visually-hidden")){
+                nestUl.classList.remove("visually-hidden")
+            }
+            else{
+                nestUl.classList.add("visually-hidden")
+            }
+        }
 
         function getHtml() {
             console.log(bodyTable.innerHTML)
