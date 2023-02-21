@@ -35,48 +35,19 @@
               .Editing(e => e.UseIcons(true))
           .Columns(columns =>
           {
-
-               columns.Add()
-              .Width(25)
-              .Type(GridCommandColumnType.Buttons)            
-              .Buttons(b =>
-              {
-                  b.Add()            
-                  .Hint("Crear oferta")
-                  .Icon("money")
-                  .Visible(true)
-                  .OnClick("getData");                  
-              });
-
-              columns.AddFor(m => m.ID).Name("offerId")
-                                     .Width(25)
-                                     .AllowFiltering(false)
-                                     .AllowSorting(false)
-                    .CellTemplate(@<text>
-                        @(Html.DevExtreme()
-                            .Button()
-                            .Icon("money")
-                            .Type(ButtonType.Normal)
-                            .UseSubmitBehavior(false)
-                            .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
-                        )
-                    </text>);
-
-              columns.AddFor(m => m.Price).Name("priceId")
-                                     .Width(25)
-                                     .AllowFiltering(false)
-                                     .AllowSorting(false)
-                    .CellTemplate(@<text>
-                        @(Html.DevExtreme()
-                            .Button()
-                            .Icon("money")
-                            .Type(ButtonType.Normal)
-                            .UseSubmitBehavior(false)
-                            .OnClick("function(options) {redirectPrice(value); options.stopPropagation; }")
-                        )
-                    </text>);
-
-            
+            columns.AddFor(m => m.ID).Name("offerId")
+                                    .Width(35)
+                                    .AllowFiltering(false)
+                                    .AllowSorting(false)
+                .CellTemplate(@<text>
+                    @(Html.DevExtreme()
+                        .Button()
+                        .Icon("money")
+                        .Type(ButtonType.Normal)                        
+                        .UseSubmitBehavior(false)
+                        .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
+                    )
+                </text>);    
                 
             columns.AddFor(m => m.ID);
             columns.AddFor(m => m.User);
@@ -116,17 +87,17 @@
 
     <div class="mb-3 w-25">
         <label for="offerId" class="form-label">ID de la oferta</label>
-        <input type="number" class="form-control" id="offerId">
+        <input readonly type="number" class="form-control" id="offerId">
     </div>
 
     <div class="mb-3 w-25">
         <label for="sellerPrice" class="form-label">Precio ofrecido por el vendedor</label>
-        <input type="number" class="form-control" id="sellerPrice">
+        <input readonly type="number" class="form-control" id="sellerPrice">
     </div>
 
   <div class="mb-3 w-25">
     <label for="offerPrice" class="form-label">Coloca tu oferta</label>
-        <input type="number" class="form-control" id="offerPrice">
+        <input type="text" class="form-control" id="offerPrice">
   </div>
 
   <div class="mb-3 w-50">
@@ -147,6 +118,7 @@
         const bodyTable = document.getElementById("bodyTable")
         const offerId = document.getElementById("offerId")
         const sellerPrice = document.getElementById("sellerPrice")
+        let cells = [{Id: null, Price: null}]
 
         function getHtml() {
             console.log(bodyTable.innerHTML)
@@ -220,31 +192,37 @@
                 });
              });
         });
-           
-         function redirectID(ids) {
-                offerId.value = ids
-                console.log(offerId.value)
-         }
 
-         function redirectPrice(prc) {
-                sellerPrice.value = prc
-            console.log(sellerPrice.value)
-         }
-       
+        function redirectID(ids) {
+            offerId.value = ids
+            
+            const itemFound = cells.find((item) => {
+                return item.Id == ids
+            })
+            sellerPrice.value = itemFound.Price
 
-        function getData()
-        {
             mainDiv.classList.add("visually-hidden")
             formDiv.classList.remove("visually-hidden")
 
-            var idData = offerId.value
-            redirectID(idData)
-            var priceData = sellerPrice.value
-            redirectPrice(priceData)
+            console.log(sellerPrice.value)
+         
         }
 
+        document.addEventListener('DOMContentLoaded', listaDataGrid())
+        function listaDataGrid(){
 
+            $.get("/Home/GetOfferPrice", function (hviList) {
+                hviList.forEach(x => {
+                    cells.push({
+                        Id : x.ID,
+                        Price : x.Price
+                    })
+                });
+                console.log(cells);
+            });
 
+        }
+         
     </script>
 }
 
