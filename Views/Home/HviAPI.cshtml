@@ -10,8 +10,7 @@
 @using IntegralTradingJS.Models;
 <div id="mainDiv">
 
-    @(
-      Html.DevExtreme().DataGrid<HVI>()
+    @(Html.DevExtreme().DataGrid<HVI>()
               .ID("bodyTable")
               .ShowBorders(true)
               .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
@@ -33,22 +32,23 @@
               .ColumnAutoWidth(true)
               .FocusedRowEnabled(true)
               .Editing(e => e.UseIcons(true))
-          .Columns(columns =>
-          {
+
+        .Columns(columns =>
+        {
             columns.AddFor(m => m.ID).Name("offerId")
-                                    .Width(35)
-                                    .AllowFiltering(false)
-                                    .AllowSorting(false)
-                .CellTemplate(@<text>
-                    @(Html.DevExtreme()
-                        .Button()
-                        .Hint("Ofertar")
-                        .Icon("money")
-                        .Type(ButtonType.Normal)                        
-                        .UseSubmitBehavior(false)
-                        .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
-                    )
-                </text>);    
+                                     .Width(35)
+                                     .AllowFiltering(false)
+                                     .AllowSorting(false)
+                                     .CellTemplate(@<text>
+                                         @(Html.DevExtreme()
+                                            .Button()
+                                            .Hint("Ofertar")
+                                            .Icon("money")
+                                            .Type(ButtonType.Normal)                        
+                                            .UseSubmitBehavior(false)
+                                            .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
+                                         )
+                                     </text>);    
                 
             columns.AddFor(m => m.ID);
             columns.AddFor(m => m.User);
