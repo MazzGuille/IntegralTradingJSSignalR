@@ -9,8 +9,6 @@ namespace IntegralTradingJS.Controllers
     public class HomeController : Controller
     {
         private readonly IHviService _hviService;
-        int num;
-
 
         public HomeController(IHviService hviService)
         {
