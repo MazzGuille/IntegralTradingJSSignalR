@@ -60,13 +60,13 @@ namespace IntegralTradingJS.Repository
             return hviList;
         }
 
-        public async Task UpdateStatus(int ob)
+        public async Task UpdateStatus(int id)
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
                 cn.Open();
                 SqlCommand cmd = new("SP_UpdateStatus", cn);
-                cmd.Parameters.AddWithValue("IdOferta", 1);
+                cmd.Parameters.AddWithValue("IdOferta", id);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
             }            

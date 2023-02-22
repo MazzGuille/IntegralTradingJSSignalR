@@ -21,11 +21,6 @@ namespace IntegralTradingJS.Controllers
         {
             return View();
         }
-
-        [HttpPut]
-        public async Task UpdateStatus()
-        {  
-            await _hviService.UpdateStatus(1);
-        }
+       
     }
 }

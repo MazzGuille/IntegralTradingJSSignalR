@@ -11,6 +11,14 @@
         "dist/browser/signalr.js",
         "dist/browser/signalr.min.js"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "axios@latest",
+      "destination": "wwwroot/lib/axios/",
+      "files": [
+        "dist/axios.min.js"
+      ]
     }
   ]
 }

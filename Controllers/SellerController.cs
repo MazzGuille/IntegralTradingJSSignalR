@@ -122,7 +122,7 @@ namespace IntegralTradingJS.Controllers
             var data = await _hviService.GetWhse();
 
             return data.ToList();
-        }
+        }      
 
         public IActionResult PendingOffersList()
         {

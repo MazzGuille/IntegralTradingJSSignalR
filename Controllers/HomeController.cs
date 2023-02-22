@@ -39,6 +39,12 @@ namespace IntegralTradingJS.Controllers
             return hviList;         
         }
 
+        [HttpPut]
+        public async Task UpdateStatus(int id)
+        {
+            await _hviService.UpdateStatus(id);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

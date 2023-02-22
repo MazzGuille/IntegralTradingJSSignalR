@@ -111,6 +111,7 @@
 </div>
 
 @section Scripts{
+    <script src="~/lib/axios/dist/axios.min.js"></script>
     <script src="~/js/dist/browser/signalr.min.js"></script>
     <script>       
 
@@ -122,6 +123,7 @@
         const offerPrice = document.getElementById("offerPrice")
         const descripcion = document.getElementById("descripcion")
         const nestUl = document.getElementById("nestUl")
+        let itemFound = {}
         let cells = [{ Id: null, Price: null }]
 
         function removeClass() {
@@ -141,14 +143,18 @@
             .withUrl("/hvihub")
             .build();
 
-            function changeStatus(){
-            fetch("/Buyer/UpdateStatus", {
-                method:"PUT",               
-                body: FormData
-            });
+        function changeStatus(){
+
+            let url = "UpdateStatus"
+            let num = offerId.value
+
+            axios.put(url + "/" + num).then((res) =>{
+                console.log(res.status);
+            })
 
             offerPrice.value = ""
             descripcion.value = ""
+            window.location.reload()
 
             formDiv.classList.add("visually-hidden")
             mainDiv.classList.remove("visually-hidden")
@@ -212,11 +218,11 @@
         function redirectID(ids) {
             offerId.value = ids
             
-            const itemFound = cells.find((x) => {
+            itemFound = cells.find((x) => {
                 return x.Id == ids
             })
             console.log(itemFound)
-            sellerPrice.value = itemFound.Price
+            sellerPrice.value = itemFound.Price            
 
             mainDiv.classList.add("visually-hidden")
             formDiv.classList.remove("visually-hidden")        
