@@ -12,12 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-
 builder.Services.AddSignalR();
-
-
 builder.Services.AddScoped<IHviService, HviService>();
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(5);
+});
 
 
 
@@ -32,15 +33,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-//app.MapControllerRoute(
-//    name: "api",
-//    pattern: "{api}/{controller}/{action}");
 
 app.MapHub<HviHub>("/hvihub");
 

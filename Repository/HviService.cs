@@ -12,6 +12,7 @@ namespace IntegralTradingJS.Repository
         private readonly List<HVI> hviList = new();
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
+        
         public async Task<IEnumerable<HVI>> GetHvi()
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -117,11 +118,12 @@ namespace IntegralTradingJS.Repository
             string user;
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
+
                 cn.Open();
                 SqlCommand cmd = new("SP_SelectUser", cn);
                 cmd.Parameters.AddWithValue("Id", 1);
                 cmd.CommandType = CommandType.StoredProcedure;
-                user =  cmd.ExecuteScalar().ToString();
+                user =  cmd.ExecuteScalar().ToString();                
             } 
             
             return user;
