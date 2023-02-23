@@ -9,5 +9,7 @@ namespace IntegralTradingJS.Repository.Interfaces
         void InsertData(Promedios promedio);
         Task<string> SelectUser();
         Task<IEnumerable<Warehouse>> GetWhse();
+
+        Task<IEnumerable<Bids>> GetUserBids();
     }
 }

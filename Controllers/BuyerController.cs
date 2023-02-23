@@ -21,6 +21,14 @@ namespace IntegralTradingJS.Controllers
         {
             return View();
         }
-       
+
+        [HttpGet]
+        public async Task<IEnumerable<Bids>> GetUserBids()
+        {
+            var data = await _hviService.GetUserBids();
+
+            return data;
+        }
+
     }
 }

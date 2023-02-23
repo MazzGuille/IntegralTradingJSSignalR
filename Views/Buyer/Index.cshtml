@@ -3,29 +3,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Buyer Page</h1>
-
-    <div class="mb-3 w-25">
-        <label for="offerId" class="form-label">ID de la oferta</label>
-        <input type="number" class="form-control" id="offerId">
-    </div>
-
-    <div class="mb-3 w-25">
-        <label for="sellerPrice" class="form-label">Precio ofrecido por el vendedor</label>
-        <input type="number" class="form-control" id="sellerPrice">
-    </div>
-
-  <div class="mb-3 w-25">
-    <label for="offerPrice" class="form-label">Coloca tu oferta</label>
-        <input type="number" class="form-control" id="offerPrice">
-  </div>
-
-  <div class="mb-3 w-50">
-    <label for="descripcion" class="form-label">Comentarios adicionales</label>
-        <textarea type="text" class="form-control" id="descripcion"></textarea>
-  </div> 
-  
-  <button onclick="changeStatus()"  class="btn btn-primary fw-bold">Enviar oferta</button>
+<h1>Pujas</h1>
+<h5>Pujas realizadas por el usuario:</h5>
+  <button onclick="getUserBids()"  class="btn btn-primary fw-bold">Ofertas</button>
+  <table id="tbBid" class="table table-striped">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Oferta</th>
+                                    <th>Empresa</th>
+                                    <th>Usuario</th>
+                                    <th>Precio</th>
+                                    <th>Status</th>
+                                    <th>Comentarios</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
 
 
 @section Scripts{
@@ -48,6 +43,27 @@
             });
 
             window.location.href = '/Home/HviAPI'
+        }
+
+        function getUserBids(){
+            $.get("/Buyer/GetUserBids", function(data){               
+                console.log(data);
+                document.getElementById("tableBody").innerHTML = "";
+            data.forEach(x => {
+                var tr = document.createElement("tr");
+                var filaCelda = `<tr>
+                                 <td>${x.IdOffer}</td>
+                                 <td>${x.Id_company}</td>
+                                 <td>${x.IdUsuario}</td>
+                                 <td>${x.Price}</td>
+                                 <td>${x.IdBidStatusFK}</td>
+                                 <td>${x.Comments}</td>
+                                 <td>${x.Date}</td>
+                                </tr>`;
+                tr.innerHTML = filaCelda;
+                document.getElementById("tableBody").append(tr);
+            })
+            })
         }
     </script>
 }

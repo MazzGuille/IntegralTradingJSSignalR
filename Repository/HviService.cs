@@ -12,6 +12,7 @@ namespace IntegralTradingJS.Repository
         private readonly List<HVI> hviList = new();
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
+        private readonly List<Bids> bidsList = new();
         public async Task<IEnumerable<HVI>> GetHvi()
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -156,6 +157,37 @@ namespace IntegralTradingJS.Repository
             }
 
             return whseList;
+        }
+
+        public async Task<IEnumerable<Bids>> GetUserBids()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_GetUserBids", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        bidsList.Add(new Bids
+                        {
+                            IdBid = Convert.ToInt32(reader["IdBid"]),
+                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                            Id_company = Convert.ToInt32(reader["Id_company"]),
+                            IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                            Price = (float)Convert.ToDecimal(reader["Price"]),
+                            IdBidStatusFK = Convert.ToInt32(reader["IdBidStatusFK"]),
+                            Comments = Convert.ToString(reader["Comments"]),
+                            Date = Convert.ToDateTime(reader["Date"])
+
+                        });
+                    }
+                }
+            }
+
+            return bidsList;
         }
     }
 }
