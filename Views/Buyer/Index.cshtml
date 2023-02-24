@@ -7,25 +7,25 @@
 <h5>Pujas realizadas por el usuario:</h5>
   <button onclick="getUserBids()"  class="btn btn-primary fw-bold">Ofertas</button>
   <table id="tbBid" class="table table-striped">
-                            <thead class="bg-light">
-                                <tr>
-                                    <th>Oferta</th>
-                                    <th>Empresa</th>
-                                    <th>Usuario</th>
-                                    <th>Precio</th>
-                                    <th>Status</th>
-                                    <th>Comentarios</th>
-                                    <th>Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
-                        </table>
+        <thead class="bg-light">
+            <tr>
+                <th>Oferta</th>
+                <th>Empresa</th>
+                <th>Usuario</th>
+                <th>Precio</th>
+                <th>Status</th>
+                <th>Comentarios</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
 
 
 @section Scripts{
     <script>
-          const nestUl = document.getElementById("nestUl")
+        const nestUl = document.getElementById("nestUl")
 
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")){
