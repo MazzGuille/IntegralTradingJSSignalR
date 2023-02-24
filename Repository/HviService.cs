@@ -190,5 +190,31 @@ namespace IntegralTradingJS.Repository
 
             return bidsList;
         }
+
+        public async Task<bool> Login(Login user)
+        {
+            bool res;
+
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_Login", cn);
+                cmd.Parameters.AddWithValue("Email", user.Email);
+                cmd.Parameters.AddWithValue("Password", user.Password);
+                cmd.CommandType = CommandType.StoredProcedure;
+                user.Id = Convert.ToInt32(cmd.ExecuteScalar());
+            } 
+            
+            if(user.Id != 0)
+            {
+                res = true;
+            }
+            else
+            {
+                res = false;
+            }
+
+            return res;
+        }
     }
 }

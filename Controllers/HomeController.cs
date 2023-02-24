@@ -18,7 +18,30 @@ namespace IntegralTradingJS.Controllers
         public IActionResult Index()
         {
             return View();
-        }       
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(Login user)
+        {
+            Login obUser = new()
+            {
+                Email = user.Email,
+                Password = user.Password
+            };
+
+            var res = await _hviService.Login(obUser);
+
+            if (res)
+            {
+                return RedirectToAction("HviAPI", "Home");
+            }
+            else
+            {
+                ViewData["Mensaje"] = "Credenciales invalidas";
+                return View();
+            };
+            
+        }
 
         public async Task<IActionResult> GetHvi()
         {
