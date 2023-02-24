@@ -166,6 +166,7 @@ namespace IntegralTradingJS.Repository
                 cn.Open();
                 SqlCommand cmd = new("SP_GetUserBids", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("IdUsuario", 1);
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {

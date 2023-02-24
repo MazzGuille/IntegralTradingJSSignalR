@@ -1,11 +1,56 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
 <h1>Pujas</h1>
 <h5>Pujas realizadas por el usuario:</h5>
-  <button onclick="getUserBids()"  class="btn btn-primary fw-bold">Ofertas</button>
+
+@using IntegralTradingJS.Models;
+<div id="mainDiv">
+
+    @(Html.DevExtreme().DataGrid<Bids>()
+              .ID("bodyTable")
+              .ShowBorders(true)
+              .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBids").Key("IdBid"))
+              .Height(500)
+              .FilterRow(f => f.Visible(true))
+              .HeaderFilter(f => f.Visible(true))
+              .ShowColumnLines(true)
+              .ShowRowLines(true)
+              .RowAlternationEnabled(true)
+              .ShowBorders(true)
+              .GroupPanel(p => p.Visible(true))
+              .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+              .Grouping(g => g.AutoExpandAll(false))
+              .RemoteOperations(true)
+              .LoadPanel(loadPanel => loadPanel.Enabled(true))
+              .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+              .Paging(paging => paging.Enabled(false))
+              .AllowColumnResizing(true)
+              .ColumnAutoWidth(true)
+              .FocusedRowEnabled(true)
+              .Editing(e => e.UseIcons(true))
+
+        .Columns(columns =>
+        {
+                
+                
+            columns.AddFor(m => m.IdOffer);
+            columns.AddFor(m => m.Id_company);
+            columns.AddFor(m => m.IdUsuario);
+            columns.AddFor(m => m.Price);
+            columns.AddFor(m => m.IdBidStatusFK);
+            columns.AddFor(m => m.Comments);
+            columns.AddFor(m => m.Date);
+
+            
+
+        })
+    )
+
+</div>
+<!--  <button onclick="getUserBids()"  class="btn btn-primary fw-bold">Ofertas</button>
   <table id="tbBid" class="table table-striped">
         <thead class="bg-light">
             <tr>
@@ -20,7 +65,7 @@
         </thead>
         <tbody id="tableBody">
         </tbody>
-    </table>
+    </table>-->
 
 
 @section Scripts{
