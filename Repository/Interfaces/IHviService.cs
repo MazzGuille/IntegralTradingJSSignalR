@@ -10,7 +10,7 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task<string> SelectUser();
         Task<IEnumerable<Warehouse>> GetWhse();
         Task<IEnumerable<Bids>> GetUserBids();
-        Task<bool> Login(Login user);
+        Task<string> Login(Login user);
 
     }
 }

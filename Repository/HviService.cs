@@ -13,6 +13,9 @@ namespace IntegralTradingJS.Repository
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
         private readonly List<Bids> bidsList = new();
+        private readonly JWTConfiguration _jwt = new(); //INSTANCIA PARA APLICAR EL JWT
+
+
         public async Task<IEnumerable<HVI>> GetHvi()
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -191,9 +194,9 @@ namespace IntegralTradingJS.Repository
             return bidsList;
         }
 
-        public async Task<bool> Login(Login user)
+        public async Task<string> Login(Login user)
         {
-            bool res;
+            string res;
 
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
@@ -207,11 +210,11 @@ namespace IntegralTradingJS.Repository
             
             if(user.Id != 0)
             {
-                res = true;
+                res = _jwt.token(user.Id);
             }
             else
             {
-                res = false;
+                res = "Error";
             }
 
             return res;

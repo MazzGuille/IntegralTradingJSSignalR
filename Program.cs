@@ -1,10 +1,13 @@
 using IntegralTradingJS.Hubs;
 using IntegralTradingJS.Repository;
 using IntegralTradingJS.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,34 @@ builder.Services.AddSession(opt =>
 {
     opt.IdleTimeout = TimeSpan.FromMinutes(5);
 });
+
+
+
+//----------------------------------------------CONFIGURACION JWT START---------------------------------------------//
+
+builder.Configuration.AddJsonFile("appsettings.json");
+var secretKey = builder.Configuration.GetSection("settings").GetSection("secretkey").ToString();
+var keyBytes = Encoding.UTF8.GetBytes(secretKey);
+
+builder.Services.AddAuthentication(config =>
+{
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(config =>
+{
+    config.RequireHttpsMetadata = true;
+    config.SaveToken = true;
+    config.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+//----------------------------------------------CONFIGURACION JWT END---------------------------------------------//
 
 
 

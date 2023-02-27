@@ -25,9 +25,9 @@ namespace IntegralTradingJS.Controllers
         {
             var res = await _hviService.Login(user);
 
-            if (res)
+            if (res != "Error")
             {
-                return RedirectToAction("HviAPI", "Home", user.Id);
+                return RedirectToAction("HviAPI", "Home");
             }
             else
             {
