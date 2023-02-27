@@ -23,17 +23,11 @@ namespace IntegralTradingJS.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(Login user)
         {
-            Login obUser = new()
-            {
-                Email = user.Email,
-                Password = user.Password
-            };
-
-            var res = await _hviService.Login(obUser);
+            var res = await _hviService.Login(user);
 
             if (res)
             {
-                return RedirectToAction("HviAPI", "Home");
+                return RedirectToAction("HviAPI", "Home", user.Id);
             }
             else
             {
