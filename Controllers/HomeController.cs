@@ -27,6 +27,10 @@ namespace IntegralTradingJS.Controllers
 
             if (res != "Error")
             {
+                var jwtString = res;
+
+                Response.Cookies.Append("jwt", jwtString);
+
                 return RedirectToAction("HviAPI", "Home");
             }
             else
@@ -60,6 +64,13 @@ namespace IntegralTradingJS.Controllers
         public async Task UpdateStatus(int id)
         {
             await _hviService.UpdateStatus(id);
+        }
+
+        public IActionResult LogOut()
+        {
+            Response.Cookies.Delete("jwt");
+
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,6 +1,7 @@
 ﻿using IntegralTradingJS.Helpers;
 using IntegralTradingJS.Models;
 using IntegralTradingJS.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -218,6 +219,6 @@ namespace IntegralTradingJS.Repository
             }
 
             return res;
-        }
+        }        
     }
 }
