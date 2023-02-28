@@ -10,28 +10,36 @@ namespace IntegralTradingJS.Controllers
     public class HomeController : Controller
     {
         private readonly IHviService _hviService;
+        private readonly IHttpContextAccessor _context;
 
-        public HomeController(IHviService hviService)
+        public HomeController(IHviService hviService, IHttpContextAccessor context)
         {
             _hviService = hviService;
+            _context = context;
         }
 
         public IActionResult Index()
-        {
+        {            
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(Login user)
-        {
+        {          
+
             var res = await _hviService.Login(user);
 
             if (res != "Error")
             {
 
                 Response.Cookies.Append("jwt", res);
+               
+                _context.HttpContext.Session.SetInt32("userId", user.UserId);
+                _context.HttpContext.Session.SetInt32("companyId", user.CompanyId);
+                _context.HttpContext.Session.SetString("userEmail", user.Email);
 
-                return RedirectToAction("HviAPI", "Home", res);
+
+                return RedirectToAction("HviAPI", "Home");
             }
             else
             {
@@ -49,7 +57,7 @@ namespace IntegralTradingJS.Controllers
 
        
         public IActionResult HviAPI()
-        {            
+        {           
             return View();
         }       
 

@@ -17,12 +17,15 @@ builder.Services
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 builder.Services.AddSignalR();
 builder.Services.AddScoped<IHviService, HviService>();
-builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddSession(opt =>
-//{
-//    opt.IdleTimeout = TimeSpan.FromMinutes(5);
-//});
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+//-----------------------------CONFIGURACION SESION START-----------------------------------------------//
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(5);
+});
+//-----------------------------CONFIGURACION SESION END-----------------------------------------------//
 
 
 //----------------------------------------------CONFIGURACION JWT START---------------------------------------------//
@@ -61,6 +64,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 

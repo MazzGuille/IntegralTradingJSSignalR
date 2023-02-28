@@ -1,4 +1,6 @@
-﻿@{
+﻿@inject IHttpContextAccessor cntx;
+
+@{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
@@ -79,6 +81,7 @@
 </div>
 
 <div id="formDiv" class="visually-hidden container">
+    <p>the id is: @cntx.HttpContext.Session.GetInt32("userId")</p>
     <h1>Buyer Page</h1>
 
     <div class="mb-3 w-25">

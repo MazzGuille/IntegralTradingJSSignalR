@@ -1,4 +1,6 @@
-﻿using IntegralTradingJS.Helpers;
+﻿
+
+using IntegralTradingJS.Helpers;
 using IntegralTradingJS.Models;
 using IntegralTradingJS.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,7 @@ namespace IntegralTradingJS.Repository
 {
     public class HviService : IHviService
     {
+        private readonly IHttpContextAccessor _cntx;
         private readonly SqlString sqlString = new();
         private readonly List<HVI> hviList = new();
         private readonly HVI _hvi = new();
@@ -18,6 +21,11 @@ namespace IntegralTradingJS.Repository
         private readonly List<SellerOffers> SellerOffersList = new();
         private readonly JWTConfiguration _jwt = new(); //INSTANCIA PARA APLICAR EL JWT
 
+
+        public HviService(IHttpContextAccessor cntx)
+        {
+            _cntx = cntx;
+        }
 
         public async Task<IEnumerable<HVI>> GetHvi()
         {
@@ -208,10 +216,18 @@ namespace IntegralTradingJS.Repository
                 cmd.Parameters.AddWithValue("Email", user.Email);
                 cmd.Parameters.AddWithValue("Password", user.Password);
                 cmd.CommandType = CommandType.StoredProcedure;
-                user.Id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        user.CompanyId = Convert.ToInt32(reader["Id_company"]);
+                        user.UserId = Convert.ToInt32(reader["Id_user"]);
+                    }
+                }
             } 
             
-            if(user.Id != 0)
+            if(user.UserId != 0)
             {
                 res = _jwt.token(user);
             }
@@ -227,11 +243,14 @@ namespace IntegralTradingJS.Repository
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
+                var idUsu = _cntx.HttpContext.Session.GetInt32("userId");
+                var idComp = _cntx.HttpContext.Session.GetInt32("companyId");
+
                 cn.Open();
                 SqlCommand cmd = new("SP_BuyerBids", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("IdCompany", 2);
-                cmd.Parameters.AddWithValue("IdUsuario", 3);
+                cmd.Parameters.AddWithValue("IdCompany", idComp);
+                cmd.Parameters.AddWithValue("IdUsuario", idUsu);
             
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -257,11 +276,14 @@ namespace IntegralTradingJS.Repository
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
+                var idUsu = _cntx.HttpContext.Session.GetInt32("userId");
+                var idComp = _cntx.HttpContext.Session.GetInt32("companyId");
+
                 cn.Open();
                 SqlCommand cmd = new("SP_SellerOffers", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("IdCompany", 1);
-                cmd.Parameters.AddWithValue("IdUsuario", 1);
+                cmd.Parameters.AddWithValue("IdCompany", idComp);
+                cmd.Parameters.AddWithValue("IdUsuario", idUsu);
 
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
