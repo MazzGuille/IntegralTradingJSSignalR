@@ -2,18 +2,17 @@
 @{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
-
-<h1>Pujas</h1>
-<h5>Pujas realizadas por el usuario:</h5>
-
 @using IntegralTradingJS.Models;
-<div id="mainDiv">
+<div id="mainDiv" class="container d-flex flex-column align-items-center">
+    <h1>Pujas</h1>
+    <h5>Pujas realizadas por el usuario:</h5>
 
-    @(Html.DevExtreme().DataGrid<Bids>()
+    @(Html.DevExtreme().DataGrid<BuyerBid>()
               .ID("bodyTable")
               .ShowBorders(true)
-              .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBids").Key("IdBid"))
+        .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
               .Height(500)
+              .Width(1000)
               .FilterRow(f => f.Visible(true))
               .HeaderFilter(f => f.Visible(true))
               .ShowColumnLines(true)
@@ -33,18 +32,12 @@
               .Editing(e => e.UseIcons(true))
 
         .Columns(columns =>
-        {
-                
-                
-            columns.AddFor(m => m.IdOffer);
-            columns.AddFor(m => m.Id_company);
-            columns.AddFor(m => m.IdUsuario);
+        {               
+            columns.AddFor(m => m.IdBid);    
             columns.AddFor(m => m.Price);
-            columns.AddFor(m => m.IdBidStatusFK);
             columns.AddFor(m => m.Comments);
-            columns.AddFor(m => m.Date);
-
-            
+            columns.AddFor(m => m.CompanyName);
+            columns.AddFor(m => m.UserName);                     
 
         })
     )

@@ -14,6 +14,8 @@ namespace IntegralTradingJS.Repository
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
         private readonly List<Bids> bidsList = new();
+        private readonly List<BuyerBid> SellerBidsList = new();
+        private readonly List<SellerOffers> SellerOffersList = new();
         private readonly JWTConfiguration _jwt = new(); //INSTANCIA PARA APLICAR EL JWT
 
 
@@ -211,7 +213,7 @@ namespace IntegralTradingJS.Repository
             
             if(user.Id != 0)
             {
-                res = _jwt.token(user.Id);
+                res = _jwt.token(user);
             }
             else
             {
@@ -219,6 +221,67 @@ namespace IntegralTradingJS.Repository
             }
 
             return res;
-        }        
+        }
+
+        public async Task<IEnumerable<BuyerBid>> GetBuyerBid()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_BuyerBids", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("IdCompany", 2);
+                cmd.Parameters.AddWithValue("IdUsuario", 3);
+            
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        SellerBidsList.Add(new BuyerBid
+                        {
+                            IdBid = Convert.ToInt32(reader["IdBid"]),
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            Comments = reader["Comments"].ToString(),
+                            CompanyName = reader["Razon_Social"].ToString(),
+                            UserName = reader["Name"].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return SellerBidsList;
+        }
+
+        public async Task<IEnumerable<SellerOffers>> GetSellerOffers()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_SellerOffers", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("IdCompany", 1);
+                cmd.Parameters.AddWithValue("IdUsuario", 1);
+
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        SellerOffersList.Add(new SellerOffers
+                        {
+                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                            IdBid = Convert.ToInt32(reader["IdBid"]),
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            Comments = reader["Comments"].ToString(),
+                            CompanyName = reader["Razon_Social"].ToString(),
+                            UserName = reader["Name"].ToString(),
+                        });
+                    }
+                }
+            }
+
+            return SellerOffersList;
+        }
     }
 }

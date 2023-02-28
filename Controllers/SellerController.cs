@@ -19,6 +19,11 @@ namespace IntegralTradingJS.Controllers
         {
             _hviService= hviService;
         }
+
+        public IActionResult SellerOffers()
+        {
+            return View();
+        }
        
         public ActionResult OfferUpload()
         {

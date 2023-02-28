@@ -18,10 +18,10 @@ builder.Services
 builder.Services.AddSignalR();
 builder.Services.AddScoped<IHviService, HviService>();
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(opt =>
-{
-    opt.IdleTimeout = TimeSpan.FromMinutes(5);
-});
+//builder.Services.AddSession(opt =>
+//{
+//    opt.IdleTimeout = TimeSpan.FromMinutes(5);
+//});
 
 
 
@@ -64,7 +64,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();
+//app.UseSession();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

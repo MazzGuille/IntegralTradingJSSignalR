@@ -8,27 +8,20 @@ namespace IntegralTradingJS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BuyerAPIController : ControllerBase
+    public class SellerAPIController : ControllerBase
     {
         private readonly IHviService _hviService;
 
-        public BuyerAPIController(IHviService hviService)
+        public SellerAPIController(IHviService hviService)
         {
             _hviService = hviService;
         }
 
-        //[HttpGet]
-        //public async Task<object> GetBids(DataSourceLoadOptions loadOptions)
-        //{
-        //    var data = await _hviService.GetUserBids();
-
-        //    return DataSourceLoader.Load(data, loadOptions);
-        //}
 
         [HttpGet]
-        public async Task<object> GetBuyerBid(DataSourceLoadOptions loadOptions)
+        public async Task<object> GetSellerOffers(DataSourceLoadOptions loadOptions)
         {
-            var data = await _hviService.GetBuyerBid();
+            var data = await _hviService.GetSellerOffers();
 
             return DataSourceLoader.Load(data, loadOptions);
         }

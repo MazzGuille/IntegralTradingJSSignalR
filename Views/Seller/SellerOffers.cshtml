@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+@using IntegralTradingJS.Models;
+<div id="mainDiv" class="container d-flex flex-column align-items-center">
+    <h1>Ofertas</h1>
+    <h5>Ofertas realizadas por el usuario:</h5>
+
+    @(Html.DevExtreme().DataGrid<SellerOffers>()
+        .ID("bodyTable")
+        .ShowBorders(true)
+        .DataSource(d => d.Mvc().Controller("SellerAPI").LoadAction("GetSellerOffers").Key("IdOffer"))
+        .Height(500)
+        .Width(1000)
+        .FilterRow(f => f.Visible(true))
+        .HeaderFilter(f => f.Visible(true))
+        .ShowColumnLines(true)
+        .ShowRowLines(true)
+        .RowAlternationEnabled(true)
+        .ShowBorders(true)
+        .GroupPanel(p => p.Visible(true))
+        .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+        .Grouping(g => g.AutoExpandAll(false))
+        .RemoteOperations(true)
+        .LoadPanel(loadPanel => loadPanel.Enabled(true))
+        .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+        .Paging(paging => paging.Enabled(false))
+        .AllowColumnResizing(true)
+        .ColumnAutoWidth(true)
+        .FocusedRowEnabled(true)
+        .Editing(e => e.UseIcons(true))
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.IdOffer);
+            columns.AddFor(m => m.IdBid);
+            columns.AddFor(m => m.Price);
+            columns.AddFor(m => m.Comments);
+            columns.AddFor(m => m.CompanyName);
+            columns.AddFor(m => m.UserName);
+
+        })
+        )
+
+</div>
+
+@section Scripts{
+    <script>
+        const nestUl = document.getElementById("nestUl")
+
+        function removeClass() {
+            if (nestUl.classList.contains("visually-hidden")) {
+                nestUl.classList.remove("visually-hidden")
+            }
+            else {
+                nestUl.classList.add("visually-hidden")
+            }
+        }
+    </script>
+}

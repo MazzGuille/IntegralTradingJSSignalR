@@ -1,11 +1,12 @@
 using IntegralTradingJS.Models;
 using IntegralTradingJS.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
 namespace IntegralTradingJS.Controllers
-{
+{    
     public class HomeController : Controller
     {
         private readonly IHviService _hviService;
@@ -27,11 +28,10 @@ namespace IntegralTradingJS.Controllers
 
             if (res != "Error")
             {
-                var jwtString = res;
 
-                Response.Cookies.Append("jwt", jwtString);
+                Response.Cookies.Append("jwt", res);
 
-                return RedirectToAction("HviAPI", "Home");
+                return RedirectToAction("HviAPI", "Home", res);
             }
             else
             {
@@ -47,8 +47,9 @@ namespace IntegralTradingJS.Controllers
             return View(list);
         }
 
+       
         public IActionResult HviAPI()
-        {
+        {            
             return View();
         }       
 
