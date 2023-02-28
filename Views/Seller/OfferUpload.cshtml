@@ -369,11 +369,11 @@
             }
 
             if (alertArray.length > 1) {
-                alert("Los campos: " + alertArray + "deben tener un valor asignado")
+                Swal.fire("Los campos: " + alertArray + "deben tener un valor asignado")
             }
 
             if (alertArray.length == 1) {
-                alert("El campo: " + alertArray + "debe tener un valor asignado")
+                Swal.fire("El campo: " + alertArray + "debe tener un valor asignado")
             }
 
             if (alertArray.length == 0) {
@@ -445,7 +445,7 @@
                 data: postData,
                 datatype: "json",
                 success: function(data){
-                    alert("oferta subida con exito")
+                    Swal.fire("oferta subida con exito")
                     window.location.href = '/Home/HviAPI'
                 },
                 error: function(){
