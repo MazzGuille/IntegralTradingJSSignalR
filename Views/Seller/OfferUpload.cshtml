@@ -369,11 +369,11 @@
             }
 
             if (alertArray.length > 1) {
-                Swal.fire("Los campos: " + alertArray + "deben tener un valor asignado")
+                Swal.fire("", "Los campos: " + alertArray + "deben tener un valor asignado", "warning")
             }
 
             if (alertArray.length == 1) {
-                Swal.fire("El campo: " + alertArray + "debe tener un valor asignado")
+                Swal.fire("", "El campo: " + alertArray + "debe tener un valor asignado", "warning")
             }
 
             if (alertArray.length == 0) {
@@ -445,14 +445,26 @@
                 data: postData,
                 datatype: "json",
                 success: function(data){
-                    Swal.fire("oferta subida con exito")
-                    window.location.href = '/Home/HviAPI'
+                    Swal.fire({
+                        text:'Oferta subida con exito',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: 'Continuar'
+                    }).then((resultado) => {
+                        if(resultado.isConfirmed){
+                            window.location.href = '/Home/HviAPI'
+                        }                        
+                    })                   
                 },
                 error: function(){
-                    alert("Ha ocurrido un error")
+                    Swal.fire({
+                        text: 'Ha ocurrido un error',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Continuar'
+                    })
                 }
-          });
-           
+          });            
         }
 
         document.addEventListener('DOMContentLoaded', obtenerWhse())        
@@ -480,50 +492,6 @@
                 console.log("el readonly es: " + userReadOnly.value);
             })
         }
-
-      
-
-       
-
-         //function insertData(){
-         //     //IntegralTradingJS.IntegralTradingJS.Repository.InsertData(600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22);
-
-         //   $.ajax({
-         //   type: 'POST',
-         //   // Note the difference in url (this works if you're actually in Index page)
-         //   url: 'C:\Users\chooe\Documents\GitHub\IntegralTradingJSSignalR\Repository\HviService.cs\InsertData()',
-         //   data: "{600,339712,967369,3,52,4,37,48,273,4595,2019,510,'GU',113,31,705,71,823,6,1988-01-22}",
-         //   contentType: "application/json; charset=utf-8", 
-         //   dataType: "json",
-         //   success: function (data) {
-         //     alert(data);
-         //   },
-         //   error: function (error) {
-         //     alert("Error: " + error);
-         //   }
-         //   })
-         //}
-
-         //function insertData2(){
-         //   var mysql = require('mysql');
-
-         //   var con = mysql.createConnection({
-         //     host: "104.214.62.172",
-         //     user: "UserIntegralCottonQA",
-         //     password: "90/-.54S4Dsas##",
-         //     database: "IntegralCotton_dbQA"
-         //   });
-
-         //   con.connect(function(err) {
-         //     if (err) throw err;
-         //     console.log("Connected!");
-         //     var sql = "INSERT INTO Matriz VALUES (1000,NULL,NULL,NULL,NULL,222501739,NULL,NULL,NULL,NULL,NULL,NULL,1.28,84,30,8.5,6.5,NULL,NULL,4.3,75.5,8.2,'41-2',NULL,NULL,1,NULL);";
-         //     con.query(sql, function (err, result) {
-         //       if (err) throw err;
-         //       console.log("1 record inserted");
-         //     });
-         //   });
-         //}
         
     </script>
 }
