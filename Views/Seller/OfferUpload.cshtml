@@ -349,28 +349,31 @@
             let alertArray = []
 
             if (priceInput.value == "") {
-                alertArray.push("El campo \"PRECIO\" ")
+                alertArray.push("\"PRECIO\" ")
             }
-            if (validezInput.value == "") {
-                alertArray.push("El campo \"VALIDEZ\" ") 
 
+            if (validezInput.value == "") {
+                alertArray.push("\"VALIDEZ\" ") 
             }
+
             if(CompInput.value == ""){
-                alertArray.push("El campo \"COMPOSICION\" ")
+                alertArray.push("\"COMPOSICION\" ")
             }
+
             if (CropYearInput.value == "") {
-                 alertArray.push("El campo \"AÑO DE COSECHA\" ")
+                 alertArray.push("\"AÑO DE COSECHA\" ")
             }
+
             if ( MaturityInput.value == "") {
-                    alertArray.push("El campo \"MADUREZ\" ")
+                    alertArray.push("\"MADUREZ\" ")
             }
 
             if (alertArray.length > 1) {
-                alert(alertArray + "deben tener un valor asignado")
+                alert("Los campos: " + alertArray + "deben tener un valor asignado")
             }
 
             if (alertArray.length == 1) {
-                alert(alertArray + "debe tener un valor asignado")
+                alert("El campo: " + alertArray + "debe tener un valor asignado")
             }
 
             if (alertArray.length == 0) {
