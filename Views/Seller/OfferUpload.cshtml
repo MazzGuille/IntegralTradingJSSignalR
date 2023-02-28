@@ -15,7 +15,7 @@
 </div>
 
 
-    <div id="mainDiv" class="row">
+    <div id="mainDiv" class="row" style="width: 70%; margin: auto">
         <div class="col-12">
             <div class="card">
                 <div class="d-flex flex-row align-items-center justify-content-between card-header">
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div id="formDiv" class="row visually-hidden w-50 mx-auto">
+    <div id="formDiv" class="row container visually-hidden w-50 mx-auto">
        <div class="col-sm-12">
             <div class="card ">
                 <div class="d-flex flex-row align-items-center justify-content-between card-header">
@@ -149,7 +149,7 @@
        </div>
     </div>
 
-    <div id="uploadDiv" class="row visually-hidden  w-50 mx-auto">
+    <div id="uploadDiv" class="row container visually-hidden  w-50 mx-auto">
         <div class="col-sm-12">
             <div class="card">
                 <div class="d-flex flex-row align-items-center justify-content-between card-header">
@@ -346,10 +346,34 @@
         }
 
         function seguir2(){
-            if (priceInput.value == "" || validezInput.value == "" || CompInput.value == "" || CropYearInput.value == "" || MaturityInput.value == "") {
-                alert("Los campos \"PRECIO\", \"VALIDEZ\", \"AÑO DE COSECHA\", \"COMPOSICION\", \"MADUREZ\" deben tener un valor asignado")
+            let alertArray = []
+
+            if (priceInput.value == "") {
+                alertArray.push("El campo \"PRECIO\" ")
             }
-            else{
+            if (validezInput.value == "") {
+                alertArray.push("El campo \"VALIDEZ\" ") 
+
+            }
+            if(CompInput.value == ""){
+                alertArray.push("El campo \"COMPOSICION\" ")
+            }
+            if (CropYearInput.value == "") {
+                 alertArray.push("El campo \"AÑO DE COSECHA\" ")
+            }
+            if ( MaturityInput.value == "") {
+                    alertArray.push("El campo \"MADUREZ\" ")
+            }
+
+            if (alertArray.length > 1) {
+                alert(alertArray + "deben tener un valor asignado")
+            }
+
+            if (alertArray.length == 1) {
+                alert(alertArray + "debe tener un valor asignado")
+            }
+
+            if (alertArray.length == 0) {
 
                 formDiv.classList.add("visually-hidden")
                 uploadDiv.classList.remove("visually-hidden")                
