@@ -132,9 +132,10 @@ namespace IntegralTradingJS.Repository
             string user;
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
+                var idUsu = _cntx.HttpContext.Session.GetInt32("userId");
                 cn.Open();
                 SqlCommand cmd = new("SP_SelectUser", cn);
-                cmd.Parameters.AddWithValue("Id", 1);
+                cmd.Parameters.AddWithValue("Id", idUsu);
                 cmd.CommandType = CommandType.StoredProcedure;
                 user =  cmd.ExecuteScalar().ToString();
             } 
