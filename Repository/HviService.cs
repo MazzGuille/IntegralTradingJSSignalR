@@ -264,7 +264,7 @@ namespace IntegralTradingJS.Repository
                             Price = Convert.ToDecimal(reader["Price"]),
                             Comments = reader["Comments"].ToString(),
                             CompanyName = reader["Razon_Social"].ToString(),
-                            UserName = reader["Name"].ToString(),
+                            UserName = reader["FullName"].ToString(),
                         });
                     }
                 }
@@ -298,7 +298,7 @@ namespace IntegralTradingJS.Repository
                             Price = Convert.ToDecimal(reader["Price"]),
                             Comments = reader["Comments"].ToString(),
                             CompanyName = reader["Razon_Social"].ToString(),
-                            UserName = reader["Name"].ToString(),
+                            UserName = reader["FullName"].ToString(),
                         });
                     }
                 }
