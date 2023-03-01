@@ -22,6 +22,12 @@ namespace IntegralTradingJS.Controllers
             return View();
         }
 
+        [HttpDelete]
+        public async Task EliminateBid(int id)
+        {
+            await _hviService.EliminateBid(id);
+        }
+
         [HttpGet]
         public async Task<IEnumerable<Bids>> GetUserBids()
         {

@@ -7,32 +7,47 @@
     <h1>Pujas</h1>
     <h5>Pujas realizadas por el usuario:</h5>
 
-    @(Html.DevExtreme().DataGrid<BuyerBid>()
-              .ID("bodyTable")
-              .ShowBorders(true)
-        .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
-              .Height(500)
-              .Width(1000)
-              .FilterRow(f => f.Visible(true))
-              .HeaderFilter(f => f.Visible(true))
-              .ShowColumnLines(true)
-              .ShowRowLines(true)
-              .RowAlternationEnabled(true)
-              .ShowBorders(true)
-              .GroupPanel(p => p.Visible(true))
-              .Sorting(sorting => sorting.Mode(GridSortingMode.None))
-              .Grouping(g => g.AutoExpandAll(false))
-              .RemoteOperations(true)
-              .LoadPanel(loadPanel => loadPanel.Enabled(true))
-              .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
-              .Paging(paging => paging.Enabled(false))
-              .AllowColumnResizing(true)
-              .ColumnAutoWidth(true)
-              .FocusedRowEnabled(true)
-              .Editing(e => e.UseIcons(true))
+    @(
+        Html.DevExtreme().DataGrid<BuyerBid>()
+                  .ID("bodyTable")
+                  .ShowBorders(true)
+            .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
+                  .Height(500)
+                  .Width(1000)
+                  .FilterRow(f => f.Visible(true))
+                  .HeaderFilter(f => f.Visible(true))
+                  .ShowColumnLines(true)
+                  .ShowRowLines(true)
+                  .RowAlternationEnabled(true)
+                  .ShowBorders(true)
+                  .GroupPanel(p => p.Visible(true))
+                  .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+                  .Grouping(g => g.AutoExpandAll(false))
+                  .RemoteOperations(true)
+                  .LoadPanel(loadPanel => loadPanel.Enabled(true))
+                  .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                  .Paging(paging => paging.Enabled(false))
+                  .AllowColumnResizing(true)
+                  .ColumnAutoWidth(true)
+                  .FocusedRowEnabled(true)
+                  .Editing(e => e.UseIcons(true))
 
         .Columns(columns =>
-        {               
+        {
+            columns.AddFor(m => m.IdBid).Name("offerId")
+                .Width(35)
+                .AllowFiltering(false)
+                .AllowSorting(false)
+                .CellTemplate(@<text>
+                    @(Html.DevExtreme()
+                        .Button()
+                        .Hint("Eliminar")
+                        .Icon("delete")
+                        .Type(ButtonType.Normal)
+                        .UseSubmitBehavior(false)
+                        .OnClick("function(options) {EliminateBid(value); options.stopPropagation; }")
+        )
+                </text>);
             columns.AddFor(m => m.IdBid);    
             columns.AddFor(m => m.Price);
             columns.AddFor(m => m.Comments);
@@ -62,6 +77,7 @@
 
 
 @section Scripts{
+    <script src="~/lib/axios/dist/axios.min.js"></script>
     <script>
         const nestUl = document.getElementById("nestUl")
 
@@ -81,6 +97,26 @@
             });
 
             window.location.href = '/Home/HviAPI'
+        }
+
+        function EliminateBid(id){
+            let idBid = id
+            let url = "Buyer/EliminateBid"
+
+            Swal.fire({
+                title: '',
+                text: '¿Deseas eliminar esta oferta?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Si'
+            }).then((resultado) =>{
+                if (resultado.isConfirmed){
+                    axios.delete(url + "/" + idBid).then((res) => {
+                        console.log(res.status);
+                    })
+                    window.location.reload()
+                }
+            })           
         }
 
         function getUserBids(){

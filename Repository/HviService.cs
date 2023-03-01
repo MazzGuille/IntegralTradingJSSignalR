@@ -306,5 +306,18 @@ namespace IntegralTradingJS.Repository
 
             return SellerOffersList;
         }
+
+        public async Task EliminateBid(int id)
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_EliminateBid", cn);
+                cmd.Parameters.AddWithValue("BidId", id);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+            }
+
+        }
     }
 }
