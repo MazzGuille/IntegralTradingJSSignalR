@@ -140,7 +140,16 @@
 
                 })
             }
-            else{
+            else if (statusOfBid === "PagoConfirmado")
+            {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'A espera de confirmacion del comprador',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }
+            else if (statusOfBid === "Nueva" || "Rechazada") {
                 tempArrayA.push(bidId)
                 tempArrayA.push(1)
 

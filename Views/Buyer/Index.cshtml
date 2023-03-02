@@ -207,7 +207,7 @@
                 })
 
             }
-            else{
+            else if (statusOfBid === "Nueva" || "Rechazada") {
                 tempArrayR.push(id)
                 tempArrayR.push(8)
                 var arrayToSendreject = { values: tempArrayR }
