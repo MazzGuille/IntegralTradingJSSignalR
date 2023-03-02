@@ -67,8 +67,10 @@
 <body style="padding-top: 5rem;">
 
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="@Url.Action("HviAPI", "Home")"> <i class="fw-bolder">Integral Cotton Trading</i></a>
+        <div class="container-fluid d-flex justify-content-between">
+            <a href="@Url.Action("HviAPI", "Home")">
+                <img width="300px" src="/Img/LOGO2.png"  style="margin-right:15px;" />
+            </a>
 
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="navbar-toggler-icon"></span>
@@ -86,8 +88,11 @@
                             <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller")" class="nav-link">Ver ofertas pendientes</a></li>
                         </ul>
                     </li>
-                    
+
+                    <li class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
+
                 </ul>
+
             </div>
         </div>
     </nav>
