@@ -278,6 +278,7 @@
         const userReadOnly = document.getElementById("userReadOnly")
         const nestUl = document.getElementById("nestUl")
         const alamcenIndex = document.getElementById("alamcenIndex")
+        var num = 0
         let postData = {}
 
       
@@ -353,7 +354,7 @@
 
         function seguir2(){
 
-            var num = $("select[name='almacenes'] option:selected").index()
+            num = $("select[name='almacenes'] option:selected").index()
             console.log("el numero es: " + num)
             let alertArray = []
 
@@ -392,7 +393,7 @@
 
                 priceReadOnly.value = priceInput.value
                 priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
-                almacenReadOnly.value = almacenInput
+                almacenReadOnly.value = almacenInput.value
                 validezReadOnly.value = validezInput.value
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
@@ -423,15 +424,17 @@
                 tableContent += '</tr>';
                 table2.innerHTML += tableContent;
 
+
+                var idUsu = @cntx.HttpContext.Session.GetInt32("userId");
                 proms.push(priceReadOnly.value);
                 proms.push(priceTypeReadOnly.value);
-                proms.push(almacenReadOnly.value);
+                proms.push(num + 1);
                 proms.push(validezReadOnly.value);
                 proms.push(validezTypeReadOnly.value);
                 proms.push(CropYearReadOnly.value);
                 proms.push(MaturityReadOnly.value);
                 proms.push(compReadOnly.value);
-                proms.push(userReadOnly.value);
+                proms.push(idUsu);
 
 
                 postData = { values: proms };
