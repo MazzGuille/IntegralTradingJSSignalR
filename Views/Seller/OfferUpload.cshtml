@@ -102,7 +102,8 @@
 
                                     <div class="form-group">
                                         <label class="fw-bold" for="almacenInput">ALMACEN</label>
-                                        <select id="almacenInput"></select>
+                                        <p id="alamcenIndex" class="visually-hidden"></p>
+                                        <select name="almacenes" id="almacenInput"></select>
                                     </div>
 
                                     <br />
@@ -276,7 +277,12 @@
         const compReadOnly = document.getElementById("compReadOnly")
         const userReadOnly = document.getElementById("userReadOnly")
         const nestUl = document.getElementById("nestUl")
+        const alamcenIndex = document.getElementById("alamcenIndex")
         let postData = {}
+
+      
+
+        let indexNum = alamcenIndex.innerHTML
 
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")) {
@@ -346,6 +352,9 @@
         }
 
         function seguir2(){
+
+            var num = $("select[name='almacenes'] option:selected").index()
+            console.log("el numero es: " + num)
             let alertArray = []
 
             if (priceInput.value == "") {
@@ -383,7 +392,7 @@
 
                 priceReadOnly.value = priceInput.value
                 priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
-                almacenReadOnly.value = 2 /*almacenInput.value*/
+                almacenReadOnly.value = almacenInput
                 validezReadOnly.value = validezInput.value
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
@@ -413,7 +422,6 @@
 
                 tableContent += '</tr>';
                 table2.innerHTML += tableContent;
-                userReadOnly.value = @cntx.HttpContext.Session.GetInt32("userId")
 
                 proms.push(priceReadOnly.value);
                 proms.push(priceTypeReadOnly.value);
@@ -470,7 +478,7 @@
         document.addEventListener('DOMContentLoaded', obtenerWhse())        
         function obtenerWhse(){
             var select = document.getElementById("almacenInput");
-            var names = [];
+            var names = [];             
             $.get( "/Seller/GetWhse", function( data ) {
                 data.forEach(x=> {
                     names.push(x.Name);
@@ -484,14 +492,14 @@
             });
         }
 
-        //document.addEventListener('DOMContentLoaded', obtenerNombre()) 
-        //function obtenerNombre(){
-        //    $.get("/Seller/Username", function(user){               
-        //        console.log(user);
-        //        userReadOnly.value = user
-        //        console.log("el readonly es: " + userReadOnly.value);
-        //    })
-        //}
+        document.addEventListener('DOMContentLoaded', obtenerNombre()) 
+        function obtenerNombre(){
+            $.get("/Seller/Username", function(user){               
+                console.log(user);
+                userReadOnly.value = user
+                console.log("el readonly es: " + userReadOnly.value);
+            })
+        }
         
     </script>
 }
