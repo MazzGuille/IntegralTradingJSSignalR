@@ -91,7 +91,7 @@ namespace IntegralTradingJS.Repository
                     {
                         OfferList.Add(new Offers
                         {
-                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                            Offer = Convert.ToInt32(reader["IdOffer"]),
                             IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
                             C1 = Convert.ToDecimal(reader["C1"]),
                             C2 = Convert.ToDecimal(reader["C2"]),
@@ -110,14 +110,14 @@ namespace IntegralTradingJS.Repository
                             Uni = Convert.ToDecimal(reader["Uni"]),
                             Trash = Convert.ToDecimal(reader["Trash"]),
                             OfferDate = Convert.ToDateTime(reader["OfferDate"]),
-                            Price = Convert.ToDecimal(reader["Price"]),
+                            Price = reader["Price"].ToString(),
                             PriceType = reader["PriceType"].ToString(),
                             IdStatus = Convert.ToInt32(reader["IdStatus"]),
                             Maturity = reader["Maturity"].ToString(),
                             IdUser = Convert.ToInt32(reader["IdUser"]),
-                            ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
+                            Validity = Convert.ToDateTime(reader["ValidityDate"]),
                             ValidityType = reader["ValidityType"].ToString(),
-                            DescStatus = reader["DescStatus"].ToString(),
+                            Status = reader["DescStatus"].ToString(),
                             Warehouse = reader["Warehouse"].ToString(),
                             SellerCompany = reader["SellerCompany"].ToString()
                         });

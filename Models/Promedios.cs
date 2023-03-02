@@ -3,7 +3,7 @@
     public class Promedios
     {
 
-        public int IdOffer { get; set; }
+        public int IOffer { get; set; }
         public int IdWarehouse { get; set; }
         public decimal C1 { get; set; }
         public decimal C2 { get; set; }
@@ -22,7 +22,7 @@
         public decimal Uni { get; set; }
         public decimal Trash { get; set; }
         public DateTime OfferDate { get; set; } = DateTime.UtcNow;
-        public decimal Price { get; set; }
+        public string Price { get; set; }
         public string PriceType { get; set; }
         public int IdStatus { get; set; }
         public string Maturity { get; set; }

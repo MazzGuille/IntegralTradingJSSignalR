@@ -115,7 +115,7 @@ namespace IntegralTradingJS.Controllers
                 PlusB = Convert.ToDecimal(values[11]),
                 Uni = Convert.ToDecimal(values[12]),
                 Trash = Convert.ToDecimal(values[13]),
-                Price = Convert.ToDecimal(values[14]),
+                Price = values[14].ToString(),
                 PriceType = values[15].ToString(),
                 IdWarehouse = Convert.ToInt32(values[16]),                
                 ValidityDate= Convert.ToDateTime(values[17]),
