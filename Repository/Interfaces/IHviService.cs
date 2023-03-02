@@ -16,7 +16,7 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task<IEnumerable<SellerOffers>> GetSellerOffers();
         Task EliminateBid(int id);
         Task UploadBid(Bids bid);
-        Task ChangeStatusBid(int Id_Status, int BidId);
+        Task ChangeStatusBid(int BidId, int Id_Status);
 
 
 

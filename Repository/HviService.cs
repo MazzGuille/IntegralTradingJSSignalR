@@ -407,7 +407,7 @@ namespace IntegralTradingJS.Repository
            
         }
 
-        public async Task ChangeStatusBid(int Id_Status, int BidId)
+        public async Task ChangeStatusBid(int BidId, int Id_Status)
         {
             try
             {
@@ -415,8 +415,8 @@ namespace IntegralTradingJS.Repository
                 {
                     cn.Open();
                     SqlCommand cmd = new("SP_ChangeStatusBid", cn);
-                    cmd.Parameters.AddWithValue("Id_Status", Id_Status);
                     cmd.Parameters.AddWithValue("BidId", BidId);
+                    cmd.Parameters.AddWithValue("Id_BidStatus", Id_Status);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

@@ -65,6 +65,11 @@
 @section Scripts{
     <script>
         const nestUl = document.getElementById("nestUl")
+        var IdStatus
+        var bidArray = []
+        var itemFound = []
+        var tempArrayA = []
+        var tempArrayR = []
 
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")) {
@@ -75,8 +80,87 @@
             }
         }
 
-        function aceptarOferta(idBid){
-            console.log(idBid)
+        function aceptarOferta(bidId){
+
+            Swal.fire({
+                text: 'Que desea hacer',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar oferta',
+                showDenyButton: true,
+                DenyButtonText: 'Rechazar oferta'
+            }).then((resultado) => {
+                if (resultado.isConfirmed) {
+                    itemFound = bidArray.find((x) => {
+                        return x.IdBid == bidId
+                    })
+                    tempArrayA.push(bidId)
+                    tempArrayA.push(1)
+
+                    var arrayToSendApproved = { values: tempArrayA }
+
+                    $.ajax({
+                        type: "PUT",
+                        url: "UpdateStatus",
+                        data: arrayToSendApproved,
+                        datatype: "json",
+                        success: function (data) {
+                            location.reload()
+                        },
+                        error: function (data) {
+                            Swal.fire({
+                                text: 'Ha ocurrido un error',
+                                icon: 'error',
+                                showCancelButton: false,
+                                confirmButtonText: 'Continuar'
+                            })
+                        }
+                    });                   
+                    
+                }
+                else{
+                    tempArrayR.push(bidId)
+                    tempArrayR.push(8)
+                    var arrayToSendreject = { values: tempArrayR }
+
+                    $.ajax({
+                        type: "PUT",
+                        url: "UpdateStatus",
+                        data: arrayToSendreject,
+                        datatype: "json",
+                        success: function (data) {
+                            location.reload()
+                        },
+                        error: function (data) {
+                            Swal.fire({
+                                text: 'Ha ocurrido un error',
+                                icon: 'error',
+                                showCancelButton: false,
+                                confirmButtonText: 'Continuar'
+                            })
+                        }
+                    });
+                }
+            })       
         }
+
+        document.addEventListener('DOMContentLoaded', listaDataGrid())
+
+        function listaDataGrid() {
+            $.get("/Buyer/GetSellerOffers", function (data) {
+                data.forEach(x => {
+                    bidArray.push({
+                        IdOffer: x.IdOffer,
+                        IdBid : x.IdBid,
+                        Comments: x.Comments,
+                        BidStatus: x.BidStatus
+                    })
+
+                });
+                console.log(data)
+            });
+        }
+      
+
     </script>
 }
