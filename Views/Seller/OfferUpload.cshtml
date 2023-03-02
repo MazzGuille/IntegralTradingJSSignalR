@@ -402,7 +402,7 @@
                     for (var i = 0; i < rows; i++) {
                         sumVal = sumVal + parseFloat(table.rows[i].cells[j].innerHTML);
                     }
-                    proms.push(parseFloat(sumVal / rows).toFixed(2));
+                    proms.push(parseFloat(sumVal / rows).toFixed(4));
                     sumVal = 0;
                 }
 
@@ -415,7 +415,7 @@
                 table2.innerHTML += tableContent;
                 userReadOnly.value = @cntx.HttpContext.Session.GetInt32("userId")
 
-                proms.push(priceReadOnly.value);
+                proms.push(parseFloat(priceReadOnly.value).toFixed(4));
                 proms.push(priceTypeReadOnly.value);
                 proms.push(almacenReadOnly.value);
                 proms.push(validezReadOnly.value);
