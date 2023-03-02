@@ -29,7 +29,7 @@ namespace IntegralTradingJS.Controllers
 
             var res = await _hviService.Login(user);
 
-            if (res != "Error")
+            if (res != "Error" )
             {
 
                 Response.Cookies.Append("jwt", res);

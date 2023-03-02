@@ -48,11 +48,14 @@
                                      </text>);    
                 
             columns.AddFor(m => m.IdOffer);
-                columns.AddFor(m => m.IdStatus);
+            columns.AddFor(m => m.IdStatus).Visible(false);
+            columns.AddFor(m => m.DescStatus);
             columns.AddFor(m => m.Price);
             columns.AddFor(m => m.PriceType);
-            columns.AddFor(m => m.IdUser);
-            columns.AddFor(m => m.IdWarehouse);
+            columns.AddFor(m => m.IdUser).Visible(false);
+            columns.AddFor(m => m.IdWarehouse).Visible(false);
+            columns.AddFor(m => m.Warehouse);
+            columns.AddFor(m => m.SellerCompany);
             columns.AddFor(m => m.C1);
             columns.AddFor(m => m.C2);
             columns.AddFor(m => m.Leaf);

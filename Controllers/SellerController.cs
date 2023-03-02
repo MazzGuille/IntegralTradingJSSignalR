@@ -82,6 +82,22 @@ namespace IntegralTradingJS.Controllers
         [HttpPost]
         public void InsertData(List<string> values)
         {
+            //values[0] = string.Format("{0:n}", Convert.ToDecimal(values[0]));
+            //values[1] = string.Format("{0:n}", Convert.ToDecimal(values[1]));
+            //values[2] = string.Format("{0:n}", Convert.ToDecimal(values[2]));
+            //values[3] = string.Format("{0:n}", Convert.ToDecimal(values[3]));
+            //values[4] = string.Format("{0:n}", Convert.ToDecimal(values[4]));
+            //values[5] = string.Format("{0:n}", Convert.ToDecimal(values[5]));
+            //values[6] = string.Format("{0:n}", Convert.ToDecimal(values[6]));
+            //values[7] = string.Format("{0:n}", Convert.ToDecimal(values[7]));
+            //values[8] = string.Format("{0:n}", Convert.ToDecimal(values[8]));
+            //values[9] = string.Format("{0:n}", Convert.ToDecimal(values[9]));
+            //values[10] = string.Format("{0:n}", Convert.ToDecimal(values[10]));
+            //values[11] = string.Format("{0:n}", Convert.ToDecimal(values[11]));
+            //values[12] = string.Format("{0:n}", Convert.ToDecimal(values[12]));
+            //values[13] = string.Format("{0:n}", Convert.ToDecimal(values[13]));
+            //values[14] = string.Format("{0:n}", Convert.ToDecimal(values[14]));
+           
 
             Promedios promedio = new()
             {

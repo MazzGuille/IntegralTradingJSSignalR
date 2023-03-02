@@ -28,6 +28,9 @@
         public int IdUser { get; set; }
         public DateTime ValidityDate { get; set; }
         public string ValidityType { get; set; }
+        public string DescStatus { get; set; }
+        public string Warehouse { get; set; }
+        public string SellerCompany { get; set; }
 
     }
 }

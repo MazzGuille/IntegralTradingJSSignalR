@@ -415,7 +415,7 @@
                 table2.innerHTML += tableContent;
                 userReadOnly.value = @cntx.HttpContext.Session.GetInt32("userId")
 
-                proms.push(parseFloat(priceReadOnly.value).toFixed(4));
+                proms.push(priceReadOnly.value);
                 proms.push(priceTypeReadOnly.value);
                 proms.push(almacenReadOnly.value);
                 proms.push(validezReadOnly.value);

@@ -80,6 +80,7 @@ namespace IntegralTradingJS.Repository
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
             {
+
                 cn.Open();
                 SqlCommand cmd = new("SP_OfferList", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -115,7 +116,10 @@ namespace IntegralTradingJS.Repository
                             Maturity = reader["Maturity"].ToString(),
                             IdUser = Convert.ToInt32(reader["IdUser"]),
                             ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
-                            ValidityType = reader["ValidityType"].ToString()
+                            ValidityType = reader["ValidityType"].ToString(),
+                            DescStatus = reader["DescStatus"].ToString(),
+                            Warehouse = reader["Warehouse"].ToString(),
+                            SellerCompany = reader["SellerCompany"].ToString()
                         });
                     }
                 }
@@ -315,15 +319,16 @@ namespace IntegralTradingJS.Repository
                         user.UserId = Convert.ToInt32(reader["Id_user"]);
                     }
                 }
-            } 
-            
-            if(user.UserId != 0)
-            {
-                res = _jwt.token(user);
-            }
-            else
-            {
-                res = "Error";
+
+                if (user.UserId != 0)
+                {    
+
+                    res = _jwt.token(user);
+                }
+                else
+                {
+                    res = "Error";
+                }
             }
 
             return res;
