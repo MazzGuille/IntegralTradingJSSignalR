@@ -37,6 +37,14 @@ namespace IntegralTradingJS.Controllers
         }
 
         [HttpGet]
+        public async Task<IEnumerable<BuyerBid>> GetBuyerBid()
+        {
+            var data = await _hviService.GetBuyerBid();
+
+            return data;
+        }
+
+        [HttpGet]
         public async Task<IEnumerable<Bids>> GetUserBids()
         {
             var data = await _hviService.GetUserBids();

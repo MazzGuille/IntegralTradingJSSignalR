@@ -96,67 +96,113 @@
         }
 
         function aceptarOferta(bidId){
-            offerNum = bidArray.map((x) => {
-                return x.IdOffer
+
+            itemFound = bidArray.find((x) => {
+                return x.IdBid == bidId
             })
-            tempArrayA.push(bidId)
-            tempArrayA.push(1)
 
-            var arrayToSendApproved = { values: tempArrayA }
-            Swal.fire({
-                title: 'Oferta ' + offerNum,
-                text: 'Que desea hacer',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Confirmar oferta',
-                showDenyButton: true,
-                denyButtonText: 'Rechazar oferta'
-            }).then((resultado) => {
-                if (resultado.isConfirmed) {                   
+            offerNum = itemFound.IdOffer
 
-                    $.ajax({
-                        type: "PUT",
-                        url: "UpdateStatus",
-                        data: arrayToSendApproved,
-                        datatype: "json",
-                        success: function (data) {
-                            location.reload()
-                        },
-                        error: function (data) {
-                            Swal.fire({
-                                text: 'Ha ocurrido un error',
-                                icon: 'error',
-                                showCancelButton: false,
-                                confirmButtonText: 'Continuar'
-                            })
-                        }
-                    });                   
-                    
-                }
-                if (resultado.isDenied){
-                    tempArrayR.push(bidId)
-                    tempArrayR.push(8)
-                    var arrayToSendreject = { values: tempArrayR }
+            statusOfBid = itemFound.BidStatus
 
-                    $.ajax({
-                        type: "PUT",
-                        url: "UpdateStatus",
-                        data: arrayToSendreject,
-                        datatype: "json",
-                        success: function (data) {
-                            location.reload()
-                        },
-                        error: function (data) {
-                            Swal.fire({
-                                text: 'Ha ocurrido un error',
-                                icon: 'error',
-                                showCancelButton: false,
-                                confirmButtonText: 'Continuar'
-                            })
-                        }
-                    });
-                }
-            })       
+            if (statusOfBid === "Pagada") {
+
+                tempArrayR.push(bidId)
+                tempArrayR.push(4)
+                var arrayToSendreject = { values: tempArrayR }
+
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Que desea hacer',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar pago recibido',
+                }).then((resultado) => {
+                    if (resultado.isConfirmed) {
+                        $.ajax({
+                            type: "PUT",
+                            url: "UpdateStatus",
+                            data: arrayToSendreject,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+                    }
+
+                })
+            }
+            else{
+                tempArrayA.push(bidId)
+                tempArrayA.push(1)
+
+                var arrayToSendApproved = { values: tempArrayA }
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Que desea hacer',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar oferta',
+                    showDenyButton: true,
+                    denyButtonText: 'Rechazar oferta'
+                }).then((resultado) => {
+                    if (resultado.isConfirmed) {
+
+                        $.ajax({
+                            type: "PUT",
+                            url: "UpdateStatus",
+                            data: arrayToSendApproved,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+
+                    }
+                    if (resultado.isDenied) {
+                        tempArrayR.push(bidId)
+                        tempArrayR.push(2)
+                        var arrayToSendreject = { values: tempArrayR }
+
+                        $.ajax({
+                            type: "PUT",
+                            url: "UpdateStatus",
+                            data: arrayToSendreject,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+                    }
+                })
+
+            }
+
+                 
         }   
 
     </script>

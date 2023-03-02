@@ -104,13 +104,13 @@
     </div>
 
     <div class="mb-3 w-25">
-        <label for="sellerCompany" class="form-label">Compañia del vendedor</label>
-        <input readonly type="text" class="form-control" id="sellerCompany">
+        <label for="sellerCompany" class="form-label visually-hidden">Compañia del vendedor</label>
+        <input readonly type="text" class="form-control visually-hidden" id="sellerCompany">
     </div>
 
     <div class="mb-3 w-25">
-        <label for="sellerName" class="form-label">Nombre del vendedor</label>
-        <input readonly type="text" class="form-control" id="sellerName">
+        <label for="sellerName" class="form-label visually-hidden">Nombre del vendedor</label>
+        <input readonly type="text" class="form-control visually-hidden" id="sellerName">
     </div> 
 
   <div class="mb-3 w-25">
@@ -171,7 +171,7 @@
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 5000);
+                }, 60000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{

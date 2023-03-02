@@ -42,15 +42,16 @@
                     @(Html.DevExtreme()
                         .Button()
                         .Hint("Eliminar")
-                        .Icon("delete")
+                        .Icon("money")
                         .Type(ButtonType.Normal)
                         .UseSubmitBehavior(false)
                         .OnClick("function(options) {EliminateBid(value); options.stopPropagation; }")
         )
-                </text>);
-            columns.AddFor(m => m.IdOffer);
-            columns.AddFor(m => m.IdBid); 
-            columns.AddFor(m => m.BidStatus);
+                        </text>
+        );
+                columns.AddFor(m => m.IdOffer);
+                columns.AddFor(m => m.IdBid);
+                columns.AddFor(m => m.BidStatus);
             columns.AddFor(m => m.BidFromBuyer);
             columns.AddFor(m => m.Comments);
             columns.AddFor(m => m.CompanyName);
@@ -87,6 +88,14 @@
     <script>
         const nestUl = document.getElementById("nestUl")
 
+        var IdStatus
+        var bidArray = []
+        var itemFound = []
+        var tempArrayA = []
+        var tempArrayR = []
+        var offerNum
+        var statusOfBid
+
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")){
                 nestUl.classList.remove("visually-hidden")
@@ -96,34 +105,164 @@
             }
         }
 
-        function changeStatus(){
-            fetch("/Buyer/UpdateStatus", {
-                method:"PUT",               
-                body: FormData
-            });
+        document.addEventListener('DOMContentLoaded', listaDataGrid())
 
-            window.location.href = '/Home/HviAPI'
+        function listaDataGrid() {
+            $.get("/Buyer/GetBuyerBid", function (data) {
+                data.forEach(x => {
+                    bidArray.push({
+                        IdOffer: x.IdOffer,
+                        IdBid: x.IdBid,
+                        Comments: x.Comments,
+                        BidStatus: x.BidStatus
+                    })
+                });
+                console.log(data)
+            });
+           
         }
+
 
         function EliminateBid(id){
-            let idBid = id
-            let url = "Buyer/EliminateBid"
 
-            Swal.fire({
-                title: '',
-                text: '¿Deseas eliminar esta oferta?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Si'
-            }).then((resultado) =>{
-                if (resultado.isConfirmed){
-                    axios.delete(url + "/" + idBid).then((res) => {
-                        console.log(res.status);
-                    })
-                    window.location.reload()
-                }
-            })           
-        }
+            itemFound = bidArray.find((x) => {
+                return x.IdBid == id
+            })
+
+            offerNum = itemFound.IdOffer
+
+            statusOfBid = itemFound.BidStatus
+
+            console.log("Bid Status: " + statusOfBid)
+
+
+            if (statusOfBid === "Aprobada"){
+
+                tempArrayR.push(id)
+                tempArrayR.push(3)
+                var arrayToSendreject = { values: tempArrayR }
+
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Que desea hacer',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar pago',
+                }).then((resultado) => {
+                    if (resultado.isConfirmed) {
+                        $.ajax({
+                            type: "PUT",
+                            url: "Seller/UpdateStatus",
+                            data: arrayToSendreject,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+                    }
+
+                })
+            }
+            else if (statusOfBid === "PagoConfirmado") {
+
+                tempArrayR.push(id)
+                tempArrayR.push(5)
+                var arrayToSendreject = { values: tempArrayR }
+
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Que desea hacer',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar recepcion de mercaderia',
+                }).then((resultado) => {
+                    if (resultado.isConfirmed) {
+                        $.ajax({
+                            type: "PUT",
+                            url: "Seller/UpdateStatus",
+                            data: arrayToSendreject,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+                    }
+
+                })
+
+            }
+            else{
+                tempArrayR.push(id)
+                tempArrayR.push(8)
+                var arrayToSendreject = { values: tempArrayR }
+
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Que desea hacer',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Eliminar oferta',
+                }).then((resultado) => {
+                    if (resultado.isConfirmed) {
+                        $.ajax({
+                            type: "PUT",
+                            url: "Seller/UpdateStatus",
+                            data: arrayToSendreject,
+                            datatype: "json",
+                            success: function (data) {
+                                location.reload()
+                            },
+                            error: function (data) {
+                                Swal.fire({
+                                    text: 'Ha ocurrido un error',
+                                    icon: 'error',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Continuar'
+                                })
+                            }
+                        });
+                    }
+
+                })
+            }
+
+
+
+            
+
+            
+        }       
+        
+        
+        
+        
+        //function changeStatus(){
+        //    fetch("/Buyer/UpdateStatus", {
+        //        method:"PUT",               
+        //        body: FormData
+        //    });
+
+        //    window.location.href = '/Home/HviAPI'
+        //}
+
+
+
 
         //function getUserBids(){
         //    $.get("/Buyer/GetUserBids", function(data){               
