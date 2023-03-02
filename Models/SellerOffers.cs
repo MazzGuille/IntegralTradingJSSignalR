@@ -6,7 +6,10 @@
         public int IdBid { get; set; }
         public decimal Price { get; set; }
         public string Comments { get; set; }
+        public int IdCompany { get; set; }
         public string CompanyName { get; set; }
-        public string UserName { get; set; }
+        public string UserFullName { get; set; }
+        public int IdStatus { get; set; }
+        public string BidStatus { get; set; }
     }
 }

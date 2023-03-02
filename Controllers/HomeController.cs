@@ -68,12 +68,7 @@ namespace IntegralTradingJS.Controllers
 
             return hviList;         
         }
-
-        [HttpPut]
-        public async Task UpdateStatus(int id)
-        {
-            await _hviService.UpdateStatus(id);
-        }
+      
 
         public IActionResult LogOut()
         {
@@ -85,19 +80,32 @@ namespace IntegralTradingJS.Controllers
         [HttpPost]
         public async Task UploadBid(List<string> values)
         {
-            Bids bid = new()
+            try
             {
-               IdOffer = Convert.ToInt32(values[0]),
-               Id_company = Convert.ToInt32(values[1]),
-               IdUsuario = Convert.ToInt32(values[2]),
-               Price = (values[3]).ToString(),
-               Comments = values[4].ToString(),
-               UserSeller = values[5].ToString(),
-               UserCompany = values[6].ToString(),
-               PriceSeller = (values[7]).ToString()
-            };
+                string valueTrimmed = values[3];
+                valueTrimmed = valueTrimmed.TrimStart('$');
+                Bids bid = new()
+                {
+                    IdOffer = Convert.ToInt32(values[0]),
+                    Id_company = Convert.ToInt32(values[1]),
+                    IdUsuario = Convert.ToInt32(values[2]),
+                    Price = Convert.ToDecimal(valueTrimmed),
+                    Comments = values[4].ToString(),
+                    UserSeller = values[5].ToString(),
+                    UserCompany = values[6].ToString(),
+                    OfferPriceBuyer = Convert.ToDecimal(values[7])
+                };
 
-            await _hviService.UploadBid(bid);
+                var test = 1;
+
+                await _hviService.UploadBid(bid);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

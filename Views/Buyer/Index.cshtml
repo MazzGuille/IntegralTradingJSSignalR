@@ -11,7 +11,7 @@
         Html.DevExtreme().DataGrid<BuyerBid>()
                   .ID("bodyTable")
                   .ShowBorders(true)
-            .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
+                  .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
                   .Height(450)
                   .Width(1100)
                   .FilterRow(f => f.Visible(true))
@@ -48,14 +48,17 @@
                         .OnClick("function(options) {EliminateBid(value); options.stopPropagation; }")
         )
                 </text>);
-            columns.AddFor(m => m.IdBid);    
-            columns.AddFor(m => m.Price);
+            columns.AddFor(m => m.IdOffer);
+            columns.AddFor(m => m.IdBid); 
+            columns.AddFor(m => m.BidStatus);
+            columns.AddFor(m => m.BidFromBuyer);
             columns.AddFor(m => m.Comments);
             columns.AddFor(m => m.CompanyName);
-            columns.AddFor(m => m.UserName);
-            columns.AddFor(m => m.PriceSeller);
-            columns.AddFor(m => m.UserSeller);
-            columns.AddFor(m => m.UserCompany);
+            columns.AddFor(m => m.UserFullName);
+            columns.AddFor(m => m.SellerCompany);
+            columns.AddFor(m => m.SellerFullName);
+            columns.AddFor(m => m.SellerOfferPrice);
+            columns.AddFor(m => m.IdStatus).Visible(false);
 
         })
     )

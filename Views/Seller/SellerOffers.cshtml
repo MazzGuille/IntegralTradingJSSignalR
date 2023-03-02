@@ -33,12 +33,29 @@
 
         .Columns(columns =>
         {
+                columns.AddFor(m => m.IdBid).Name("Offer2")
+                                     .Width(35)
+                                     .AllowFiltering(false)
+                                     .AllowSorting(false)
+                                     .CellTemplate(@<text>
+                                         @(Html.DevExtreme()
+                                            .Button()
+                                            .Hint("Aceptar oferta")
+                                            .Icon("money")
+                                            .Type(ButtonType.Normal)                        
+                                            .UseSubmitBehavior(false)
+                                            .OnClick("function(options) {aceptarOferta(value); options.stopPropagation; }")
+                                         )
+                                     </text>);    
             columns.AddFor(m => m.IdOffer);
-            columns.AddFor(m => m.IdBid);
+            columns.AddFor(m => m.IdBid);            
             columns.AddFor(m => m.Price);
+            columns.AddFor(m => m.BidStatus);
             columns.AddFor(m => m.Comments);
+            columns.AddFor(m => m.IdCompany).Visible(false);
             columns.AddFor(m => m.CompanyName);
-            columns.AddFor(m => m.UserName);
+            columns.AddFor(m => m.UserFullName);
+            columns.AddFor(m => m.IdStatus).Visible(false);            
 
         })
         )
@@ -56,6 +73,10 @@
             else {
                 nestUl.classList.add("visually-hidden")
             }
+        }
+
+        function aceptarOferta(idBid){
+            console.log(idBid)
         }
     </script>
 }

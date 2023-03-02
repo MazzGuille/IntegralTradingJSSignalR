@@ -24,13 +24,7 @@ namespace IntegralTradingJS.Controllers
             var data = await _hviService.GetPromedios();
 
             return DataSourceLoader.Load(data, loadOptions);
-        }
-
-        [HttpPut]
-        public async Task UpdateStatus()
-        {
-            await _hviService.UpdateStatus(1);
-        }
+        }    
 
     }
 }

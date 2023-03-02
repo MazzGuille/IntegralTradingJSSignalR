@@ -6,7 +6,7 @@ namespace IntegralTradingJS.Repository.Interfaces
     {
         Task<IEnumerable<HVI>> GetHvi();
         Task<IEnumerable<Offers>> GetPromedios();
-        Task UpdateStatus(int id);
+        //Task UpdateStatus(int id);
         void InsertData(Promedios promedio);
         Task<string> SelectUser();
         Task<IEnumerable<Warehouse>> GetWhse();
@@ -16,6 +16,9 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task<IEnumerable<SellerOffers>> GetSellerOffers();
         Task EliminateBid(int id);
         Task UploadBid(Bids bid);
+        Task ChangeStatusBid(int Id_Status, int BidId);
+
+
 
     }
 }

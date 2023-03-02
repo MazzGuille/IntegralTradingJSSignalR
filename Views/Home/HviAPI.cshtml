@@ -95,12 +95,12 @@
 
     <div class="mb-3 w-25">
         <label for="offerId" class="form-label">ID de la oferta</label>
-        <input readonly type="number" class="form-control" id="offerId">
+        <input readonly type="text" class="form-control" id="offerId">
     </div>
 
     <div class="mb-3 w-25">
         <label for="sellerPrice" class="form-label">Precio ofrecido por el vendedor</label>
-        <input readonly type="number" class="form-control" id="sellerPrice">
+        <input readonly type="text" class="form-control" id="sellerPrice">
     </div>
 
     <div class="mb-3 w-25">
@@ -269,7 +269,7 @@
                 bid.push(sellerName.value)
                 bid.push(sellerCompany.value)
                 bid.push(offerPrice.value)
-            console.log(bid)
+                console.log(bid)
 
             let bidData = { values: bid }
 
