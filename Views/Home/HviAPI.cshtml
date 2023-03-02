@@ -32,7 +32,7 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.IdOffer).Name("Offer")
+            columns.AddFor(m => m.Offer).Name("OfferID")
                                      .Width(35)
                                      .AllowFiltering(false)
                                      .AllowSorting(false)
@@ -175,7 +175,7 @@
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
-                        IdOffer : null,
+                        Offer : null,
                         IdWarehouse : null, 
                         C1 : null, 
                         C2 : null, 
@@ -205,7 +205,7 @@
 
                     result.forEach(x => {
                         _store.push({
-                            IdOffer : x.idOffer,
+                            Offer : x.idOffer,
                             IdWarehouse : x.idWarehouse,  
                             C1 : x.c1,  
                             C2 : x.c2,  
@@ -230,7 +230,7 @@
                             Maturity : x.maturity,  
                             IdUser : x.idUser,
                             ValidityDate : x.validityDate,
-                            ValidityType : x.validityType                                      
+                            Validity : x.validity                                     
                         });
                     });               
 

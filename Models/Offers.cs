@@ -2,7 +2,7 @@
 {
     public class Offers
     {
-        public int Offer { get; set; }
+        public int IdOffer { get; set; }
         public int IdWarehouse { get; set; }
         public decimal C1 { get; set; }
         public decimal C2 { get; set; }
@@ -26,9 +26,9 @@
         public int IdStatus { get; set; }
         public string Maturity { get; set; }
         public int IdUser { get; set; }
-        public DateTime Validity { get; set; }
+        public DateTime ValidityDate { get; set; }
         public string ValidityType { get; set; }
-        public string Status { get; set; }
+        public string DescStatus { get; set; }
         public string Warehouse { get; set; }
         public string SellerCompany { get; set; }
 

@@ -3,7 +3,7 @@
     public class Promedios
     {
 
-        public int IOffer { get; set; }
+        public int IdOffer { get; set; }
         public int IdWarehouse { get; set; }
         public decimal C1 { get; set; }
         public decimal C2 { get; set; }

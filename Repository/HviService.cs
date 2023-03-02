@@ -91,7 +91,7 @@ namespace IntegralTradingJS.Repository
                     {
                         OfferList.Add(new Offers
                         {
-                            Offer = Convert.ToInt32(reader["IdOffer"]),
+                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
                             IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
                             C1 = Convert.ToDecimal(reader["C1"]),
                             C2 = Convert.ToDecimal(reader["C2"]),
@@ -115,9 +115,9 @@ namespace IntegralTradingJS.Repository
                             IdStatus = Convert.ToInt32(reader["IdStatus"]),
                             Maturity = reader["Maturity"].ToString(),
                             IdUser = Convert.ToInt32(reader["IdUser"]),
-                            Validity = Convert.ToDateTime(reader["ValidityDate"]),
+                            ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
                             ValidityType = reader["ValidityType"].ToString(),
-                            Status = reader["DescStatus"].ToString(),
+                            DescStatus = reader["DescStatus"].ToString(),
                             Warehouse = reader["Warehouse"].ToString(),
                             SellerCompany = reader["SellerCompany"].ToString()
                         });
