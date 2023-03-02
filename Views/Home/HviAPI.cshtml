@@ -32,7 +32,7 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.IdOffer).Name("Offer")
+            columns.AddFor(m => m.IdOffer).Name("Offer2")
                                      .Width(35)
                                      .AllowFiltering(false)
                                      .AllowSorting(false)
@@ -47,7 +47,7 @@
                                          )
                                      </text>);    
                 
-            columns.AddFor(m => m.IdOffer);
+            columns.AddFor(m => m.IdOffer).Name("Offer");
             columns.AddFor(m => m.IdStatus).Visible(false);
             columns.AddFor(m => m.DescStatus);
             columns.AddFor(m => m.Price);
