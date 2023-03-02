@@ -62,9 +62,9 @@ namespace IntegralTradingJS.Controllers
         }       
 
         [HttpGet]
-        public async Task<IEnumerable<HVI>> GetOfferPrice()
+        public async Task<IEnumerable<Offers>> GetOfferPrice()
         {
-            var hviList = await _hviService.GetHvi();
+            var hviList = await _hviService.GetPromedios();
 
             return hviList;         
         }
@@ -80,6 +80,24 @@ namespace IntegralTradingJS.Controllers
             Response.Cookies.Delete("jwt");
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task UploadBid(List<string> values)
+        {
+            Bids bid = new()
+            {
+               IdOffer = Convert.ToInt32(values[0]),
+               Id_company = Convert.ToInt32(values[1]),
+               IdUsuario = Convert.ToInt32(values[2]),
+               Price = (values[3]).ToString(),
+               Comments = values[4].ToString(),
+               UserSeller = values[5].ToString(),
+               UserCompany = values[6].ToString(),
+               PriceSeller = (values[7]).ToString()
+            };
+
+            await _hviService.UploadBid(bid);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

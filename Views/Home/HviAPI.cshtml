@@ -7,10 +7,10 @@
 @using IntegralTradingJS.Models;
 <div id="mainDiv">
 
-    @(Html.DevExtreme().DataGrid<HVI>()
+    @(Html.DevExtreme().DataGrid<Offers>()
               .ID("bodyTable")
               .ShowBorders(true)
-              .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("ID"))
+              .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("IdOffer"))
               .Height(500)
               .FilterRow(f => f.Visible(true))
               .HeaderFilter(f => f.Visible(true))
@@ -32,7 +32,7 @@
 
         .Columns(columns =>
         {
-            columns.AddFor(m => m.ID).Name("offerId")
+            columns.AddFor(m => m.IdOffer).Name("IdOffer")
                                      .Width(35)
                                      .AllowFiltering(false)
                                      .AllowSorting(false)
@@ -47,18 +47,12 @@
                                          )
                                      </text>);    
                 
-            columns.AddFor(m => m.ID);
-            columns.AddFor(m => m.User);
-            columns.AddFor(m => m.Status);
+            columns.AddFor(m => m.IdOffer);
+                columns.AddFor(m => m.IdStatus);
             columns.AddFor(m => m.Price);
             columns.AddFor(m => m.PriceType);
-            columns.AddFor(m => m.Warehouse);
-            columns.AddFor(m => m.ValidityDate);
-            columns.AddFor(m => m.ValidityType);
-            columns.AddFor(m => m.OfferDate);
-            columns.AddFor(m => m.CropYear);
-            columns.AddFor(m => m.Maturity);
-            columns.AddFor(m => m.Comp);
+            columns.AddFor(m => m.IdUser);
+            columns.AddFor(m => m.IdWarehouse);
             columns.AddFor(m => m.C1);
             columns.AddFor(m => m.C2);
             columns.AddFor(m => m.Leaf);
@@ -66,13 +60,19 @@
             columns.AddFor(m => m.Mic);
             columns.AddFor(m => m.Str);
             columns.AddFor(m => m.LRR);
+            columns.AddFor(m => m.CropYear);
             columns.AddFor(m => m.NetWeight);
+            columns.AddFor(m => m.Comp);
             columns.AddFor(m => m.Len);
             columns.AddFor(m => m.Ext);
             columns.AddFor(m => m.RD);
             columns.AddFor(m => m.PlusB);
             columns.AddFor(m => m.Uni);
             columns.AddFor(m => m.Trash);
+            columns.AddFor(m => m.OfferDate);   
+            columns.AddFor(m => m.Maturity);            
+            columns.AddFor(m => m.ValidityDate);
+            columns.AddFor(m => m.ValidityType);
             
 
         })
@@ -81,8 +81,14 @@
 </div>
 
 <div id="formDiv" class="visually-hidden container">
-    <p>the id is: @cntx.HttpContext.Session.GetInt32("userId")</p>
+    
     <h1>Buyer Page</h1>
+
+
+    <p class="visually-hidden" id="IdLoggerUser"> @cntx.HttpContext.Session.GetInt32("userId") </p>
+    <p class="visually-hidden" id="IdLoggerCompany"> @cntx.HttpContext.Session.GetInt32("companyId") </p>   
+
+    
 
     <div class="mb-3 w-25">
         <label for="offerId" class="form-label">ID de la oferta</label>
@@ -94,6 +100,16 @@
         <input readonly type="number" class="form-control" id="sellerPrice">
     </div>
 
+    <div class="mb-3 w-25">
+        <label for="sellerCompany" class="form-label">Compañia del vendedor</label>
+        <input readonly type="text" class="form-control" id="sellerCompany">
+    </div>
+
+    <div class="mb-3 w-25">
+        <label for="sellerName" class="form-label">Nombre del vendedor</label>
+        <input readonly type="text" class="form-control" id="sellerName">
+    </div> 
+
   <div class="mb-3 w-25">
     <label for="offerPrice" class="form-label">Coloca tu oferta</label>
         <input type="text" class="form-control" id="offerPrice">
@@ -104,7 +120,7 @@
         <textarea type="text" class="form-control" id="descripcion"></textarea>
   </div> 
   
-  <button onclick="changeStatus()"  class="btn btn-primary fw-bold">Enviar oferta</button>
+  <button onclick="uploadtOffer()"  class="btn btn-primary fw-bold">Enviar oferta</button>
 
 </div>
 
@@ -121,8 +137,12 @@
         const offerPrice = document.getElementById("offerPrice")
         const descripcion = document.getElementById("descripcion")
         const nestUl = document.getElementById("nestUl")
-        let itemFound = {}
-        let cells = [{ Id: null, Price: null }]
+        const sellerCompany = document.getElementById("sellerCompany")
+        const sellerName = document.getElementById("sellerName")
+        const IdLoggerCompany = document.getElementById("IdLoggerCompany")
+        const IdLoggerUser = document.getElementById("IdLoggerUser")
+        let itemFound = []
+        let cells = []
 
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")){
@@ -139,24 +159,7 @@
 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/hvihub")
-            .build();
-
-        function changeStatus(){
-
-            let url = "UpdateStatus"
-            let num = offerId.value
-
-            axios.put(url + "/" + num).then((res) =>{
-                console.log(res.status);
-            })
-
-            offerPrice.value = ""
-            descripcion.value = ""
-            window.location.reload()
-
-            formDiv.classList.add("visually-hidden")
-            mainDiv.classList.remove("visually-hidden")
-        }
+            .build();    
 
         $(function() {
             connection.start().then(function(){
@@ -165,43 +168,66 @@
                     .catch(function (err) {
                             return console.error(err.toString());
                     });
-                }, 60000);
+                }, 5000);
 
                 connection.on("ReceiveStoredProcedureResult", function (result) {
                     var _store = [{
-                        Id: null, User: null, Status: null, Price: null, PriceType: null, Warehouse: null, ValidityDate: null,
-                        ValidityType: null, OfferDate: null, CropYear: null, Maturity: null, Comp: null, C1: null, C2: null, Leaf: null, Stpl: null,
-                        Mic: null, Str: null, LRR: null, NetWeight: null, Len: null, Ext: null, RD: null, PlusB: null, Uni: null, Trash: null
+                        IdOffer : null,
+                        IdWarehouse : null, 
+                        C1 : null, 
+                        C2 : null, 
+                        Leaf : null, 
+                        Stpl : null, 
+                        Mic : null, 
+                        Str : null, 
+                        LRR : null, 
+                        CropYear : null,
+                        NetWeight : null, 
+                        Comp : null, 
+                        Len : null, 
+                        Ext : null, 
+                        RD : null, 
+                        PlusB : null, 
+                        Uni : null, 
+                        Trash : null, 
+                        OfferDate : null,
+                        Price : null, 
+                        PriceType : null, 
+                        IdStatus : null,
+                        Maturity : null, 
+                        IdUser : null,
+                        ValidityDate : null,
+                        ValidityType : null
                     }];
 
                     result.forEach(x => {
                         _store.push({
-                            Id: x.id,
-                            User: x.user,
-                            Status: x.status,
-                            Price: x.price,
-                            PriceType: x.priceType,
-                            Warehouse: x.warehouse,
-                            ValidityDate: x.validityDate,
-                            ValidityType: x.validityType,
-                            OfferDate: x.offerDate,
-                            CropYear: x.cropYear,
-                            Maturity: x.maturity,
-                            Comp: x.comp,
-                            C1: x.c1,
-                            C2: x.c2,
-                            Leaf: x.leaf,
-                            Stpl: x.stpl,
-                            Mic: x.mic,
-                            Str: x.str,
-                            LRR: x.lrr,                            
-                            NetWeight: x.netWeight,                            
-                            Len: x.len,
-                            Ext: x.ext,
-                            RD: x.rd,
-                            PlusB: x.plusB,
-                            Uni: x.uni,
-                            Trash: x.trash                           
+                            IdOffer : x.idOffer,
+                            IdWarehouse : x.idWarehouse,  
+                            C1 : x.c1,  
+                            C2 : x.c2,  
+                            Leaf : x.leaf,  
+                            Stpl : x.stpl,  
+                            Mic : x.mic,  
+                            Str : x.str,  
+                            LRR : x.lRR,  
+                            CropYear : x.cropYear,
+                            NetWeight : x.netWeight,  
+                            Comp : x.comp,  
+                            Len : x.len,  
+                            Ext : x.ext,  
+                            RD : x.rD,  
+                            PlusB : x.plusB,  
+                            Uni : x.uni,  
+                            Trash : x.trash,  
+                            OfferDate : x.offerDate,
+                            Price : x.price,  
+                            PriceType : x.priceType,  
+                            IdStatus : x.idStatus,
+                            Maturity : x.maturity,  
+                            IdUser : x.idUser,
+                            ValidityDate : x.validityDate,
+                            ValidityType : x.validityType                                      
                         });
                     });               
 
@@ -217,13 +243,62 @@
             offerId.value = ids
             
             itemFound = cells.find((x) => {
-                return x.Id == ids
+                return x.IdOffer == ids
             })
+            console.log(cells)
             console.log(itemFound)
-            sellerPrice.value = itemFound.Price            
+            sellerPrice.value = itemFound.Price
+            sellerName.value = itemFound.User
+            sellerCompany.value = itemFound.Warehouse
 
             mainDiv.classList.add("visually-hidden")
             formDiv.classList.remove("visually-hidden")        
+        }
+
+        function uploadtOffer() {   
+
+            let bid = []
+                bid.push(offerId.value)
+                bid.push(IdLoggerCompany.innerHTML)
+                bid.push(IdLoggerUser.innerHTML)
+                bid.push(sellerPrice.value)
+                bid.push(descripcion.value)
+                bid.push(sellerName.value)
+                bid.push(sellerCompany.value)
+                bid.push(offerPrice.value)
+            console.log(bid)
+
+            let bidData = { values: bid }
+
+            
+
+            $.ajax({
+                type: "POST",
+                url: "UploadBid",
+                data: bidData,
+                datatype: "json",
+                success: function (data) {
+                    IdLoggerUser.value = ""
+                    IdLoggerCompany.value = ""
+                    offerId.value = ""
+                    sellerPrice.value = ""
+                    sellerCompany.value = ""
+                    sellerName.value = ""
+                    offerPrice.value = ""
+                    descripcion.value = ""
+                    formDiv.classList.add("visually-hidden")
+                    mainDiv.classList.remove("visually-hidden")                    
+                },
+                error: function () {
+                    Swal.fire({
+                        text: 'Ha ocurrido un error',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: 'Continuar'
+                    })
+                }
+            });       
+                       
         }
 
         document.addEventListener('DOMContentLoaded', listaDataGrid())
@@ -231,8 +306,11 @@
             $.get("/Home/GetOfferPrice", function (hviList) {
                 hviList.forEach(x => {
                     cells.push({
-                        Id : x.ID,
-                        Price : x.Price
+                        IdOffer : x.IdOffer,
+                        Price : x.Price,
+                        User: x.IdUser,
+                        Warehouse: x.IdWarehouse
+
                     })
                     
                 });

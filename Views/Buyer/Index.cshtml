@@ -12,8 +12,8 @@
                   .ID("bodyTable")
                   .ShowBorders(true)
             .DataSource(d => d.Mvc().Controller("BuyerAPI").LoadAction("GetBuyerBid").Key("IdBid"))
-                  .Height(500)
-                  .Width(1000)
+                  .Height(450)
+                  .Width(1100)
                   .FilterRow(f => f.Visible(true))
                   .HeaderFilter(f => f.Visible(true))
                   .ShowColumnLines(true)
@@ -52,7 +52,10 @@
             columns.AddFor(m => m.Price);
             columns.AddFor(m => m.Comments);
             columns.AddFor(m => m.CompanyName);
-            columns.AddFor(m => m.UserName);                     
+            columns.AddFor(m => m.UserName);
+            columns.AddFor(m => m.PriceSeller);
+            columns.AddFor(m => m.UserSeller);
+            columns.AddFor(m => m.UserCompany);
 
         })
     )
@@ -119,25 +122,25 @@
             })           
         }
 
-        function getUserBids(){
-            $.get("/Buyer/GetUserBids", function(data){               
-                console.log(data);
-                document.getElementById("tableBody").innerHTML = "";
-            data.forEach(x => {
-                var tr = document.createElement("tr");
-                var filaCelda = `<tr>
-                                 <td>${x.IdOffer}</td>
-                                 <td>${x.Id_company}</td>
-                                 <td>${x.IdUsuario}</td>
-                                 <td>${x.Price}</td>
-                                 <td>${x.IdBidStatusFK}</td>
-                                 <td>${x.Comments}</td>
-                                 <td>${x.Date}</td>
-                                </tr>`;
-                tr.innerHTML = filaCelda;
-                document.getElementById("tableBody").append(tr);
-            })
-            })
-        }
+        //function getUserBids(){
+        //    $.get("/Buyer/GetUserBids", function(data){               
+        //        console.log(data);
+        //        document.getElementById("tableBody").innerHTML = "";
+        //    data.forEach(x => {
+        //        var tr = document.createElement("tr");
+        //        var filaCelda = `<tr>
+        //                         <td>${x.IdOffer}</td>
+        //                         <td>${x.Id_company}</td>
+        //                         <td>${x.IdUsuario}</td>
+        //                         <td>${x.Price}</td>
+        //                         <td>${x.IdBidStatusFK}</td>
+        //                         <td>${x.Comments}</td>
+        //                         <td>${x.Date}</td>
+        //                        </tr>`;
+        //        tr.innerHTML = filaCelda;
+        //        document.getElementById("tableBody").append(tr);
+        //    })
+        //    })
+        //}
     </script>
 }

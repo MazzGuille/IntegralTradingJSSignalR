@@ -383,7 +383,7 @@
 
                 priceReadOnly.value = priceInput.value
                 priceTypeReadOnly.value = document.querySelector('input[name="priceType"]:checked').value
-                almacenReadOnly.value = almacenInput.value
+                almacenReadOnly.value = 2 /*almacenInput.value*/
                 validezReadOnly.value = validezInput.value
                 validezTypeReadOnly.value = document.querySelector('input[name="validityType"]:checked').value
                 CropYearReadOnly.value = CropYearInput.value
@@ -413,7 +413,7 @@
 
                 tableContent += '</tr>';
                 table2.innerHTML += tableContent;
-
+                userReadOnly.value = @cntx.HttpContext.Session.GetInt32("userId")
 
                 proms.push(priceReadOnly.value);
                 proms.push(priceTypeReadOnly.value);
@@ -484,14 +484,14 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', obtenerNombre()) 
-        function obtenerNombre(){
-            $.get("/Seller/Username", function(user){               
-                console.log(user);
-                userReadOnly.value = user
-                console.log("el readonly es: " + userReadOnly.value);
-            })
-        }
+        //document.addEventListener('DOMContentLoaded', obtenerNombre()) 
+        //function obtenerNombre(){
+        //    $.get("/Seller/Username", function(user){               
+        //        console.log(user);
+        //        userReadOnly.value = user
+        //        console.log("el readonly es: " + userReadOnly.value);
+        //    })
+        //}
         
     </script>
 }

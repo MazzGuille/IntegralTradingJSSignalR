@@ -1,8 +1,7 @@
 ﻿namespace IntegralTradingJS.Models
 {
-    public class Promedios
+    public class Offers
     {
-
         public int IdOffer { get; set; }
         public int IdWarehouse { get; set; }
         public decimal C1 { get; set; }

@@ -21,7 +21,7 @@ namespace IntegralTradingJS.Controllers
         [HttpGet]
         public async Task<object> Get(DataSourceLoadOptions loadOptions)
         {
-            var data = await _hviService.GetHvi();
+            var data = await _hviService.GetPromedios();
 
             return DataSourceLoader.Load(data, loadOptions);
         }

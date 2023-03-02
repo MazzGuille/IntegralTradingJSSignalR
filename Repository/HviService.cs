@@ -14,6 +14,7 @@ namespace IntegralTradingJS.Repository
         private readonly IHttpContextAccessor _cntx;
         private readonly SqlString sqlString = new();
         private readonly List<HVI> hviList = new();
+        private readonly List<Offers> OfferList = new();
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
         private readonly List<Bids> bidsList = new();
@@ -41,7 +42,7 @@ namespace IntegralTradingJS.Repository
                     {
                         hviList.Add(new HVI
                         {
-                            ID = Convert.ToInt32(reader["ID"]),
+                            ID= Convert.ToInt32(reader["ID"]),
                             User = reader["User"].ToString(),//add
                             Status = reader["status"].ToString(),
                             Price = Convert.ToDecimal(reader["Price"]),
@@ -75,6 +76,55 @@ namespace IntegralTradingJS.Repository
             return hviList;
         }
 
+        public async Task<IEnumerable<Offers>> GetPromedios()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                cn.Open();
+                SqlCommand cmd = new("SP_OfferList", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OfferList.Add(new Offers
+                        {
+                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                            IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
+                            C1 = Convert.ToDecimal(reader["C1"]),
+                            C2 = Convert.ToDecimal(reader["C2"]),
+                            Leaf = Convert.ToDecimal(reader["Leaf"]),
+                            Stpl = Convert.ToDecimal(reader["Stpl"]),
+                            Mic = Convert.ToDecimal(reader["Mic"]),
+                            Str = Convert.ToDecimal(reader["Str"]),
+                            LRR = Convert.ToDecimal(reader["LRR"]),
+                            CropYear = Convert.ToInt32(reader["CropYear"]),
+                            NetWeight = Convert.ToDecimal(reader["NetWeight"]),
+                            Comp = reader["Comp"].ToString(),
+                            Len = Convert.ToDecimal(reader["Len"]),
+                            Ext = Convert.ToDecimal(reader["Ext"]),
+                            RD = Convert.ToDecimal(reader["RD"]),
+                            PlusB = Convert.ToDecimal(reader["RD"]),
+                            Uni = Convert.ToDecimal(reader["Uni"]),
+                            Trash = Convert.ToDecimal(reader["Trash"]),
+                            OfferDate = Convert.ToDateTime(reader["OfferDate"]),
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            PriceType = reader["PriceType"].ToString(),
+                            IdStatus = Convert.ToInt32(reader["IdStatus"]),
+                            Maturity = reader["Maturity"].ToString(),
+                            IdUser = Convert.ToInt32(reader["IdUser"]),
+                            ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
+                            ValidityType = reader["ValidityType"].ToString()
+                        });
+                    }
+                }
+                
+            }
+
+            return OfferList;
+        }
+
         public async Task UpdateStatus(int id)
         {
             await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -87,43 +137,83 @@ namespace IntegralTradingJS.Repository
             }            
         }
 
+        //public void InsertData(Promedios promedio)
+        //{  
+
+        //    using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
+        //    {
+        //        SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+
+        //        cmd.Parameters.AddWithValue("User", promedio.User);//add
+        //        cmd.Parameters.AddWithValue("Status", promedio.Status);
+        //        cmd.Parameters.AddWithValue("Price", promedio.Price);
+        //        cmd.Parameters.AddWithValue("TipoPrecio", promedio.PriceType);//change to english
+        //        cmd.Parameters.AddWithValue("Almacen", promedio.Warehouse);//change to english
+        //        cmd.Parameters.AddWithValue("Validez", promedio.ValidityDate);//change to english
+        //        cmd.Parameters.AddWithValue("TipoFecha", promedio.ValidityType);//change to english
+        //        cmd.Parameters.AddWithValue("OfferDate", promedio.OfferDate);
+        //        cmd.Parameters.AddWithValue("CropYear", promedio.CropYear);
+        //        cmd.Parameters.AddWithValue("Maturity", promedio.Maturity);
+        //        cmd.Parameters.AddWithValue("Comp", promedio.Comp);//add
+        //        cmd.Parameters.AddWithValue("C1",promedio.C1);
+        //        cmd.Parameters.AddWithValue("C2",promedio.C2);
+        //        cmd.Parameters.AddWithValue("Leaf",promedio.Leaf);
+        //        cmd.Parameters.AddWithValue("Stpl",promedio.Stpl);
+        //        cmd.Parameters.AddWithValue("Mic",promedio.Mic );
+        //        cmd.Parameters.AddWithValue("Str",promedio.Str);
+        //        cmd.Parameters.AddWithValue("LRR",promedio.LRR);                
+        //        cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );                
+        //        cmd.Parameters.AddWithValue("Len",promedio.Len );
+        //        cmd.Parameters.AddWithValue("Ext",promedio.Ext );
+        //        cmd.Parameters.AddWithValue("RD",promedio.RD );
+        //        cmd.Parameters.AddWithValue("PlusB",promedio.PlusB );
+        //        cmd.Parameters.AddWithValue("Uni",promedio.Uni );
+        //        cmd.Parameters.AddWithValue("Trash",promedio.Trash );       
+
+        //        cn.Open();
+        //        cmd.ExecuteNonQuery();
+        //    }      
+
+        //}
+
         public void InsertData(Promedios promedio)
-        {  
+        {
 
             using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
             {
                 SqlCommand cmd = new SqlCommand("SP_InsertToDB", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("User", promedio.User);//add
-                cmd.Parameters.AddWithValue("Status", promedio.Status);
-                cmd.Parameters.AddWithValue("Price", promedio.Price);
-                cmd.Parameters.AddWithValue("TipoPrecio", promedio.PriceType);//change to english
-                cmd.Parameters.AddWithValue("Almacen", promedio.Warehouse);//change to english
-                cmd.Parameters.AddWithValue("Validez", promedio.ValidityDate);//change to english
-                cmd.Parameters.AddWithValue("TipoFecha", promedio.ValidityType);//change to english
-                cmd.Parameters.AddWithValue("OfferDate", promedio.OfferDate);
+                cmd.Parameters.AddWithValue("IdWarehouse", promedio.IdWarehouse);//add
+                cmd.Parameters.AddWithValue("C1", promedio.C1);
+                cmd.Parameters.AddWithValue("C2", promedio.C2);
+                cmd.Parameters.AddWithValue("Leaf", promedio.Leaf);//change to english
+                cmd.Parameters.AddWithValue("Stpl", promedio.Stpl);//change to english
+                cmd.Parameters.AddWithValue("Mic", promedio.Mic);//change to english
+                cmd.Parameters.AddWithValue("Str", promedio.Str);//change to english
+                cmd.Parameters.AddWithValue("LRR", promedio.LRR);
                 cmd.Parameters.AddWithValue("CropYear", promedio.CropYear);
-                cmd.Parameters.AddWithValue("Maturity", promedio.Maturity);
+                cmd.Parameters.AddWithValue("NetWeight", promedio.NetWeight);
                 cmd.Parameters.AddWithValue("Comp", promedio.Comp);//add
-                cmd.Parameters.AddWithValue("C1",promedio.C1);
-                cmd.Parameters.AddWithValue("C2",promedio.C2);
-                cmd.Parameters.AddWithValue("Leaf",promedio.Leaf);
-                cmd.Parameters.AddWithValue("Stpl",promedio.Stpl);
-                cmd.Parameters.AddWithValue("Mic",promedio.Mic );
-                cmd.Parameters.AddWithValue("Str",promedio.Str);
-                cmd.Parameters.AddWithValue("LRR",promedio.LRR);                
-                cmd.Parameters.AddWithValue("NetWeight",promedio.NetWeight );                
-                cmd.Parameters.AddWithValue("Len",promedio.Len );
-                cmd.Parameters.AddWithValue("Ext",promedio.Ext );
-                cmd.Parameters.AddWithValue("RD",promedio.RD );
-                cmd.Parameters.AddWithValue("PlusB",promedio.PlusB );
-                cmd.Parameters.AddWithValue("Uni",promedio.Uni );
-                cmd.Parameters.AddWithValue("Trash",promedio.Trash );       
+                cmd.Parameters.AddWithValue("Len", promedio.Len);
+                cmd.Parameters.AddWithValue("Ext", promedio.Ext);
+                cmd.Parameters.AddWithValue("RD", promedio.RD);
+                cmd.Parameters.AddWithValue("PlusB", promedio.PlusB);
+                cmd.Parameters.AddWithValue("Uni", promedio.Uni);
+                cmd.Parameters.AddWithValue("Trash", promedio.Trash);
+                cmd.Parameters.AddWithValue("OfferDate", promedio.OfferDate);
+                cmd.Parameters.AddWithValue("Price", promedio.Price);
+                cmd.Parameters.AddWithValue("PriceType", promedio.PriceType);
+                cmd.Parameters.AddWithValue("IdStatus", promedio.IdStatus);
+                cmd.Parameters.AddWithValue("Maturity", promedio.Maturity);
+                cmd.Parameters.AddWithValue("IdUser", promedio.IdUser);
+                cmd.Parameters.AddWithValue("ValidityDate", promedio.ValidityDate);
+                cmd.Parameters.AddWithValue("ValidityType", promedio.ValidityType);
 
                 cn.Open();
                 cmd.ExecuteNonQuery();
-            }      
+            }
 
         }
 
@@ -189,11 +279,10 @@ namespace IntegralTradingJS.Repository
                     {
                         bidsList.Add(new Bids
                         {
-                            IdBid = Convert.ToInt32(reader["IdBid"]),
                             IdOffer = Convert.ToInt32(reader["IdOffer"]),
                             Id_company = Convert.ToInt32(reader["Id_company"]),
                             IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
-                            Price = (float)Convert.ToDecimal(reader["Price"]),
+                            Price = reader["Price"].ToString(),
                             IdBidStatusFK = Convert.ToInt32(reader["IdBidStatusFK"]),
                             Comments = Convert.ToString(reader["Comments"]),
                             Date = Convert.ToDateTime(reader["Date"])
@@ -265,6 +354,9 @@ namespace IntegralTradingJS.Repository
                             Comments = reader["Comments"].ToString(),
                             CompanyName = reader["Razon_Social"].ToString(),
                             UserName = reader["FullName"].ToString(),
+                            UserSeller = reader["UserSeller"].ToString() ,
+                            UserCompany = reader["CompanySeller"].ToString(),
+                            PriceSeller = Convert.ToDecimal(reader["PriceSeller"])
                         });
                     }
                 }
@@ -319,5 +411,32 @@ namespace IntegralTradingJS.Repository
             }
 
         }
+
+        public async Task UploadBid(Bids bid)
+        {
+            try
+            {
+                await using (SqlConnection cn = new(sqlString.GetSqlString()))
+                {
+                    cn.Open();
+                    SqlCommand cmd = new("SP_CreateBuyerBid", cn);
+                    cmd.Parameters.AddWithValue("IdOffer", bid.IdOffer);
+                    cmd.Parameters.AddWithValue("Id_company", bid.Id_company);
+                    cmd.Parameters.AddWithValue("Id_usuario", bid.IdUsuario);
+                    cmd.Parameters.AddWithValue("Price", bid.Price);
+                    cmd.Parameters.AddWithValue("Comments", bid.Comments);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception (e.Message.ToString());
+            }
+           
+        }
+
+      
     }
 }

@@ -85,29 +85,29 @@ namespace IntegralTradingJS.Controllers
 
             Promedios promedio = new()
             {
-                C1 = values[0].ToString(),
-                C2 = values[1].ToString(),
-                Leaf = values[2].ToString(),
-                Stpl =values[3].ToString(),
-                Mic =values[4].ToString(),
-                Str = values[5].ToString(),
-                LRR = values[6].ToString(),
-                NetWeight = values[7].ToString(),
-                Len = values[8].ToString(),
-                Ext = values[9].ToString(),
-                RD = values[10].ToString(),
-                PlusB = values[11].ToString(),
-                Uni = values[12].ToString(),
-                Trash = values[13].ToString(),
-                Price = values[14].ToString(),
+                C1 = Convert.ToDecimal(values[0]),
+                C2 = Convert.ToDecimal(values[1]),
+                Leaf = Convert.ToDecimal(values[2]),
+                Stpl = Convert.ToDecimal(values[3]),
+                Mic = Convert.ToDecimal(values[4]),
+                Str = Convert.ToDecimal(values[5]),
+                LRR = Convert.ToDecimal(values[6]),
+                NetWeight = Convert.ToDecimal(values[7]),
+                Len = Convert.ToDecimal(values[8]),
+                Ext = Convert.ToDecimal(values[9]),
+                RD = Convert.ToDecimal(values[10]),
+                PlusB = Convert.ToDecimal(values[11]),
+                Uni = Convert.ToDecimal(values[12]),
+                Trash = Convert.ToDecimal(values[13]),
+                Price = Convert.ToDecimal(values[14]),
                 PriceType = values[15].ToString(),
-                Warehouse = values[16].ToString(),                
+                IdWarehouse = Convert.ToInt32(values[16]),                
                 ValidityDate= Convert.ToDateTime(values[17]),
                 ValidityType = values[18].ToString(),
                 CropYear = Convert.ToInt32(values[19]),
                 Maturity = values[20].ToString(),
                 Comp = values[21].ToString(),
-                User = values[22].ToString()
+                IdUser = Convert.ToInt32(values[22])
             };
 
             _hviService.InsertData(promedio);
