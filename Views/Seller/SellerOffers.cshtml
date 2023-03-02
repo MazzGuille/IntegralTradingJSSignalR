@@ -5,7 +5,6 @@
 @using IntegralTradingJS.Models;
 <div id="mainDiv" class="container d-flex flex-column align-items-center">
     <h1>Ofertas</h1>
-    <h5>Ofertas realizadas por el usuario:</h5>
 
     @(Html.DevExtreme().DataGrid<SellerOffers>()
         .ID("bodyTable")
@@ -70,6 +69,7 @@
         var itemFound = []
         var tempArrayA = []
         var tempArrayR = []
+        var offerNum
 
         function removeClass() {
             if (nestUl.classList.contains("visually-hidden")) {
@@ -80,24 +80,39 @@
             }
         }
 
-        function aceptarOferta(bidId){
+        document.addEventListener('DOMContentLoaded', listaDataGrid())
 
+        function listaDataGrid() {
+            $.get("/Buyer/GetSellerOffers", function (data) {
+                data.forEach(x => {
+                    bidArray.push({
+                        IdOffer: x.IdOffer,
+                        IdBid: x.IdBid,
+                        Comments: x.Comments,
+                        BidStatus: x.BidStatus
+                    })
+                });               
+            });
+        }
+
+        function aceptarOferta(bidId){
+            offerNum = bidArray.map((x) => {
+                return x.IdOffer
+            })
+            tempArrayA.push(bidId)
+            tempArrayA.push(1)
+
+            var arrayToSendApproved = { values: tempArrayA }
             Swal.fire({
+                title: 'Oferta ' + offerNum,
                 text: 'Que desea hacer',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Confirmar oferta',
                 showDenyButton: true,
-                DenyButtonText: 'Rechazar oferta'
+                denyButtonText: 'Rechazar oferta'
             }).then((resultado) => {
-                if (resultado.isConfirmed) {
-                    itemFound = bidArray.find((x) => {
-                        return x.IdBid == bidId
-                    })
-                    tempArrayA.push(bidId)
-                    tempArrayA.push(1)
-
-                    var arrayToSendApproved = { values: tempArrayA }
+                if (resultado.isConfirmed) {                   
 
                     $.ajax({
                         type: "PUT",
@@ -118,7 +133,7 @@
                     });                   
                     
                 }
-                else{
+                if (resultado.isDenied){
                     tempArrayR.push(bidId)
                     tempArrayR.push(8)
                     var arrayToSendreject = { values: tempArrayR }
@@ -142,25 +157,7 @@
                     });
                 }
             })       
-        }
-
-        document.addEventListener('DOMContentLoaded', listaDataGrid())
-
-        function listaDataGrid() {
-            $.get("/Buyer/GetSellerOffers", function (data) {
-                data.forEach(x => {
-                    bidArray.push({
-                        IdOffer: x.IdOffer,
-                        IdBid : x.IdBid,
-                        Comments: x.Comments,
-                        BidStatus: x.BidStatus
-                    })
-
-                });
-                console.log(data)
-            });
-        }
-      
+        }   
 
     </script>
 }
