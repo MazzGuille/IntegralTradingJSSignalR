@@ -23,7 +23,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(5);
+    opt.IdleTimeout = TimeSpan.FromMinutes(50);
 });
 //-----------------------------CONFIGURACION SESION END-----------------------------------------------//
 
