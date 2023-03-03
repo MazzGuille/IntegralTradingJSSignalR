@@ -39,7 +39,7 @@
                                      .CellTemplate(@<text>
                                          @(Html.DevExtreme()
                                             .Button()
-                                            .Hint("Aceptar oferta")
+                                            .Hint("Acciones")
                                             .Icon("money")
                                             .Type(ButtonType.Normal)                        
                                             .UseSubmitBehavior(false)
@@ -149,7 +149,31 @@
                     showCancelButton: false
                 })
             }
-            else if (statusOfBid === "Nueva" || "Rechazada") {
+            else if (statusOfBid === "Aprobada") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'A espera de confirmacion del comprador',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }
+            else if (statusOfBid === "Recibida") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Operacion finalizada',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }
+            else if (statusOfBid === "Rechazada") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Oferta rechazada. Operacion finalizada',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }
+            else if (statusOfBid === "Nueva") {
                 tempArrayA.push(bidId)
                 tempArrayA.push(1)
 

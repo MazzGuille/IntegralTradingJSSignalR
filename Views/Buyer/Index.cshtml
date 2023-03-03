@@ -41,7 +41,7 @@
                 .CellTemplate(@<text>
                     @(Html.DevExtreme()
                         .Button()
-                        .Hint("Eliminar")
+                        .Hint("Acciones")
                         .Icon("money")
                         .Type(ButtonType.Normal)
                         .UseSubmitBehavior(false)
@@ -171,6 +171,22 @@
 
                 })
             }
+            else if (statusOfBid === "Pagada") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'A espera de confirmacion del vendedor',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }
+            else if (statusOfBid === "Recibida") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Operacion finalizada',
+                    icon: 'succes',
+                    showCancelButton: false
+                })
+            }                    
             else if (statusOfBid === "PagoConfirmado") {
 
                 tempArrayR.push(id)
@@ -240,13 +256,7 @@
                     }
 
                 })
-            }
-
-
-
-            
-
-            
+            }                 
         }       
         
         
