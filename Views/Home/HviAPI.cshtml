@@ -289,8 +289,19 @@
                     sellerName.value = ""
                     offerPrice.value = ""
                     descripcion.value = ""
-                    formDiv.classList.add("visually-hidden")
-                    mainDiv.classList.remove("visually-hidden")                    
+
+                    Swal.fire({
+                        text: 'Se ha cargado la oferta exitosamente',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: 'Continuar',
+                    }).then((resultado) => {
+                        if (resultado.isConfirmed) {
+                            formDiv.classList.add("visually-hidden")
+                            mainDiv.classList.remove("visually-hidden")
+                        }
+                    })
+                                       
                 },
                 error: function () {
                     Swal.fire({
