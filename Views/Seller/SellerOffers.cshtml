@@ -10,7 +10,7 @@
         .ID("bodyTable")
         .ShowBorders(true)
         .DataSource(d => d.Mvc().Controller("SellerAPI").LoadAction("GetSellerOffers").Key("IdOffer"))
-        .Height(500)
+        .Height(460)
         .Width(1000)
         .FilterRow(f => f.Visible(true))
         .HeaderFilter(f => f.Visible(true))
