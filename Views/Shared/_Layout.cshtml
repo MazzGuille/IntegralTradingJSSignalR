@@ -68,8 +68,8 @@
 
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
         <div class="container-fluid d-flex justify-content-between">
-            <a href="@Url.Action("HviAPI", "Home")">
-                <img width="300px" src="/Img/LOGO2.png"  style="margin-right:15px;" />
+            <a>
+                <img width="300px" src="/Img/LOGO2.png" href="@Url.Action("HviAPI", "Home")" style="margin-right:15px;" />
             </a>
 
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -89,8 +89,10 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
+                </ul>
 
+                <ul class="navbar-nav">
+                    <li style="align-self:flex-end;" class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
                 </ul>
 
             </div>

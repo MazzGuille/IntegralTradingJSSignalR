@@ -77,7 +77,7 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-
+                  
                     <li class="nav-item"><a id="browse" href="@Url.Action("HviAPI", "Home")" class="nav-link">Home</a></li>
                     <li class="nav-item"><a id="buyer" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
                     <li class="nav-item seller">
@@ -86,10 +86,12 @@
                             <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller")" class="nav-link">Crear oferta</a></li>
                             <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller")" class="nav-link">Ver ofertas pendientes</a></li>
                         </ul>
-                    </li>
+                    </li>                   
 
-                    <li class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
+                </ul>
 
+                <ul class="navbar-nav">
+                    <li style="align-self:flex-end;" class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
                 </ul>
                 
             </div>

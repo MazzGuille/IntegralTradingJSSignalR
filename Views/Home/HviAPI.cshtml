@@ -124,6 +124,7 @@
   </div> 
   
   <button onclick="uploadtOffer()"  class="btn btn-primary fw-bold">Enviar oferta</button>
+  <button onclick="cancel()"  class="btn btn-primary fw-bold">Volver</button>
 
 </div>
 
@@ -258,6 +259,33 @@
             formDiv.classList.remove("visually-hidden")        
         }
 
+        function cancel(){
+
+            Swal.fire({
+                text: 'Seguro que deseas cancelar la creacion de la puja',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Si',
+            }).then((resultado) => {
+                if (resultado.isConfirmed) {
+
+                    IdLoggerUser.value = ""
+                    IdLoggerCompany.value = ""
+                    offerId.value = ""
+                    sellerPrice.value = ""
+                    sellerCompany.value = ""
+                    sellerName.value = ""
+                    offerPrice.value = ""
+                    descripcion.value = ""
+
+                    formDiv.classList.add("visually-hidden")
+                    mainDiv.classList.remove("visually-hidden")
+                }
+            })
+
+        }
+
         function uploadtOffer() {   
 
             let bid = []
@@ -291,7 +319,7 @@
                     descripcion.value = ""
 
                     Swal.fire({
-                        text: 'Se ha cargado la oferta exitosamente',
+                        text: 'Se ha cargado la puja exitosamente',
                         icon: 'success',
                         showCancelButton: false,
                         confirmButtonText: 'Continuar',
