@@ -70,33 +70,35 @@
             <a>
                 <img width="300px" src="/Img/LOGO2.png" href="@Url.Action("HviAPI", "Home")" style="margin-right:15px;" />
             </a>
-            
+
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div id="navbar-nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                  
-                    <li class="nav-item"><a id="browse" href="@Url.Action("HviAPI", "Home")" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a id="buyer" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
-                    <li class="nav-item seller">
-                        <a onclick="removeClass()" id="seller" class="nav-link">Seller</a>
+                    buyerNav
+
+                    <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", "Home")" class="nav-link active">Home</a></li>
+                    <li onclick="navBuyer()" class="nav-item"><a id="buyerNav" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
+                    <li onclick="navSeller()" class="nav-item seller">
+                        <a onclick="removeClass()" id="sellerNav" class="nav-link">Seller</a>
                         <ul id="nestUl" class="nestedUl bg-dark visually-hidden">
                             <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller")" class="nav-link">Crear oferta</a></li>
                             <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller")" class="nav-link">Ver ofertas pendientes</a></li>
                         </ul>
-                    </li>                   
+                    </li>
 
                 </ul>
 
                 <ul class="navbar-nav">
                     <li style="align-self:flex-end;" class="nav-item"><a asp-action="LogOut" asp-controller="Home" class="nav-link">Salir</a></li>
                 </ul>
-                
+
             </div>
         </div>
     </nav>
+
 
     <main>
         @RenderBody()

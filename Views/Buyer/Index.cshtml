@@ -87,6 +87,9 @@
     <script src="~/lib/axios/dist/axios.min.js"></script>
     <script>
         const nestUl = document.getElementById("nestUl")
+        const buyerNav = document.getElementById("buyerNav")
+        const homeNav = document.getElementById("homeNav")
+        const sellerNav = document.getElementById("sellerNav")
 
         var IdStatus
         var bidArray = []
@@ -105,7 +108,20 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', listaDataGrid())
+        //function navHome() {
+        //    homeNav.classList.add('active')
+        //    buyerNav.classList.remove('active')
+        //    console.log("click home")
+        //}
+
+        function navBuyer() {
+            buyerNav.classList.add('active')
+            homeNav.classList.remove('active')
+            console.log("click buyer")
+            sellerNav.classList.remove('active')
+        }
+
+        document.addEventListener('DOMContentLoaded', listaDataGrid(), navBuyer())
 
         function listaDataGrid() {
             $.get("/Buyer/GetBuyerBid", function (data) {

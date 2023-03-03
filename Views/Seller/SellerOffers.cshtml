@@ -64,6 +64,9 @@
 @section Scripts{
     <script>
         const nestUl = document.getElementById("nestUl")
+        const buyerNav = document.getElementById("buyerNav")
+        const homeNav = document.getElementById("homeNav")
+        const sellerNav = document.getElementById("sellerNav")
         var IdStatus
         var bidArray = []
         var itemFound = []
@@ -80,7 +83,14 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', listaDataGrid())
+        function navSeller() {
+            sellerNav.classList.add('active')
+            buyerNav.classList.remove('active')
+            homeNav.classList.remove('active')
+            console.log("click seller")
+        }
+
+        document.addEventListener('DOMContentLoaded', listaDataGrid(), navSeller())
 
         function listaDataGrid() {
             $.get("/Buyer/GetSellerOffers", function (data) {

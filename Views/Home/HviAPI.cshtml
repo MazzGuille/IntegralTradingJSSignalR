@@ -145,6 +145,9 @@
         const sellerName = document.getElementById("sellerName")
         const IdLoggerCompany = document.getElementById("IdLoggerCompany")
         const IdLoggerUser = document.getElementById("IdLoggerUser")
+        const buyerNav = document.getElementById("buyerNav")
+        const homeNav = document.getElementById("homeNav")
+        const sellerNav = document.getElementById("sellerNav")
         let itemFound = []
         let cells = []
 
@@ -156,6 +159,15 @@
                 nestUl.classList.add("visually-hidden")
             }
         }
+
+        function navHome() {
+            homeNav.classList.add('active')
+            buyerNav.classList.remove('active')
+            sellerNav.classList.remove('active')
+            console.log("click home")
+        }
+
+      
 
         function getHtml() {
             console.log(bodyTable.innerHTML)
@@ -341,7 +353,7 @@
             });                
         }
 
-        document.addEventListener('DOMContentLoaded', listaDataGrid())
+        document.addEventListener('DOMContentLoaded', listaDataGrid(), navHome())
         function listaDataGrid(){
             $.get("/Home/GetOfferPrice", function (hviList) {
                 hviList.forEach(x => {

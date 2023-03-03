@@ -277,6 +277,9 @@
         const compReadOnly = document.getElementById("compReadOnly")
         const userReadOnly = document.getElementById("userReadOnly")
         const nestUl = document.getElementById("nestUl")
+        const buyerNav = document.getElementById("buyerNav")
+        const homeNav = document.getElementById("homeNav")
+        const sellerNav = document.getElementById("sellerNav")
         const alamcenIndex = document.getElementById("alamcenIndex")
         var num = 0
         let postData = {}
@@ -292,6 +295,13 @@
             else {
                 nestUl.classList.add("visually-hidden")
             }
+        }
+
+        function navSeller() {
+            sellerNav.classList.add('active')
+            buyerNav.classList.remove('active')
+            homeNav.classList.remove('active')
+            console.log("click seller")
         }
 
         function mostrarBoton() {
@@ -495,7 +505,8 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', obtenerNombre()) 
+        document.addEventListener('DOMContentLoaded', obtenerNombre(), navSeller())
+
         function obtenerNombre(){
             $.get("/Seller/Username", function(user){               
                 console.log(user);
