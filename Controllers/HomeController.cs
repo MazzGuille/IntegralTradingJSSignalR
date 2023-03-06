@@ -27,16 +27,17 @@ namespace IntegralTradingJS.Controllers
         public async Task<IActionResult> Index(Login user)
         {          
 
-            var res = await _hviService.Login(user);
+            string res = await _hviService.Login(user);
 
             if (res != "Error" )
             {
 
-                Response.Cookies.Append("jwt", res);
+                //Response.Cookies.Append("jwt", res);
                
                 _context.HttpContext.Session.SetInt32("userId", user.UserId);
                 _context.HttpContext.Session.SetInt32("companyId", user.CompanyId);
                 _context.HttpContext.Session.SetString("userEmail", user.Email);
+                _context.HttpContext.Session.SetString("jwt", res);
 
 
                 return RedirectToAction("HviAPI", "Home");
@@ -57,8 +58,17 @@ namespace IntegralTradingJS.Controllers
 
        
         public IActionResult HviAPI()
-        {           
-            return View();
+        {
+            string res = _context.HttpContext.Session.GetString("jwt");
+            if ( res != null)
+            {
+                return View();
+            }
+            else
+            {
+              return RedirectToAction("Index", "Unathorize");
+            };
+           
         }       
 
         [HttpGet]

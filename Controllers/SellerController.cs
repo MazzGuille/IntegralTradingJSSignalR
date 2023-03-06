@@ -3,6 +3,7 @@ using IntegralTradingJS.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NPOI.HSSF.UserModel;
+using NPOI.SS.Formula.Functions;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
@@ -13,22 +14,41 @@ namespace IntegralTradingJS.Controllers
     public class SellerController : Controller
     {
         private readonly IHviService _hviService;
+        private readonly IHttpContextAccessor _context;
         public List<HviRed> HviData = new();
         HVI hvi = new();
+        
 
-        public SellerController(IHviService hviService)
+        public SellerController(IHviService hviService, IHttpContextAccessor context)
         {
-            _hviService= hviService;
+            _hviService = hviService;
+            _context = context;
         }
 
         public IActionResult SellerOffers()
         {
-            return View();
+            string res = _context.HttpContext.Session.GetString("jwt");
+            if (res != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Unathorize");
+            }; ;
         }
        
         public ActionResult OfferUpload()
         {
-            return View();
+            string res = _context.HttpContext.Session.GetString("jwt");
+            if (res != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Unathorize");
+            };
         }
        
         [HttpPost]

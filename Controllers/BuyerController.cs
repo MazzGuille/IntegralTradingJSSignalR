@@ -8,18 +8,28 @@ namespace IntegralTradingJS.Controllers
     public class BuyerController : Controller
     {
         private readonly IHviService _hviService;
-        
+        private readonly IHttpContextAccessor _context;
 
-        public BuyerController(IHviService hviService)
+
+        public BuyerController(IHviService hviService, IHttpContextAccessor context)
         {
             _hviService = hviService;
+            _context = context;
         }
 
 
         // GET: BuyerController
         public ActionResult Index()
         {
-            return View();
+            string res = _context.HttpContext.Session.GetString("jwt");
+            if (res != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Unathorize");
+            };
         }
 
         [HttpDelete]
