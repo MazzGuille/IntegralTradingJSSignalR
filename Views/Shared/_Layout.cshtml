@@ -77,10 +77,10 @@
             </button>
 
             <div id="navbar" class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav d-flex flex-row me-auto">
                     buyerNav
 
-                    <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", "Home")" class="nav-link active">Home</a></li>
+                    <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", "Home")" class="nav-link active underline">Home</a></li>
                     <li onclick="navBuyer()" class="nav-item"><a id="buyerNav" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
                     <li onclick="navSeller()" class="nav-item seller">
                         <a onclick="removeClass()" id="sellerNav" class="nav-link">Seller</a>

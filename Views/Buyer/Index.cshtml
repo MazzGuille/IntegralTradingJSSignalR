@@ -107,18 +107,14 @@
                 nestUl.classList.add("visually-hidden")
             }
         }
-
-        //function navHome() {
-        //    homeNav.classList.add('active')
-        //    buyerNav.classList.remove('active')
-        //    console.log("click home")
-        //}
-
+        
         function navBuyer() {
             buyerNav.classList.add('active')
+            buyerNav.classList.add('underline')
             homeNav.classList.remove('active')
-            console.log("click buyer")
+            homeNav.classList.remove('underline')
             sellerNav.classList.remove('active')
+            sellerNav.classList.remove('underline')
         }
 
         document.addEventListener('DOMContentLoaded', listaDataGrid(), navBuyer())

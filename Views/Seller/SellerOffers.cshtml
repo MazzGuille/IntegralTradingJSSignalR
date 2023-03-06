@@ -82,11 +82,14 @@
                 nestUl.classList.add("visually-hidden")
             }
         }
-
+        
         function navSeller() {
             sellerNav.classList.add('active')
+            sellerNav.classList.add('underline')
             buyerNav.classList.remove('active')
+            buyerNav.classList.remove('underline')
             homeNav.classList.remove('active')
+            homeNav.classList.remove('underline')
             console.log("click seller")
         }
 
