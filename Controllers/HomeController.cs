@@ -30,17 +30,15 @@ namespace IntegralTradingJS.Controllers
             string res = await _hviService.Login(user);
 
             if (res != "Error" )
-            {
-
-                //Response.Cookies.Append("jwt", res);
-               
+            {               
                 _context.HttpContext.Session.SetInt32("userId", user.UserId);
+                var idUsu = _context.HttpContext.Session.GetInt32("userId");
                 _context.HttpContext.Session.SetInt32("companyId", user.CompanyId);
                 _context.HttpContext.Session.SetString("userEmail", user.Email);
                 _context.HttpContext.Session.SetString("jwt", res);
 
 
-                return RedirectToAction("HviAPI", "Home");
+                return RedirectToAction("HviAPI", "Home", new {id = idUsu});
             }
             else
             {
@@ -57,7 +55,7 @@ namespace IntegralTradingJS.Controllers
         }
 
        
-        public IActionResult HviAPI()
+        public IActionResult HviAPI(int id)
         {
             string res = _context.HttpContext.Session.GetString("jwt");
             if ( res != null)
