@@ -82,7 +82,6 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    buyerNav
 
                     <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", "Home", new{id = idUrl})" class="nav-link active underline">Home</a></li>
                     <li onclick="navBuyer()" class="nav-item"><a id="buyerNav" href="@Url.Action("index", "Buyer", new{id = idUrl})" class="nav-link">Buyer</a></li>
@@ -90,7 +89,9 @@
                         <a onclick="removeClass()" id="sellerNav" class="nav-link">Seller</a>
                         <ul id="nestUl" class="nestedUl bg-dark visually-hidden">
                             <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller", new{id = idUrl})" class="nav-link">Crear oferta</a></li>
-                            <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller", new{id = idUrl})" class="nav-link">Ver ofertas pendientes</a></li>
+                            <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller", new{id = idUrl})" class="nav-link">Ver Pujas pendientes</a></li>
+                            <li class="nav-item sellerDiv"><a id="uploadeOffers" href="@Url.Action("UploadedOffers", "Seller", new{id = idUrl})" class="nav-link">Ver Ofertas Creadas</a></li>
+
                         </ul>
                     </li>
 

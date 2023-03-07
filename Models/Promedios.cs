@@ -22,7 +22,7 @@
         public decimal Uni { get; set; }
         public decimal Trash { get; set; }
         public DateTime OfferDate { get; set; } = DateTime.UtcNow;
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         public string PriceType { get; set; }
         public int IdStatus { get; set; }
         public string Maturity { get; set; }

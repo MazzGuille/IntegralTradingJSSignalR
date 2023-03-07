@@ -15,6 +15,7 @@ namespace IntegralTradingJS.Repository
         private readonly SqlString sqlString = new();
         private readonly List<HVI> hviList = new();
         private readonly List<Offers> OfferList = new();
+        private readonly List<Offers> OfferListById = new();
         private readonly HVI _hvi = new();
         private readonly List<Warehouse> whseList = new();
         private readonly List<Bids> bidsList = new();
@@ -78,55 +79,65 @@ namespace IntegralTradingJS.Repository
 
         public async Task<IEnumerable<Offers>> GetPromedios()
         {
-            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            try
+            {
+                await using (SqlConnection cn = new(sqlString.GetSqlString()))
+                {
+
+                    cn.Open();
+                    SqlCommand cmd = new("SP_OfferList", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OfferList.Add(new Offers
+                            {
+                                IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                                IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
+                                C1 = Convert.ToDecimal(reader["C1"]),
+                                C2 = Convert.ToDecimal(reader["C2"]),
+                                Leaf = Convert.ToDecimal(reader["Leaf"]),
+                                Stpl = Convert.ToDecimal(reader["Stpl"]),
+                                Mic = Convert.ToDecimal(reader["Mic"]),
+                                Str = Convert.ToDecimal(reader["Str"]),
+                                LRR = Convert.ToDecimal(reader["LRR"]),
+                                CropYear = Convert.ToInt32(reader["CropYear"]),
+                                NetWeight = Convert.ToDecimal(reader["NetWeight"]),
+                                Comp = reader["Comp"].ToString(),
+                                Len = Convert.ToDecimal(reader["Len"]),
+                                Ext = Convert.ToDecimal(reader["Ext"]),
+                                RD = Convert.ToDecimal(reader["RD"]),
+                                PlusB = Convert.ToDecimal(reader["RD"]),
+                                Uni = Convert.ToDecimal(reader["Uni"]),
+                                Trash = Convert.ToDecimal(reader["Trash"]),
+                                OfferDate = Convert.ToDateTime(reader["OfferDate"]),
+                                Price = Convert.ToDecimal(reader["Price"]),
+                                PriceType = reader["PriceType"].ToString(),
+                                IdStatus = Convert.ToInt32(reader["IdStatus"]),
+                                Maturity = reader["Maturity"].ToString(),
+                                IdUser = Convert.ToInt32(reader["IdUser"]),
+                                ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
+                                ValidityType = reader["ValidityType"].ToString(),
+                                DescStatus = reader["DescStatus"].ToString(),
+                                Warehouse = reader["Warehouse"].ToString(),
+                                SellerCompany = reader["SellerCompany"].ToString()
+                            });
+                        }
+                    }
+
+                }
+
+                return OfferList;
+            }
+            catch (Exception e)
             {
 
-                cn.Open();
-                SqlCommand cmd = new("SP_OfferList", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        OfferList.Add(new Offers
-                        {
-                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
-                            IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
-                            C1 = Convert.ToDecimal(reader["C1"]),
-                            C2 = Convert.ToDecimal(reader["C2"]),
-                            Leaf = Convert.ToDecimal(reader["Leaf"]),
-                            Stpl = Convert.ToDecimal(reader["Stpl"]),
-                            Mic = Convert.ToDecimal(reader["Mic"]),
-                            Str = Convert.ToDecimal(reader["Str"]),
-                            LRR = Convert.ToDecimal(reader["LRR"]),
-                            CropYear = Convert.ToInt32(reader["CropYear"]),
-                            NetWeight = Convert.ToDecimal(reader["NetWeight"]),
-                            Comp = reader["Comp"].ToString(),
-                            Len = Convert.ToDecimal(reader["Len"]),
-                            Ext = Convert.ToDecimal(reader["Ext"]),
-                            RD = Convert.ToDecimal(reader["RD"]),
-                            PlusB = Convert.ToDecimal(reader["RD"]),
-                            Uni = Convert.ToDecimal(reader["Uni"]),
-                            Trash = Convert.ToDecimal(reader["Trash"]),
-                            OfferDate = Convert.ToDateTime(reader["OfferDate"]),
-                            Price = reader["Price"].ToString(),
-                            PriceType = reader["PriceType"].ToString(),
-                            IdStatus = Convert.ToInt32(reader["IdStatus"]),
-                            Maturity = reader["Maturity"].ToString(),
-                            IdUser = Convert.ToInt32(reader["IdUser"]),
-                            ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
-                            ValidityType = reader["ValidityType"].ToString(),
-                            DescStatus = reader["DescStatus"].ToString(),
-                            Warehouse = reader["Warehouse"].ToString(),
-                            SellerCompany = reader["SellerCompany"].ToString()
-                        });
-                    }
-                }
-                
+                throw new Exception(e.Message);
             }
 
-            return OfferList;
+            
         }    
 
         public void InsertData(Promedios promedio)
@@ -428,6 +439,61 @@ namespace IntegralTradingJS.Repository
             }
         }
 
+        public async Task<IEnumerable<Offers>> GetOffersById()
+        {
+            await using (SqlConnection cn = new(sqlString.GetSqlString()))
+            {
+                var idUsu = _cntx.HttpContext.Session.GetInt32("userId");
+                cn.Open();
+                SqlCommand cmd = new("SP_UploadedOffersById", cn);
+                cmd.Parameters.AddWithValue("IdUser", idUsu);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OfferListById.Add(new Offers
+                        {
+                            IdOffer = Convert.ToInt32(reader["IdOffer"]),
+                            IdWarehouse = Convert.ToInt32(reader["IdWarehouse"]),
+                            C1 = Convert.ToDecimal(reader["C1"]),
+                            C2 = Convert.ToDecimal(reader["C2"]),
+                            Leaf = Convert.ToDecimal(reader["Leaf"]),
+                            Stpl = Convert.ToDecimal(reader["Stpl"]),
+                            Mic = Convert.ToDecimal(reader["Mic"]),
+                            Str = Convert.ToDecimal(reader["Str"]),
+                            LRR = Convert.ToDecimal(reader["LRR"]),
+                            CropYear = Convert.ToInt32(reader["CropYear"]),
+                            NetWeight = Convert.ToDecimal(reader["NetWeight"]),
+                            Comp = reader["Comp"].ToString(),
+                            Len = Convert.ToDecimal(reader["Len"]),
+                            Ext = Convert.ToDecimal(reader["Ext"]),
+                            RD = Convert.ToDecimal(reader["RD"]),
+                            PlusB = Convert.ToDecimal(reader["RD"]),
+                            Uni = Convert.ToDecimal(reader["Uni"]),
+                            Trash = Convert.ToDecimal(reader["Trash"]),
+                            OfferDate = Convert.ToDateTime(reader["OfferDate"]),
+                            Price = Convert.ToDecimal(reader["Price"]),
+                            PriceType = reader["PriceType"].ToString(),
+                            IdStatus = Convert.ToInt32(reader["IdStatus"]),
+                            Maturity = reader["Maturity"].ToString(),
+                            IdUser = Convert.ToInt32(reader["IdUser"]),
+                            ValidityDate = Convert.ToDateTime(reader["ValidityDate"]),
+                            ValidityType = reader["ValidityType"].ToString(),
+                            DescStatus = reader["DescStatus"].ToString(),
+                            Warehouse = reader["Warehouse"].ToString(),
+                            SellerCompany = reader["SellerCompany"].ToString()
+                        });
+                    }
+                }
+
+            }
+
+            return OfferListById;
+        }
+    }
+
         //public async Task UpdateStatus(int id)
         //{
         //    await using (SqlConnection cn = new(sqlString.GetSqlString()))
@@ -479,5 +545,5 @@ namespace IntegralTradingJS.Repository
         //    }      
 
         //}
-    }
+    
 }

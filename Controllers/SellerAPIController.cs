@@ -19,9 +19,19 @@ namespace IntegralTradingJS.Controllers
 
 
         [HttpGet]
+        [Route("Bids")]
         public async Task<object> GetSellerOffers(DataSourceLoadOptions loadOptions)
         {
             var data = await _hviService.GetSellerOffers();
+
+            return DataSourceLoader.Load(data, loadOptions);
+        }
+
+        [HttpGet]
+        [Route("OffersById")]
+        public async Task<object> GetSellerOffersById(DataSourceLoadOptions loadOptions)
+        {
+            var data = await _hviService.GetOffersById();
 
             return DataSourceLoader.Load(data, loadOptions);
         }

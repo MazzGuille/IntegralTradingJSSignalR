@@ -123,7 +123,7 @@ namespace IntegralTradingJS.Controllers
                 PlusB = decimal.Parse(values[11], culture),
                 Uni = decimal.Parse(values[12], culture),
                 Trash = decimal.Parse(values[13], culture),
-                Price = values[14].ToString(),
+                Price = decimal.Parse(values[14], culture),
                 PriceType = values[15].ToString(),
                 IdWarehouse = Convert.ToInt32(values[16]),                
                 ValidityDate= Convert.ToDateTime(values[17]),
@@ -171,7 +171,7 @@ namespace IntegralTradingJS.Controllers
             
         }
 
-        public IActionResult PendingOffersList()
+        public IActionResult UploadedOffers()
         {
             return View();
         }

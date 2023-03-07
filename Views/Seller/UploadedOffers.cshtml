@@ -1,0 +1,99 @@
+﻿@inject IHttpContextAccessor cntx;
+
+@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<h1>OFERTAS CREADAS</h1>
+@using IntegralTradingJS.Models;
+
+@(Html.DevExtreme().DataGrid<Offers>()
+              .ID("bodyTable")
+              .ShowBorders(true)
+              .DataSource(d => d.Mvc().Controller("SellerAPI").LoadAction("GetSellerOffersById").Key("IdOffer"))
+              .Height(530)
+              .FilterRow(f => f.Visible(true))
+              .HeaderFilter(f => f.Visible(true))
+              .ShowColumnLines(true)
+              .ShowRowLines(true)
+              .RowAlternationEnabled(true)
+              .ShowBorders(true)
+              .GroupPanel(p => p.Visible(true))
+              .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+              .Grouping(g => g.AutoExpandAll(false))
+              .RemoteOperations(true)
+              .LoadPanel(loadPanel => loadPanel.Enabled(true))
+              .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+              .Paging(paging => paging.Enabled(false))
+              .AllowColumnResizing(true)
+              .ColumnAutoWidth(true)
+              .FocusedRowEnabled(true)
+              .Editing(e => e.UseIcons(true))
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.IdOffer).Name("Offer");
+            columns.AddFor(m => m.IdStatus).Visible(false);
+            columns.AddFor(m => m.DescStatus);
+            columns.AddFor(m => m.Price);
+            columns.AddFor(m => m.PriceType);
+            columns.AddFor(m => m.IdUser).Visible(false);
+            columns.AddFor(m => m.IdWarehouse).Visible(false);
+            columns.AddFor(m => m.Warehouse);
+            columns.AddFor(m => m.SellerCompany);
+            columns.AddFor(m => m.C1);
+            columns.AddFor(m => m.C2);
+            columns.AddFor(m => m.Leaf);
+            columns.AddFor(m => m.Stpl);
+            columns.AddFor(m => m.Mic);
+            columns.AddFor(m => m.Str);
+            columns.AddFor(m => m.LRR);
+            columns.AddFor(m => m.CropYear);
+            columns.AddFor(m => m.NetWeight);
+            columns.AddFor(m => m.Comp);
+            columns.AddFor(m => m.Len);
+            columns.AddFor(m => m.Ext);
+            columns.AddFor(m => m.RD);
+            columns.AddFor(m => m.PlusB);
+            columns.AddFor(m => m.Uni);
+            columns.AddFor(m => m.Trash);
+            columns.AddFor(m => m.OfferDate);
+            columns.AddFor(m => m.Maturity);
+            columns.AddFor(m => m.ValidityDate);
+            columns.AddFor(m => m.ValidityType);
+        })
+    )
+
+
+@section Scripts
+{
+    <script>
+        const nestUl = document.getElementById("nestUl")
+        const buyerNav = document.getElementById("buyerNav")
+        const homeNav = document.getElementById("homeNav")
+        const sellerNav = document.getElementById("sellerNav")        
+
+        function removeClass() {
+            if (nestUl.classList.contains("visually-hidden")) {
+                nestUl.classList.remove("visually-hidden")
+            }
+            else {
+                nestUl.classList.add("visually-hidden")
+            }
+        }
+        
+        function navSeller() {
+            sellerNav.classList.add('active')
+            sellerNav.classList.add('underline')
+            buyerNav.classList.remove('active')
+            buyerNav.classList.remove('underline')
+            homeNav.classList.remove('active')
+            homeNav.classList.remove('underline')
+            console.log("click seller")
+        }
+
+        document.addEventListener('DOMContentLoaded', navSeller())        
+
+    </script>
+}
