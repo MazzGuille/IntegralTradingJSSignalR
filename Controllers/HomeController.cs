@@ -31,7 +31,7 @@ namespace IntegralTradingJS.Controllers
         }       
 
        
-        public IActionResult HviAPI(int id)
+        public IActionResult HviAPI()
         {
             string res = _context.HttpContext.Session.GetString("jwt");
             var idUsu = _context.HttpContext.Session.GetInt32("userId");
