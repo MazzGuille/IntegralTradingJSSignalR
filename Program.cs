@@ -1,9 +1,11 @@
 using IntegralTradingJS.Hubs;
 using IntegralTradingJS.Repository;
 using IntegralTradingJS.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -12,6 +14,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services
     .AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -23,9 +26,18 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(opt =>
 {
-    opt.IdleTimeout = TimeSpan.FromMinutes(50);
+    opt.IdleTimeout = TimeSpan.FromDays(1);
+    opt.Cookie.IsEssential = true;
 });
 //-----------------------------CONFIGURACION SESION END-----------------------------------------------//
+
+
+//-----------------------------CONFIGURACION AUTH START-----------------------------------------------//
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opt =>
+{
+    opt.LoginPath = "/Index/Unathorize";
+});
+//-----------------------------CONFIGURACION AUTH END-----------------------------------------------//
 
 
 //----------------------------------------------CONFIGURACION JWT START---------------------------------------------//
@@ -58,6 +70,8 @@ builder.Services.AddAuthentication(config =>
 
 var app = builder.Build();
 
+app.UseSession();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -65,11 +79,7 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 
-app.UseSession();
-
 app.UseRouting();
-
-//app.UseSession();
 
 app.UseAuthentication();
 
@@ -77,7 +87,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.MapHub<HviHub>("/hvihub");
 

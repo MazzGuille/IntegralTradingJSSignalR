@@ -247,7 +247,7 @@ namespace IntegralTradingJS.Repository
             return bidsList;
         }
 
-        public async Task<string> Login(Login user)
+        public async Task<string> Login(LoginUser user)
         {
             string res;
 

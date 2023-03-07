@@ -22,9 +22,10 @@ namespace IntegralTradingJS.Controllers
         public ActionResult Index()
         {
             string res = _context.HttpContext.Session.GetString("jwt");
+            var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if (res != null)
             {
-                return View();
+                return View(idUsu);
             }
             else
             {

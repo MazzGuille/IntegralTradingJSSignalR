@@ -1,37 +1,4 @@
-@model Login
 
-@{
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
-}
-
-<section>
-    <div class="form-box">
-        <div class="form-value">
-            <form asp-controller="Home" asp-action="Index">
-                <h2>Login</h2>
-                <div class="inputbox">
-                    <ion-icon name="mail-outline"></ion-icon>
-                    <input asp-for="Email" autocomplete="off" type="email" required>
-                    <label asp-for="Email"></label>
-                </div>
-                <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input asp-for="Password" type="password" required>
-                    <label asp-for="Password"></label>
-                </div>
-
-                @if (ViewData["Mensaje"] != null)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        @ViewData["Mensaje"]
-                    </div>
-                }
-
-                <button type="submit">Log in</button>                
-            </form>
-        </div>
-    </div>
-</section>
 
 
 

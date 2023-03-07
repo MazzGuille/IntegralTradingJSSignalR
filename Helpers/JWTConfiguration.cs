@@ -14,7 +14,7 @@ namespace IntegralTradingJS.Helpers
         IConfiguration config; 
         
 
-        public string token(Login request)
+        public string token(LoginUser request)
         {
             var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())

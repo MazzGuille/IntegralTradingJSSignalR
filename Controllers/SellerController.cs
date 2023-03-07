@@ -6,6 +6,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.Formula.Functions;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using Org.BouncyCastle.Crypto;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -28,9 +29,10 @@ namespace IntegralTradingJS.Controllers
         public IActionResult SellerOffers()
         {
             string res = _context.HttpContext.Session.GetString("jwt");
+            var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if (res != null)
             {
-                return View();
+                return View(idUsu);
             }
             else
             {
@@ -41,9 +43,10 @@ namespace IntegralTradingJS.Controllers
         public ActionResult OfferUpload()
         {
             string res = _context.HttpContext.Session.GetString("jwt");
+            var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if (res != null)
             {
-                return View();
+                return View(idUsu);
             }
             else
             {

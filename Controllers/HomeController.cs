@@ -1,65 +1,42 @@
 using IntegralTradingJS.Models;
 using IntegralTradingJS.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto;
 using System;
 using System.Linq;
+using System.Security.Claims;
 
 namespace IntegralTradingJS.Controllers
-{    
+{
+    
     public class HomeController : Controller
     {
         private readonly IHviService _hviService;
-        private readonly IHttpContextAccessor _context;
+        private  IHttpContextAccessor _context;
 
         public HomeController(IHviService hviService, IHttpContextAccessor context)
         {
             _hviService = hviService;
             _context = context;
-        }
-
-        public IActionResult Index()
-        {            
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(Login user)
-        {          
-
-            string res = await _hviService.Login(user);
-
-            if (res != "Error" )
-            {               
-                _context.HttpContext.Session.SetInt32("userId", user.UserId);
-                var idUsu = _context.HttpContext.Session.GetInt32("userId");
-                _context.HttpContext.Session.SetInt32("companyId", user.CompanyId);
-                _context.HttpContext.Session.SetString("userEmail", user.Email);
-                _context.HttpContext.Session.SetString("jwt", res);
-
-
-                return RedirectToAction("HviAPI", "Home", new {id = idUsu});
-            }
-            else
-            {
-                ViewData["Mensaje"] = "Credenciales invalidas";
-                return View();
-            };
             
-        }
+        }     
 
         public async Task<IActionResult> GetHvi()
         {
             var list = await _hviService.GetHvi();
             return View(list);
-        }
+        }       
 
        
         public IActionResult HviAPI(int id)
         {
             string res = _context.HttpContext.Session.GetString("jwt");
+            var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if ( res != null)
-            {
+            {                
                 return View();
             }
             else
@@ -78,11 +55,11 @@ namespace IntegralTradingJS.Controllers
         }
       
 
-        public IActionResult LogOut()
+        public async Task<IActionResult>  LogOut()
         {
-            Response.Cookies.Delete("jwt");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]

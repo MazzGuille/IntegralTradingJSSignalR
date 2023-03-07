@@ -1,6 +1,6 @@
 ﻿namespace IntegralTradingJS.Models
 {
-    public class Login
+    public class LoginUser
     {
         public int Id { get; set; }
         public string Email { get; set; }

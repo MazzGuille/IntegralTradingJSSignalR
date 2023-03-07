@@ -11,7 +11,7 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task<string> SelectUser();
         Task<IEnumerable<Warehouse>> GetWhse();
         Task<IEnumerable<Bids>> GetUserBids();
-        Task<string> Login(Login user);
+        Task<string> Login(LoginUser user);
         Task<IEnumerable<BuyerBid>> GetBuyerBid();
         Task<IEnumerable<SellerOffers>> GetSellerOffers();
         Task EliminateBid(int id);

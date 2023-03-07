@@ -65,6 +65,11 @@
 </head>
 
 <body style="padding-top: 5rem;">
+    @inject IHttpContextAccessor cntx;
+
+    @{
+        var idUrl = cntx.HttpContext.Session.GetInt32("userId");
+    }
 
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
         <div class="container-fluid d-flex justify-content-between">
@@ -77,16 +82,16 @@
             </button>
 
             <div id="navbar" class="collapse navbar-collapse">
-                <ul class="navbar-nav d-flex flex-row me-auto">
+                <ul class="navbar-nav me-auto">
                     buyerNav
 
-                    <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", "Home")" class="nav-link active underline">Home</a></li>
-                    <li onclick="navBuyer()" class="nav-item"><a id="buyerNav" href="@Url.Action("index", "Buyer")" class="nav-link">Buyer</a></li>
+                    <li onclick="navHome()" class="nav-item"><a id="homeNav" href="@Url.Action("HviAPI", new{id = idUrl})" class="nav-link active underline">Home</a></li>
+                    <li onclick="navBuyer()" class="nav-item"><a id="buyerNav" href="@Url.Action("index", "Buyer", new{id = idUrl})" class="nav-link">Buyer</a></li>
                     <li onclick="navSeller()" class="nav-item seller">
                         <a onclick="removeClass()" id="sellerNav" class="nav-link">Seller</a>
                         <ul id="nestUl" class="nestedUl bg-dark visually-hidden">
-                            <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller")" class="nav-link">Crear oferta</a></li>
-                            <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller")" class="nav-link">Ver ofertas pendientes</a></li>
+                            <li class="nav-item sellerDiv"><a id="createOffer" href="@Url.Action("OfferUpload", "Seller", new{id = idUrl})" class="nav-link">Crear oferta</a></li>
+                            <li class="nav-item sellerDiv"><a id="pendingOffers" href="@Url.Action("SellerOffers", "Seller", new{id = idUrl})" class="nav-link">Ver ofertas pendientes</a></li>
                         </ul>
                     </li>
 
