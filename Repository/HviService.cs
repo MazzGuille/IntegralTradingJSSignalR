@@ -268,22 +268,24 @@ namespace IntegralTradingJS.Repository
                 SqlCommand cmd = new("SP_Login", cn);
                 cmd.Parameters.AddWithValue("Email", user.Email);
                 cmd.Parameters.AddWithValue("Password", user.Password);
+                cmd.Parameters.Add("State", SqlDbType.Bit).Direction = ParameterDirection.Output;
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                user.State = (bool)cmd.Parameters["State"].Value;
+
+                if(user.State)
                 {
-                    while (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        user.CompanyId = Convert.ToInt32(reader["Id_company"]);
-                        user.UserId = Convert.ToInt32(reader["Id_user"]);
+                        reader.Read();
+                        {
+                            user.CompanyId = Convert.ToInt32(reader["Id_company"]);
+                            user.UserId = Convert.ToInt32(reader["Id_user"]);
+                        }
                     }
-                }
-
-                if (user.UserId != 0)
-                {    
-
                     res = _jwt.token(user);
-                }
+                }      
                 else
                 {
                     res = "Error";

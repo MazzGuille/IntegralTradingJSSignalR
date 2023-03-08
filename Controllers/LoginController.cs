@@ -72,7 +72,7 @@ namespace IntegralTradingJS.Controllers
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(ci)/*, p */);
 
-                    return RedirectToAction("HviAPI", "Home", new { id = urlId });
+                    return RedirectToAction("HviAPI", "Home");
                 }
                 else
                 {

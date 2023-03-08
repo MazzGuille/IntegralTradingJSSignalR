@@ -187,7 +187,7 @@
                 Swal.fire({
                     title: 'Oferta ' + offerNum,
                     text: 'A espera de confirmacion del vendedor',
-                    icon: 'succes',
+                    icon: 'warning',
                     showCancelButton: false
                 })
             }
@@ -195,7 +195,7 @@
                 Swal.fire({
                     title: 'Oferta ' + offerNum,
                     text: 'Operacion finalizada',
-                    icon: 'succes',
+                    icon: 'success',
                     showCancelButton: false
                 })
             }                    
@@ -235,7 +235,17 @@
                 })
 
             }
-            else if (statusOfBid === "Nueva" || "Rechazada") {
+
+            else if (statusOfBid === "Rechazada") {
+                Swal.fire({
+                    title: 'Oferta ' + offerNum,
+                    text: 'Oferta rechazada. Operacion finalizada',
+                    icon: 'error',
+                    showCancelButton: false
+                })
+            }
+
+            else if (statusOfBid === "Nueva") {
                 tempArrayR.push(id)
                 tempArrayR.push(8)
                 var arrayToSendreject = { values: tempArrayR }

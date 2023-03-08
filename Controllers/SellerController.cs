@@ -32,7 +32,7 @@ namespace IntegralTradingJS.Controllers
             var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if (res != null)
             {
-                return View(idUsu);
+                return View();
             }
             else
             {
@@ -46,7 +46,7 @@ namespace IntegralTradingJS.Controllers
             var idUsu = _context.HttpContext.Session.GetInt32("userId");
             if (res != null)
             {
-                return View(idUsu);
+                return View();
             }
             else
             {
