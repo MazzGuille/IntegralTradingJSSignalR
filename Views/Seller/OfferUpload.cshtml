@@ -524,12 +524,29 @@
             const rows = table.rows.length;
             const cols = 14;
             var HVIData = [];
+            let HVIJson = {};
 
             for(var i = 0; i < rows; i++){
                 for(var j = 0; j < cols; j++){
                     HVIData.push(table.rows[i].cells[j].innerHTML);
                 }
+                HVIJson = { values: HVIData };
                 console.log(HVIData);
+                console.log(HVIJson);
+                $.ajax({
+                    type: "POST",
+                    url: "InsertHVI",
+                    data: HVIJson,
+                    datatype: "json",
+                    error: function (data) {
+                        Swal.fire({
+                            text: 'Ha ocurrido un error',
+                            icon: 'error',
+                            showCancelButton: false,
+                            confirmButtonText: 'Continuar'
+                        })
+                    }
+                });
                 HVIData = [];
             }
             
