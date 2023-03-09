@@ -23,6 +23,7 @@
                     <div>
                         <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
                         <button id="siguiente1" class="btn btn-primary text-white fw-bold visually-hidden" onclick="seguir1()">Siguiente</button>
+                    <button class="btn btn-primary text-white fw-bold" onclick="insertHVI()">Prueba</button>
                 </div>
                 </div>     
                 
@@ -522,14 +523,16 @@
             const table = document.getElementById("tableBody");
             const rows = table.rows.length;
             const cols = 14;
-            const HVIData = [];
+            var HVIData = [];
 
-            for (var j = 0; j < cols; j++) {
-                    for (var i = 0; i < rows; i++) {
-                        HVIData.push(table.rows[i].cells[j].innerHTML);
-                    }
+            for(var i = 0; i < rows; i++){
+                for(var j = 0; j < cols; j++){
+                    HVIData.push(table.rows[i].cells[j].innerHTML);
                 }
-            console.log(HVIData);
+                console.log(HVIData);
+                HVIData = [];
+            }
+            
         }
         
     </script>
