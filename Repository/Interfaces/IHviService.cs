@@ -18,6 +18,7 @@ namespace IntegralTradingJS.Repository.Interfaces
         Task EliminateBid(int id);
         Task UploadBid(Bids bid);
         Task ChangeStatusBid(int BidId, int Id_Status);
+        void InsertHVI(HVIs hvis);
 
 
 

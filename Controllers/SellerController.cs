@@ -137,6 +137,30 @@ namespace IntegralTradingJS.Controllers
             _hviService.InsertData(promedio);
         }
 
+        [HttpPost]
+        public void InsertHVI(List<string> values) {
+            CultureInfo culture = CultureInfo.InvariantCulture;
+            HVIs hvis = new()
+            {
+                FK_IdOffer = int.Parse(values[0],culture),
+                C1 = decimal.Parse(values[1], culture),
+                C2 = decimal.Parse(values[2], culture),
+                Leaf = decimal.Parse(values[3], culture),
+                Stpl = decimal.Parse(values[4], culture),
+                Mic = decimal.Parse(values[5], culture),
+                Str = decimal.Parse(values[6], culture),
+                LRR = decimal.Parse(values[7], culture),
+                NetWeight = decimal.Parse(values[8], culture),
+                Len = decimal.Parse(values[9], culture),
+                Ext = decimal.Parse(values[10], culture),
+                RD = decimal.Parse(values[11], culture),
+                PlusB = decimal.Parse(values[12], culture),
+                Uni = decimal.Parse(values[13], culture),
+                Trash = decimal.Parse(values[14], culture)
+            };
+            _hviService.InsertHVI(hvis);
+        }
+
         [HttpGet]
         public async Task<string> Username()
         {

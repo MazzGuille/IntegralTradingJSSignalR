@@ -22,8 +22,8 @@
                     <div id="excel">1 de 3 - Cargar HVI </div>
                     <div>
                         <button id="mostrar" class="btn btn-primary text-white fw-bold visually-hidden" onclick="mostrarDatos()">Mostrar datos</button>
-                        <button id="siguiente1" class="btn btn-primary text-white fw-bold visually-hidden" onclick="seguir1()">Siguiente</button>                                               
-                    </div>
+                        <button id="siguiente1" class="btn btn-primary text-white fw-bold visually-hidden" onclick="seguir1()">Siguiente</button>
+                </div>
                 </div>     
                 
                 <div class="card-body">
@@ -516,6 +516,20 @@
                 userReadOnly.value = user
                 console.log("el readonly es: " + userReadOnly.value);
             })
+        }
+
+        function insertHVI(){
+            const table = document.getElementById("tableBody");
+            const rows = table.rows.length;
+            const cols = 14;
+            const HVIData = [];
+
+            for (var j = 0; j < cols; j++) {
+                    for (var i = 0; i < rows; i++) {
+                        HVIData.push(table.rows[i].cells[j].innerHTML);
+                    }
+                }
+            console.log(HVIData);
         }
         
     </script>

@@ -17,6 +17,7 @@ namespace IntegralTradingJS.Repository
         private readonly List<Offers> OfferList = new();
         private readonly List<Offers> OfferListById = new();
         private readonly HVI _hvi = new();
+        private readonly HVIs _hvis = new();
         private readonly List<Warehouse> whseList = new();
         private readonly List<Bids> bidsList = new();
         private readonly List<BuyerBid> SellerBidsList = new();
@@ -178,6 +179,34 @@ namespace IntegralTradingJS.Repository
                 cmd.ExecuteNonQuery();
             }
 
+        }
+
+        public void InsertHVI(HVIs hvis) {
+            using (SqlConnection cn = new SqlConnection(sqlString.GetSqlString()))
+            {
+                SqlCommand cmd = new SqlCommand("SP_InsertHVI", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("FK_IdOffer", hvis.FK_IdOffer);
+                cmd.Parameters.AddWithValue("C1", hvis.C1);
+                cmd.Parameters.AddWithValue("C2", hvis.C2);
+                cmd.Parameters.AddWithValue("Leaf", hvis.Leaf);
+                cmd.Parameters.AddWithValue("Stpl", hvis.Stpl);
+                cmd.Parameters.AddWithValue("Mic", hvis.Mic);
+                cmd.Parameters.AddWithValue("Str", hvis.Str);
+                cmd.Parameters.AddWithValue("LRR", hvis.LRR);
+                cmd.Parameters.AddWithValue("NetWeight", hvis.NetWeight);
+                cmd.Parameters.AddWithValue("Len", hvis.Len);
+                cmd.Parameters.AddWithValue("Ext", hvis.Ext);
+                cmd.Parameters.AddWithValue("RD", hvis.RD);
+                cmd.Parameters.AddWithValue("PlusB", hvis.PlusB);
+                cmd.Parameters.AddWithValue("Uni", hvis.Uni);
+                cmd.Parameters.AddWithValue("Trash", hvis.Trash);
+                
+
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public async Task<string> SelectUser()
