@@ -187,7 +187,6 @@ namespace IntegralTradingJS.Repository
                 SqlCommand cmd = new SqlCommand("SP_InsertHVI", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("FK_IdOffer", hvis.FK_IdOffer);
                 cmd.Parameters.AddWithValue("C1", hvis.C1);
                 cmd.Parameters.AddWithValue("C2", hvis.C2);
                 cmd.Parameters.AddWithValue("Leaf", hvis.Leaf);
