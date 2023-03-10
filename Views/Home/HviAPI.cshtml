@@ -2,83 +2,96 @@
 
 @{
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    var currentSessionId = cntx.HttpContext.Session.GetInt32("userId");
 }
 
 @using IntegralTradingJS.Models;
 <div id="mainDiv">
 
-    @(Html.DevExtreme().DataGrid<Offers>()
-              .ID("bodyTable")
-              .ShowBorders(true)
-              .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("IdOffer"))
-              .Height(530)
-              .FilterRow(f => f.Visible(true))
-              .HeaderFilter(f => f.Visible(true))
-              .ShowColumnLines(true)
-              .ShowRowLines(true)
-              .RowAlternationEnabled(true)
-              .ShowBorders(true)
-              .GroupPanel(p => p.Visible(true))
-              .Sorting(sorting => sorting.Mode(GridSortingMode.None))
-              .Grouping(g => g.AutoExpandAll(false))
-              .RemoteOperations(true)
-              .LoadPanel(loadPanel => loadPanel.Enabled(true))
-              .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
-              .Paging(paging => paging.Enabled(false))
-              .AllowColumnResizing(true)
-              .ColumnAutoWidth(true)
-              .FocusedRowEnabled(true)
-              .Editing(e => e.UseIcons(true))
+    @(
+        Html.DevExtreme().DataGrid<Offers>()
+                  .ID("bodyTable")
+                  .ShowBorders(true)
+                  .DataSource(d => d.Mvc().Controller("HVI").LoadAction("Get").Key("IdOffer"))
+                  .Height(530)
+                  .FilterRow(f => f.Visible(true))
+                  .HeaderFilter(f => f.Visible(true))
+                  .ShowColumnLines(true)
+                  .ShowRowLines(true)
+                  .RowAlternationEnabled(true)
+                  .ShowBorders(true)
+                  .GroupPanel(p => p.Visible(true))
+                  .Sorting(sorting => sorting.Mode(GridSortingMode.None))
+                  .Grouping(g => g.AutoExpandAll(false))
+                  .RemoteOperations(true)
+                  .LoadPanel(loadPanel => loadPanel.Enabled(true))
+                  .Scrolling(scrolling => scrolling.ColumnRenderingMode(GridColumnRenderingMode.Standard))
+                  .Paging(paging => paging.Enabled(false))
+                  .AllowColumnResizing(true)
+                  .ColumnAutoWidth(true)
+                  .FocusedRowEnabled(true)
+                  .Editing(e => e.UseIcons(true))
 
-        .Columns(columns =>
-        {
-            columns.AddFor(m => m.IdOffer).Name("Offer2")
+            .Columns(columns =>
+            {
+
+                columns.AddFor(m => m.IdUser).Visible(false);
+                columns.AddFor(m => m.IdOffer)
+                                     .Name("Offer2")
                                      .Width(35)
                                      .AllowFiltering(false)
                                      .AllowSorting(false)
-                                     .CellTemplate(@<text>
-                                         @(Html.DevExtreme()
-                                            .Button()
-                                            .Hint("Ofertar")
-                                            .Icon("money")
-                                            .Type(ButtonType.Normal)                        
-                                            .UseSubmitBehavior(false)
-                                            .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
-                                         )
-                                     </text>);    
-                
-            columns.AddFor(m => m.IdOffer).Name("Offer");
-            columns.AddFor(m => m.IdStatus).Visible(false);
-            columns.AddFor(m => m.DescStatus);
-            columns.AddFor(m => m.Price);
-            columns.AddFor(m => m.PriceType);
-            columns.AddFor(m => m.IdUser).Visible(false);
-            columns.AddFor(m => m.IdWarehouse).Visible(false);
-            columns.AddFor(m => m.Warehouse);
-            columns.AddFor(m => m.SellerCompany);
-            columns.AddFor(m => m.C1);
-            columns.AddFor(m => m.C2);
-            columns.AddFor(m => m.Leaf);
-            columns.AddFor(m => m.Stpl);
-            columns.AddFor(m => m.Mic);
-            columns.AddFor(m => m.Str);
-            columns.AddFor(m => m.LRR);
-            columns.AddFor(m => m.CropYear);
-            columns.AddFor(m => m.NetWeight);
-            columns.AddFor(m => m.Comp);
-            columns.AddFor(m => m.Len);
-            columns.AddFor(m => m.Ext);
-            columns.AddFor(m => m.RD);
-            columns.AddFor(m => m.PlusB);
-            columns.AddFor(m => m.Uni);
-            columns.AddFor(m => m.Trash);
-            columns.AddFor(m => m.OfferDate);   
-            columns.AddFor(m => m.Maturity);            
-            columns.AddFor(m => m.ValidityDate);
-            columns.AddFor(m => m.ValidityType);
-            
+                                     .CellTemplate(
+                                         @<text>
+                                            @* @if(currentSessionId == 1){
+                                                 <button disabled>Oferta Propia</button>                                                 
+                                             }
+                                             else{*@
+                                                 @(Html.DevExtreme()
+                                                .Button()
+                                                .Hint("Ofertar")
+                                                .Icon("money")
+                                                .Type(ButtonType.Normal)                        
+                                                .UseSubmitBehavior(false)
+                                                .OnClick("function(options) {redirectID(value); options.stopPropagation; }")
+                                             )
+                                             @*}*@
+                                            
+                                         </text>
+    );    
 
-        })
+                columns.AddFor(m => m.IdOffer).Name("Offer");
+                columns.AddFor(m => m.IdStatus).Visible(false);
+                columns.AddFor(m => m.DescStatus);
+                columns.AddFor(m => m.Price);
+                columns.AddFor(m => m.PriceType);
+                columns.AddFor(m => m.IdWarehouse).Visible(false);
+                columns.AddFor(m => m.Warehouse);
+                columns.AddFor(m => m.SellerCompany);
+                columns.AddFor(m => m.C1);
+                columns.AddFor(m => m.C2);
+                columns.AddFor(m => m.Leaf);
+                columns.AddFor(m => m.Stpl);
+                columns.AddFor(m => m.Mic);
+                columns.AddFor(m => m.Str);
+                columns.AddFor(m => m.LRR);
+                columns.AddFor(m => m.CropYear);
+                columns.AddFor(m => m.NetWeight);
+                columns.AddFor(m => m.Comp);
+                columns.AddFor(m => m.Len);
+                columns.AddFor(m => m.Ext);
+                columns.AddFor(m => m.RD);
+                columns.AddFor(m => m.PlusB);
+                columns.AddFor(m => m.Uni);
+                columns.AddFor(m => m.Trash);
+                columns.AddFor(m => m.OfferDate);   
+                columns.AddFor(m => m.Maturity);            
+                columns.AddFor(m => m.ValidityDate);
+                columns.AddFor(m => m.ValidityType);
+
+
+         })    
+
     )
 
 </div>
@@ -169,12 +182,7 @@
             sellerNav.classList.remove('underline')
             console.log("click home")
         }
-
-      
-
-        function getHtml() {
-            console.log(bodyTable.innerHTML)
-        }
+                
 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/hvihub")
@@ -258,8 +266,13 @@
              });
         });
 
+        function testing(name)
+        {
+            console.log(`el nombre es ${name}`)
+        }
+
         function redirectID(ids) {
-            offerId.value = ids
+            offerId.value = ids            
             
             itemFound = cells.find((x) => {
                 return x.IdOffer == ids
