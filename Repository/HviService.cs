@@ -201,6 +201,7 @@ namespace IntegralTradingJS.Repository
                 cmd.Parameters.AddWithValue("PlusB", hvis.PlusB);
                 cmd.Parameters.AddWithValue("Uni", hvis.Uni);
                 cmd.Parameters.AddWithValue("Trash", hvis.Trash);
+                cmd.Parameters.AddWithValue("Paca", hvis.Paca);
                 
 
                 cn.Open();

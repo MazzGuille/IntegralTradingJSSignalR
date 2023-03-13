@@ -515,6 +515,7 @@
                 for(var j = 0; j < cols; j++){
                     HVIData.push(table.rows[i].cells[j].innerHTML);
                 }
+                HVIData.push(i + 1);
                 HVIJson = { values: HVIData };
                 console.log(HVIData);
                 console.log(HVIJson);

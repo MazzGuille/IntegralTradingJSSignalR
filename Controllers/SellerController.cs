@@ -155,7 +155,8 @@ namespace IntegralTradingJS.Controllers
                 RD = decimal.Parse(values[10], culture),
                 PlusB = decimal.Parse(values[11], culture),
                 Uni = decimal.Parse(values[12], culture),
-                Trash = decimal.Parse(values[13], culture)
+                Trash = decimal.Parse(values[13], culture),
+                Paca = int.Parse(values[14],culture)
             };
             _hviService.InsertHVI(hvis);
         }
