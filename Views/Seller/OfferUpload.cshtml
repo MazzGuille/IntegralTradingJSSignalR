@@ -158,7 +158,7 @@
                     <div id="excel">3 de 3 - Confirmacion de oferta</div>
                     <div>
                     <button id="anterior2" class="btn btn-primary text-white fw-bold" onclick="volver2(); return false;">Volver</button>                   
-                    <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="enviarBaseDatos()">Cargar oferta</button>
+                    <button id="enviardb" class="btn btn-primary text-white fw-bold visually-hidden" onclick="multipleCalls()">Cargar oferta</button>
                     </div>
                 </div>
             </div>
@@ -359,6 +359,12 @@
         function seguir1(){            
             mainDiv.classList.add('visually-hidden')
             formDiv.classList.remove("visually-hidden")
+
+            const table = document.getElementById("tableBody");
+            const rows = table.rows.length;
+            const cols = 14;
+            var HVIData = [];
+            let HVIJson = {};            
         }
 
         function volver(){
@@ -453,7 +459,6 @@
 
                 postData = { values: proms };
                 console.log(postData)
-
             }            
         }
 
@@ -469,28 +474,11 @@
                 url: "InsertData",
                 data: postData,
                 datatype: "json",
-                success: function(data){
-                    Swal.fire({
-                        text:'Oferta subida con exito',
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonText: 'Continuar'
-                    }).then((resultado) => {
-                        if(resultado.isConfirmed){
-                            window.location.href = '/Home/HviAPI'
-                        }                        
-                    })                   
-                },
-                error: function(){
-                    Swal.fire({
-                        text: 'Ha ocurrido un error',
-                        icon: 'error',
-                        showCancelButton: false,
-                        confirmButtonText: 'Continuar'
-                    })
-                }
-          });            
-        }
+                success: function(data){ 
+                    console.log(data)      
+                }               
+          });           
+      }
 
         document.addEventListener('DOMContentLoaded', obtenerWhse())        
         function obtenerWhse(){
@@ -538,18 +526,57 @@
                     url: "InsertHVI",
                     data: HVIJson,
                     datatype: "json",
-                    error: function (data) {
-                        Swal.fire({
-                            text: 'Ha ocurrido un error HVI',
-                            icon: 'error',
-                            showCancelButton: false,
-                            confirmButtonText: 'Continuar'
-                        })
+                    success: function (data) {
+                        console.log(data)
                     }
                 });
                 HVIData = [];
             }
             
+        }
+
+
+        //function insertHvi(){
+        //    const table = document.getElementById("tableBody");
+        //    const rows = table.rows.length;
+        //    const cols = 14;
+        //    var HVIData = [];
+        //    let HVIJson = {};
+
+        //    for (var i = 0; i < rows; i++) {
+        //        for (var j = 0; j < cols; j++) {
+        //            HVIData.push(table.rows[i].cells[j].innerHTML);
+        //        }
+        //        HVIJson = { values: HVIData };
+        //        console.log(HVIData);
+        //        console.log(HVIJson);
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "InsertHVI",
+        //            data: HVIJson,
+        //            datatype: "json",
+        //            success: function (data) {
+        //                console.log(success)
+        //            }
+        //        });
+        //        HVIData = [];
+        //    }
+        //}
+
+        function multipleCalls(){
+          enviarBaseDatos()
+           insertHVI()
+
+            Swal.fire({
+                text: 'Oferta subida con exito',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'Continuar'
+            }).then((resultado) => {
+                if (resultado.isConfirmed) {
+                    window.location.href = '/Home/HviAPI'
+                }
+            })
         }
         
     </script>
